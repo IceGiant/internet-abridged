@@ -1,0 +1,16 @@
+[0m[[0minfo[0m] [0mFast optimizing /Users/skypage/Desktop/scala/scalajs-spa/client/target/scala-2.11/client-fastopt.js[0m
+[0m[[0mdebug[0m] [0mLinker: Compute reachability: 398252 us[0m
+[0m[[0mdebug[0m] [0mLinker: Assemble LinkedClasses: 657366 us[0m
+[0m[[0mdebug[0m] [0mBasic Linking: 1073160 us[0m
+[0m[[0mdebug[0m] [0mInc. optimizer: Batch mode: true[0m
+[0m[[0mdebug[0m] [0mInc. optimizer: Incremental part: 304425 us[0m
+[0m[[0mdebug[0m] [0mInc. optimizer: Optimizing 11661 methods.[0m
+[0m[[0mdebug[0m] [0mInc. optimizer: Optimizer part: 6354829 us[0m
+[0m[[0mdebug[0m] [0mInc. optimizer: 6684393 us[0m
+[0m[[0mdebug[0m] [0mRefiner: Compute reachability: 202631 us[0m
+[0m[[0mdebug[0m] [0mRefiner: Assemble LinkedClasses: 21408 us[0m
+[0m[[0mdebug[0m] [0mRefiner: 225679 us[0m
+[0m[[0mdebug[0m] [0mEmitter: Class tree cache stats: reused: 0 -- invalidated: 1358[0m
+[0m[[0mdebug[0m] [0mEmitter: Method tree cache stats: resued: 0 -- invalidated: 6319[0m
+[0m[[0mdebug[0m] [0mEmitter (write output): 1355365 us[0m
+[0m[[0mdebug[0m] [0mGlobal IR cache stats: reused: 0 -- invalidated: 272 -- trees read: 1713[0m

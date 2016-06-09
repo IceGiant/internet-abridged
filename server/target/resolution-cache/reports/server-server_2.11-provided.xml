@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="ivy-report.xsl"?>
+<ivy-report version="1.0">
+	<info
+		organisation="server"
+		module="server_2.11"
+		revision="1.1.2"
+		conf="provided"
+		confs="compile, runtime, test, provided, optional, compile-internal, runtime-internal, test-internal, plugin, sources, docs, pom, scala-tool"
+		date="20160608210505"/>
+	<dependencies>
+		<module organisation="org.webjars" name="bootstrap">
+			<revision name="3.3.6" status="release" pubdate="20151127100647" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://webjars.org" downloaded="false" searched="false" default="false" conf="default, compile, runtime, default(compile), master" position="1">
+				<license name="Apache License, Version 2.0" url="http://www.apache.org/licenses/LICENSE-2.0"/>
+				<metadata-artifact status="no" details="" size="3933" time="0" location="/Users/skypage/.ivy2/cache/org.webjars/bootstrap/ivy-3.3.6.xml" searched="false" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/webjars/bootstrap/3.3.6/bootstrap-3.3.6.pom"/>
+				<caller organisation="server" name="server_2.11" conf="provided" rev="3.3.6" rev-constraint-default="3.3.6" rev-constraint-dynamic="3.3.6" callerrev="1.1.2"/>
+				<artifacts>
+					<artifact name="bootstrap" type="jar" ext="jar" status="no" details="" size="662231" time="0" location="/Users/skypage/.ivy2/cache/org.webjars/bootstrap/jars/bootstrap-3.3.6.jar">
+						<origin-location is-local="false" location="https://repo1.maven.org/maven2/org/webjars/bootstrap/3.3.6/bootstrap-3.3.6.jar"/>
+					</artifact>
+				</artifacts>
+			</revision>
+		</module>
+		<module organisation="org.webjars" name="jquery">
+			<revision name="1.11.1" status="release" pubdate="20140503111849" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://webjars.org" downloaded="false" searched="false" default="false" conf="compile, runtime(*), master(compile), runtime, compile(*), master" position="2">
+				<license name="MIT License" url="https://github.com/jquery/jquery/blob/master/MIT-LICENSE.txt"/>
+				<metadata-artifact status="no" details="" size="3628" time="0" location="/Users/skypage/.ivy2/cache/org.webjars/jquery/ivy-1.11.1.xml" searched="false" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/webjars/jquery/1.11.1/jquery-1.11.1.pom"/>
+				<caller organisation="org.webjars" name="bootstrap" conf="default, compile, runtime, master" rev="1.11.1" rev-constraint-default="1.11.1" rev-constraint-dynamic="1.11.1" callerrev="3.3.6"/>
+				<artifacts>
+					<artifact name="jquery" type="jar" ext="jar" status="no" details="" size="178233" time="0" location="/Users/skypage/.ivy2/cache/org.webjars/jquery/jars/jquery-1.11.1.jar">
+						<origin-location is-local="false" location="https://repo1.maven.org/maven2/org/webjars/jquery/1.11.1/jquery-1.11.1.jar"/>
+					</artifact>
+				</artifacts>
+			</revision>
+		</module>
+		<module organisation="org.webjars" name="font-awesome">
+			<revision name="4.6.3" status="release" pubdate="20160531101248" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://webjars.org" downloaded="false" searched="false" default="false" conf="default, compile, runtime, default(compile), master" position="0">
+				<license name="CC BY 3.0" url="http://creativecommons.org/licenses/by/3.0/"/>
+				<metadata-artifact status="no" details="" size="4517" time="0" location="/Users/skypage/.ivy2/cache/org.webjars/font-awesome/ivy-4.6.3.xml" searched="false" origin-is-local="false" origin-location="https://repo1.maven.org/maven2/org/webjars/font-awesome/4.6.3/font-awesome-4.6.3.pom"/>
+				<caller organisation="server" name="server_2.11" conf="provided" rev="4.6.3" rev-constraint-default="4.6.3" rev-constraint-dynamic="4.6.3" callerrev="1.1.2"/>
+				<artifacts>
+					<artifact name="font-awesome" type="jar" ext="jar" status="no" details="" size="620413" time="0" location="/Users/skypage/.ivy2/cache/org.webjars/font-awesome/jars/font-awesome-4.6.3.jar">
+						<origin-location is-local="false" location="https://repo1.maven.org/maven2/org/webjars/font-awesome/4.6.3/font-awesome-4.6.3.jar"/>
+					</artifact>
+				</artifacts>
+			</revision>
+		</module>
+	</dependencies>
+</ivy-report>

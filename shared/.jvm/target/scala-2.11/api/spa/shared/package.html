@@ -1,0 +1,274 @@
+<!DOCTYPE html >
+<html>
+        <head>
+          <title>shared - spa.shared</title>
+          <meta name="description" content="shared - spa.shared" />
+          <meta name="keywords" content="shared spa.shared" />
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+          
+      <link href="../../lib/template.css" media="screen" type="text/css" rel="stylesheet" />
+      <link href="../../lib/diagrams.css" media="screen" type="text/css" rel="stylesheet" id="diagrams-css" />
+      <script type="text/javascript" src="../../lib/jquery.js" id="jquery-js"></script>
+      <script type="text/javascript" src="../../lib/jquery-ui.js"></script>
+      <script type="text/javascript" src="../../lib/template.js"></script>
+      <script type="text/javascript" src="../../lib/tools.tooltip.js"></script>
+      
+      <script type="text/javascript">
+         if(top === self) {
+            var url = '../../index.html';
+            var hash = 'spa.shared.package';
+            var anchor = window.location.hash;
+            var anchor_opt = '';
+            if (anchor.length >= 1)
+              anchor_opt = '@' + anchor.substring(1);
+            window.location.href = url + '#' + hash + anchor_opt;
+         }
+   	  </script>
+    
+        </head>
+        <body class="value">
+      <div id="definition">
+        <img alt="Package" src="../../lib/package_big.png" />
+        <p id="owner"><a href="../package.html" class="extype" name="spa">spa</a></p>
+        <h1>shared</h1><span class="permalink">
+      <a href="../../index.html#spa.shared.package" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      </div>
+
+      <h4 id="signature" class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <span class="name">shared</span>
+      </span>
+      </h4>
+      
+          <div id="comment" class="fullcommenttop"></div>
+        
+
+      <div id="mbrsel">
+        <div id="textfilter"><span class="pre"></span><span class="input"><input id="mbrsel-input" type="text" accesskey="/" /></span><span class="post"></span></div>
+        
+        
+        <div id="visbl">
+            <span class="filtertype">Visibility</span>
+            <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
+          </div>
+      </div>
+
+      <div id="template">
+        <div id="allMembers">
+        
+
+        <div id="types" class="types members">
+              <h3>Type Members</h3>
+              <ol><li name="spa.shared.Api" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="ApiextendsAnyRef"></a>
+      <a id="Api:Api"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="Api.html"><span class="name">Api</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#spa.shared.package@ApiextendsAnyRef" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="spa.shared.LinkObject" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="LinkObjectextendsProductwithSerializable"></a>
+      <a id="LinkObject:LinkObject"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="LinkObject.html"><span class="name">LinkObject</span></a><span class="params">(<span name="id">id: <span class="extype" name="scala.Option">Option</span>[<span class="extype" name="scala.Long">Long</span>]</span>, <span name="sourceId">sourceId: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="title">title: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="href">href: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#spa.shared.package@LinkObjectextendsProductwithSerializable" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="spa.shared.TodoItem" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="TodoItemextendsProductwithSerializable"></a>
+      <a id="TodoItem:TodoItem"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="TodoItem.html"><span class="name">TodoItem</span></a><span class="params">(<span name="id">id: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="timeStamp">timeStamp: <span class="extype" name="scala.Int">Int</span></span>, <span name="content">content: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="priority">priority: <a href="TodoPriority.html" class="extype" name="spa.shared.TodoPriority">TodoPriority</a></span>, <span name="completed">completed: <span class="extype" name="scala.Boolean">Boolean</span></span>)</span><span class="result"> extends <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#spa.shared.package@TodoItemextendsProductwithSerializable" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="spa.shared.TodoPriority" visbl="pub" data-isabs="true" fullComment="no" group="Ungrouped">
+      <a id="TodoPriorityextendsAnyRef"></a>
+      <a id="TodoPriority:TodoPriority"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">sealed </span>
+        <span class="kind">trait</span>
+      </span>
+      <span class="symbol">
+        <a href="TodoPriority.html"><span class="name">TodoPriority</span></a><span class="result"> extends <span class="extype" name="scala.AnyRef">AnyRef</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#spa.shared.package@TodoPriorityextendsAnyRef" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li></ol>
+            </div>
+
+        
+
+        <div id="values" class="values members">
+              <h3>Value Members</h3>
+              <ol><li name="spa.shared.TabFeedSources" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="TabFeedSources"></a>
+      <a id="TabFeedSources:TabFeedSources"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="TabFeedSources$.html"><span class="name">TabFeedSources</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#spa.shared.package@TabFeedSources" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="spa.shared.TabId" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="TabId"></a>
+      <a id="TabId:TabId"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="TabId$.html"><span class="name">TabId</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#spa.shared.package@TabId" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="spa.shared.TodoHigh" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="TodoHigh"></a>
+      <a id="TodoHigh:TodoHigh"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="TodoHigh$.html"><span class="name">TodoHigh</span></a><span class="result"> extends <a href="TodoPriority.html" class="extype" name="spa.shared.TodoPriority">TodoPriority</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#spa.shared.package@TodoHigh" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="spa.shared.TodoLow" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="TodoLow"></a>
+      <a id="TodoLow:TodoLow"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="TodoLow$.html"><span class="name">TodoLow</span></a><span class="result"> extends <a href="TodoPriority.html" class="extype" name="spa.shared.TodoPriority">TodoPriority</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#spa.shared.package@TodoLow" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="spa.shared.TodoNormal" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="TodoNormal"></a>
+      <a id="TodoNormal:TodoNormal"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="TodoNormal$.html"><span class="name">TodoNormal</span></a><span class="result"> extends <a href="TodoPriority.html" class="extype" name="spa.shared.TodoPriority">TodoPriority</a> with <span class="extype" name="scala.Product">Product</span> with <span class="extype" name="scala.Serializable">Serializable</span></span>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#spa.shared.package@TodoNormal" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li><li name="spa.shared.TodoPriority" visbl="pub" data-isabs="false" fullComment="no" group="Ungrouped">
+      <a id="TodoPriority"></a>
+      <a id="TodoPriority:TodoPriority"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="TodoPriority$.html"><span class="name">TodoPriority</span></a>
+      </span>
+      </h4><span class="permalink">
+      <a href="../../index.html#spa.shared.package@TodoPriority" title="Permalink" target="_top">
+        <img src="../../lib/permalink.png" alt="Permalink" />
+      </a>
+    </span>
+      
+    </li></ol>
+            </div>
+
+        
+
+        
+        </div>
+
+        <div id="inheritedMembers">
+        
+        
+        </div>
+
+        <div id="groupedMembers">
+        <div class="group" name="Ungrouped">
+              <h3>Ungrouped</h3>
+              
+            </div>
+        </div>
+
+      </div>
+
+      <div id="tooltip"></div>
+
+      <div id="footer">  </div>
+
+
+    </body>
+      </html>
