@@ -17,6 +17,4 @@ trait Api {
 
   //Update a list of links
   def updateNewsList(tabId: String, contentType: String): Future[Seq[LinkObject]]
-
-  def getSomeUrl(): String
 }
