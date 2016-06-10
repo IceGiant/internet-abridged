@@ -1,8 +1,0 @@
-clean
-compile
-run 900
-clean
-update
-compile
-run
-sbt clean update compile run
