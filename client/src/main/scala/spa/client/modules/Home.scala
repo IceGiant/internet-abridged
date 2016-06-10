@@ -14,7 +14,6 @@ import spa.client.components._
 import spa.client.logger._
 import spa.client.modules
 import spa.client.modules.HomeInits.TabState
-import spa.client.services.NewsCircuit._
 import spa.client.components.Icon._
 import spa.client.services.{NewsCircuit, _}
 import spa.shared.TabId._
@@ -22,9 +21,10 @@ import spa.shared.{TabId, LinkObject, TabFeedSources}
 
 import scalacss.ScalaCssReact._
 
-
+/**
+  * Top level component for the homepage
+  */
 object Home {
-
   case class Props(router: RouterCtl[Loc])
   case class State(search: String = "")
 
@@ -58,6 +58,10 @@ object Home {
   def apply(router: RouterCtl[Loc]) = component(Props(router))
 }
 
+/**
+  * Sections by general topic, with a search term passed in for easy filtering when looking
+  * for a particular topic
+  */
 object SectionsByTopic{
   case class Props(search: String)
 
@@ -110,7 +114,9 @@ object SectionsByTopic{
   def apply(search: String) = component(Props(search))
 }
 
-
+/**
+  * Container of selectable tabs in a nav which update the links below the nav to reflect the selection
+  */
 object TabbedLinkContainer{
 
   @inline private def bss = GlobalStyles.bootstrapStyles
@@ -201,6 +207,10 @@ object TabbedLinkContainer{
   def apply(props: Props) = TabbedLinkContainer(props)
 }
 
+
+/**
+  * Individual "tab" on one of the link container navs
+  */
 object ContainerTab {
   case class AnchorProps(id: String, href: String = "JavaScript:void()", rel: String = "nofollow")
   case class ImageProps(src: String, alt: String, border: String = "0", icon: ReactNode = <.span(), imgText: String = "")
@@ -228,6 +238,9 @@ object ContainerTab {
   def apply(props: Props) = listTab(props)
 }
 
+/**
+  * Create a list of links scraped for the selected tab and make them presentable
+  */
 object LinkList {
   @inline private def bss = GlobalStyles.bootstrapStyles
 

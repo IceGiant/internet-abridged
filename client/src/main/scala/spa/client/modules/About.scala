@@ -14,6 +14,10 @@ import spa.client.logger._
 import spa.client.services._
 import spa.shared._
 
+/**
+  * Eventually will be a simple about page with a link to a feedback form
+  */
+
 object About {
   case class Props(proxy: ModelProxy[Pot[Links]])
   case class State(filler: String = "")
