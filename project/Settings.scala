@@ -44,6 +44,7 @@ object Settings {
     val slick = "3.1.1"
     val akka = "2.4.6"
     val playMailer = "4.0.0"
+    val scalaGuice = "4.0.0"
 
     val dispatch = "0.11.2"
   }
@@ -68,7 +69,9 @@ object Settings {
     "net.databinder.dispatch" %% "dispatch-core" % versions.dispatch,
     "com.typesafe.akka" %% "akka-cluster" % versions.akka,
     "com.typesafe.akka" %% "akka-cluster-tools" % versions.akka,
-    "com.typesafe.akka" %% "akka-slf4j" % versions.akka
+    "com.typesafe.akka" %% "akka-slf4j" % versions.akka,
+    "net.codingwell" %% "scala-guice" % versions.scalaGuice,
+    "com.typesafe.play" %% "play-mailer" % versions.playMailer
 
     //,"org.webjars.npm" % "react" % versions.react
   ))
