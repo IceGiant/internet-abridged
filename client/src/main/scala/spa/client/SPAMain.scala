@@ -7,7 +7,7 @@ import org.scalajs.dom
 import spa.client.components.GlobalStyles
 import spa.client.logger._
 import spa.client.modules._
-import spa.client.services.SPACircuit
+import spa.client.services._
 
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSExport
@@ -33,7 +33,7 @@ object SPAMain extends js.JSApp {
     // wrap/connect components to the circuit
     (staticRoute(root, HomeLoc) ~> renderR(ctl => Home(ctl))
       //| staticRoute("#todo", TodoLoc) ~> renderR(ctl => SPACircuit.connect(_.todos)(Todo(_)))
-      | staticRoute("#info", AboutLoc) ~> renderR(ctl => SPACircuit.connect(_.todos)(About(_)))
+      | staticRoute("#info", AboutLoc) ~> renderR(ctl => NewsCircuit.connect(_.newsLinks)(About(_)))
       ).notFound(redirectToPage(HomeLoc)(Redirect.Replace))
   }.renderWith(layout)
 

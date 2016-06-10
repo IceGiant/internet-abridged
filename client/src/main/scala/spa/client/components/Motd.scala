@@ -7,7 +7,6 @@ import japgolly.scalajs.react._
 import japgolly.scalajs.react.vdom.prefix_<^._
 import org.scalajs.dom.raw.HTMLUListElement
 import spa.client.components.Bootstrap._
-import spa.client.services.UpdateMotd
 
 /**
   * This is a simple component demonstrating how to display async data coming from the server
@@ -24,10 +23,10 @@ object Motd {
         proxy().render(m => <.p(m))
       )
     }}
-    .componentDidMount(scope =>
+    /*.componentDidMount(scope =>
       // update only if Motd is empty
       Callback.ifTrue(scope.props.value.isEmpty, scope.props.dispatch(UpdateMotd()))
-    )
+    )*/
     .build
 
   def apply(proxy: ModelProxy[Pot[String]]) = Motd(proxy)

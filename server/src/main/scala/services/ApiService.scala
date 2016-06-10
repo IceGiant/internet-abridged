@@ -16,6 +16,7 @@ import scala.xml.NodeSeq
 import play.api.libs.ws.WS
 
 class ApiService extends Api {
+  /*
   var todos = Seq(
     TodoItem("41424344-4546-4748-494a-4b4c4d4e4f50", 0x61626364, "Wear shirt that says “Life”. Hand out lemons on street corner.", TodoLow, false),
     TodoItem("2", 0x61626364, "Make vanilla pudding. Put in mayo jar. Eat in public.", TodoNormal, false),
@@ -62,7 +63,7 @@ class ApiService extends Api {
     Thread.sleep(300)
     todos = todos.filterNot(_.id == itemId)
     todos
-  }
+  }*/
 
   override def updateNewsList(tabId: String, contentType: String): Future[Seq[LinkObject]] = {
     //Make a call to the DB and get the list of links for the relevant news source
@@ -75,29 +76,6 @@ class ApiService extends Api {
         println(e.getMessage)
         Seq.empty[LinkObject]
     }*/
-  }
-
-
-  override def getSomeUrl(): String = {
-    val promiseOfString = WS.url("http://reddit.com/.rss").get().map( futResponse => {
-      val entries = for (entry <- futResponse.xml \\ "feed" \\ "entry")
-        yield {
-          val title = entry \\ "title"
-          val redditLink = entry \\ "link"
-          val source = entry \\ "content"
-          val html = source.text
-          val end = html.split("""<span><a href="""")
-          val ref = end(1).split("\">")
-          title.text + " - " + ref.head
-        }
-      entries.mkString(", ")
-    })
-    try {
-      val response = Await.result(promiseOfString, Duration.Inf)
-      response.toString
-    } catch {
-      case e: Exception => e.getMessage
-    }
   }
 
 }

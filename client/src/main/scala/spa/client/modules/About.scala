@@ -15,7 +15,7 @@ import spa.client.services._
 import spa.shared._
 
 object About {
-  case class Props(proxy: ModelProxy[Pot[Todos]])
+  case class Props(proxy: ModelProxy[Pot[Links]])
   case class State(filler: String = "")
   @inline private def bss = GlobalStyles.bootstrapStyles
 
@@ -50,5 +50,5 @@ object About {
     .build
 
   /** Returns a function compatible with router location system while using our own props */
-  def apply(proxy: ModelProxy[Pot[Todos]]) = component(Props(proxy))
+  def apply(proxy: ModelProxy[Pot[Links]]) = component(Props(proxy))
 }

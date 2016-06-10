@@ -11,17 +11,9 @@ import boopickle.Default._
 import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
 
 // Actions
-case object RefreshTodos
-
-case class UpdateAllTodos(todos: Seq[TodoItem])
-
-case class UpdateTodo(item: TodoItem)
-
-case class DeleteTodo(item: TodoItem)
-
-case class UpdateMotd(potResult: Pot[String] = Empty) extends PotAction[String, UpdateMotd] {
+/*case class UpdateMotd(potResult: Pot[String] = Empty) extends PotAction[String, UpdateMotd] {
   override def next(value: Pot[String]) = UpdateMotd(value)
-}
+}*/
 
 case class UpdateListOfLinks(links: Seq[LinkObject])
 
@@ -43,7 +35,7 @@ case class Links(items: Seq[LinkObject]) {
 
 
 // The base model of our application
-case class RootModel(todos: Pot[Todos], motd: Pot[String], links: Pot[Links])
+case class RootModel(motd: Pot[String], links: Pot[Links])
 case class RootNewsModel(newsLinks: Pot[Links], testLinks: Pot[Links])
 
 case class Todos(items: Seq[TodoItem]) {
@@ -61,25 +53,10 @@ case class Todos(items: Seq[TodoItem]) {
 }
 
 /**
-  * Handles actions related to todos
+  * Handles actions related to scraped lists of links
   *
   * @param modelRW Reader/Writer to access the model
   */
-class TodoHandler[M](modelRW: ModelRW[M, Pot[Todos]]) extends ActionHandler(modelRW) {
-  override def handle = {
-    case RefreshTodos =>
-      effectOnly(Effect(AjaxClient[Api].getTodos().call().map(UpdateAllTodos)))
-    case UpdateAllTodos(todos) =>
-      // got new todos, update model
-      updated(Ready(Todos(todos)))
-    case UpdateTodo(item) =>
-      // make a local update and inform server
-      updated(value.map(_.updated(item)), Effect(AjaxClient[Api].updateTodo(item).call().map(UpdateAllTodos)))
-    case DeleteTodo(item) =>
-      // make a local update and inform server
-      updated(value.map(_.remove(item)), Effect(AjaxClient[Api].deleteTodo(item.id).call().map(UpdateAllTodos)))
-  }
-}
 
 class LinkHandler[M](modelRW: ModelRW[M, Pot[Links]]) extends ActionHandler(modelRW) {
   override def handle = {
@@ -90,33 +67,8 @@ class LinkHandler[M](modelRW: ModelRW[M, Pot[Links]]) extends ActionHandler(mode
   }
 }
 
-/**
-  * Handles actions related to the Motd
-  *
-  * @param modelRW Reader/Writer to access the model
-  */
-class MotdHandler[M](modelRW: ModelRW[M, Pot[String]]) extends ActionHandler(modelRW) {
-  implicit val runner = new RunAfterJS
-
-  override def handle = {
-    case action: UpdateMotd =>
-      val updateF = action.effect(AjaxClient[Api].getSomeUrl().call())(identity)
-      action.handleWith(this, updateF)(PotAction.handler())
-  }
-}
-
 
 // Application circuit
-object SPACircuit extends Circuit[RootModel] with ReactConnector[RootModel] {
-  // initial application model
-  override protected def initialModel = RootModel(Empty, Empty, Empty)
-  // combine all handlers into one
-  override protected val actionHandler = combineHandlers(
-    new TodoHandler(zoomRW(_.todos)((m, v) => m.copy(todos = v))),
-    new MotdHandler(zoomRW(_.motd)((m, v) => m.copy(motd = v))),
-    new LinkHandler(zoomRW(_.links)((m, v) => m.copy(links = v)))
-  )
-}
 
 object NewsCircuit extends Circuit[RootNewsModel] with ReactConnector[RootNewsModel] {
   // initial application model
