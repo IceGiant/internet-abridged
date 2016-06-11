@@ -272,7 +272,7 @@ object LinkList {
         )
       }
       else {
-        <.li(bss.listGroup.item, ^.borderRadius := "0 !important")(<.p("Couldn't pull any data"))
+        <.li(bss.listGroup.item, ^.borderRadius := "0 !important")("Couldn't pull any data")
       }
     })
     .build
