@@ -100,7 +100,9 @@ object ApiService {
     TabId.RedditPics -> TabFeedSources.RedditPics,
     TabId.RedditComics -> TabFeedSources.RedditComics,
 
-    TabId.NoAgenda -> TabFeedSources.NoAgenda
+    TabId.NoAgenda -> TabFeedSources.NoAgenda,
+    TabId.HardcoreHistory -> TabFeedSources.HardcoreHistory,
+    TabId.CommonSense -> TabFeedSources.CommonSense
 
 
   )
@@ -115,6 +117,8 @@ object ApiService {
           parseRssV2(sourceId)
         case TabId.HackerNews => parseRssV2(sourceId)
         case TabId.NoAgenda => parseRssV2(sourceId)
+        case TabId.HardcoreHistory => parseRssV2(sourceId)
+        case TabId.CommonSense => parseRssV2(sourceId)
         case _ => println(s"Uh oh! from: $sourceId")
           Future(Seq.empty)
       }

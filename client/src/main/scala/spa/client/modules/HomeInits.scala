@@ -175,8 +175,24 @@ object HomeInits {
       onSelectedUrl = TabFeedSources.NoAgenda
     )
 
+    val hardcoreHistory = ContainerTab.Props(
+      ContainerTab.AnchorProps(),
+      ContainerTab.ImageProps("src", HardcoreHistory, imgText = "Hardcore History"),
+      HardcoreHistory,
+      onSelectedUrl = TabFeedSources.HardcoreHistory
+    )
+
+    val commonSense = ContainerTab.Props(
+      ContainerTab.AnchorProps(),
+      ContainerTab.ImageProps("src", CommonSense, imgText = "Common Sense"),
+      CommonSense,
+      onSelectedUrl = TabFeedSources.CommonSense
+    )
+
     List(
-      noAgenda
+      noAgenda,
+      hardcoreHistory,
+      commonSense
     )
   }
 }

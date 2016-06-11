@@ -43,8 +43,9 @@ class RootActor extends Actor {
   val redditPics= context.system.actorOf(Props(classOf[SupervisorActor], TabId.RedditPics))
   val redditComics= context.system.actorOf(Props(classOf[SupervisorActor], TabId.RedditComics))
 
-  val noAgenda= context.system.actorOf(Props(classOf[SupervisorActor], TabId.NoAgenda))
-
+  val noAgenda = context.system.actorOf(Props(classOf[SupervisorActor], TabId.NoAgenda))
+  val hardcoreHistory = context.system.actorOf(Props(classOf[SupervisorActor], TabId.HardcoreHistory))
+  val commonSense = context.system.actorOf(Props(classOf[SupervisorActor], TabId.CommonSense))
 
   println("root actor init")
 

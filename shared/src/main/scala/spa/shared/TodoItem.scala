@@ -38,6 +38,8 @@ object TabId{
   val RedditComics = "RedditComics"
 
   val NoAgenda = "NoAgenda"
+  val HardcoreHistory = "HardcoreHistory"
+  val CommonSense = "CommonSense"
 
 
   /*Maybe
@@ -68,6 +70,9 @@ object TabFeedSources {
   val RedditComics = "https://www.reddit.com/r/comics/.rss"
 
   val NoAgenda = "http://feed.nashownotes.com/rss.xml"
+  val HardcoreHistory = "https://feeds.feedburner.com/dancarlin/history?format=xml"
+  val CommonSense = "https://feeds.feedburner.com/dancarlin/commonsense?format=xml"
+
 
 
   /* maybe
