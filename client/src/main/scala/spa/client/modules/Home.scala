@@ -82,13 +82,14 @@ object SectionsByTopic{
   val techTabs = HomeInits.generateTech
   val techCircuit = new LinksCircuit
 
-
   val programmingTabs = HomeInits.generateProgramming
   val ProgrammingCircuit = new LinksCircuit
 
-
   val imageTabs = HomeInits.generateImages
   val ImageCircuit = new LinksCircuit
+
+  val podcastTabs = HomeInits.generatePodcasts
+  val podcastCircuit = new LinksCircuit
 
 
   private val component = ReactComponentB[Props]("SearchableComponent")
@@ -98,16 +99,19 @@ object SectionsByTopic{
         TabbedLinkContainer(TabbedLinkContainer.Props(p, HomeInits.reddit, "Reddit", redditTabs, startLinksHidden = false, searchFilter = search)))
       val techComponent = techCircuit.connect(_.links)(p =>
         TabbedLinkContainer(TabbedLinkContainer.Props(p, HomeInits.tech, "Tech", techTabs, searchFilter = search)))
-      val ProgrammingComponent = ProgrammingCircuit.connect(_.links)(p =>
+      val programmingComponent = ProgrammingCircuit.connect(_.links)(p =>
         TabbedLinkContainer(TabbedLinkContainer.Props(p, HomeInits.programming, "Programming", programmingTabs, searchFilter = search)))
-      val ImageComponent = ImageCircuit.connect(_.links)(p =>
+      val imageComponent = ImageCircuit.connect(_.links)(p =>
         TabbedLinkContainer(TabbedLinkContainer.Props(p, HomeInits.images, "Images", imageTabs, searchFilter = search)))
+      val podcastComponent = podcastCircuit.connect(_.links)(p =>
+        TabbedLinkContainer(TabbedLinkContainer.Props(p, HomeInits.podcasts, "Podcasts", podcastTabs, searchFilter = search)))
 
       <.div(^.paddingTop:="10")(
         redditComponent,
         techComponent,
-        ImageComponent,
-        ProgrammingComponent
+        imageComponent,
+        programmingComponent,
+        podcastComponent
       )}
     }.build
 

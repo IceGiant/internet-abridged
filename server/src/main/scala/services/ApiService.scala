@@ -98,7 +98,9 @@ object ApiService {
     TabId.RedditProgrammingHumor -> TabFeedSources.RedditProgrammingHumor,
 
     TabId.RedditPics -> TabFeedSources.RedditPics,
-    TabId.RedditComics -> TabFeedSources.RedditComics
+    TabId.RedditComics -> TabFeedSources.RedditComics,
+
+    TabId.NoAgenda -> TabFeedSources.NoAgenda
 
 
   )
@@ -110,8 +112,9 @@ object ApiService {
     else {
       sourceId match {
         case TabId.LifeHacker => //println("Parsing lifehacker")
-          parseSitesOwnRssv2(sourceId)
-        case TabId.HackerNews => parseSitesOwnRssv2(sourceId)
+          parseRssV2(sourceId)
+        case TabId.HackerNews => parseRssV2(sourceId)
+        case TabId.NoAgenda => parseRssV2(sourceId)
         case _ => println(s"Uh oh! from: $sourceId")
           Future(Seq.empty)
       }
@@ -119,7 +122,7 @@ object ApiService {
 
   }
 
-  def parseSitesOwnRssv2(sourceId: String): Future[Seq[TitleLink]] = {
+  def parseRssV2(sourceId: String): Future[Seq[TitleLink]] = {
     val url = siteMapping(sourceId)
     WS.url(url).get().map( futResponse => {
       val entries = for (entry <- futResponse.xml \\ "channel" \\ "item")

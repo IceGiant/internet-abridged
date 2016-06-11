@@ -13,6 +13,7 @@ object HomeInits {
   val tech = "tech"
   val images = "images"
   val programming = "programming"
+  val podcasts = "podcasts"
 
   case class TabState(id: String, selectedTab: String)
 
@@ -38,7 +39,8 @@ object HomeInits {
     TabState(reddit, TabId.Reddit),
     TabState(tech, TabId.RedditTech),
     TabState(images, TabId.RedditPics),
-    TabState(programming, TabId.RedditProgramming)
+    TabState(programming, TabId.RedditProgramming),
+    TabState(podcasts, TabId.NoAgenda)
   )
 
   def generateSubreddits = {
@@ -162,6 +164,19 @@ object HomeInits {
     List(
       redditPics,
       redditComics
+    )
+  }
+
+  def generatePodcasts = {
+    val noAgenda = ContainerTab.Props(
+      ContainerTab.AnchorProps(),
+      ContainerTab.ImageProps("src", NoAgenda, imgText = "No Agenda"),
+      NoAgenda,
+      onSelectedUrl = TabFeedSources.NoAgenda
+    )
+
+    List(
+      noAgenda
     )
   }
 }

@@ -37,7 +37,7 @@ object TabId{
   val RedditPics = "RedditPics"
   val RedditComics = "RedditComics"
 
-
+  val NoAgenda = "NoAgenda"
 
 
   /*Maybe
@@ -67,7 +67,7 @@ object TabFeedSources {
   val RedditPics = "https://www.reddit.com/r/pics/.rss"
   val RedditComics = "https://www.reddit.com/r/comics/.rss"
 
-
+  val NoAgenda = "http://feed.nashownotes.com/rss.xml"
 
 
   /* maybe
