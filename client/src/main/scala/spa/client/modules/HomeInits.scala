@@ -43,28 +43,28 @@ object HomeInits {
 
   def generateSubreddits = {
     val redditFrontpage = ContainerTab.Props(
-      ContainerTab.AnchorProps("ns"),
+      ContainerTab.AnchorProps(),
       ContainerTab.ImageProps("src", Reddit, icon = Icon.reddit, imgText = "Frontpage"),
       Reddit,
       onSelectedUrl = TabFeedSources.Reddit
     )
 
     val redditTop = ContainerTab.Props(
-      ContainerTab.AnchorProps("ns"),
+      ContainerTab.AnchorProps(),
       ContainerTab.ImageProps("src", RedditTop, icon = Icon.reddit, imgText = "Top"),
       RedditTop,
       onSelectedUrl = TabFeedSources.RedditTop
     )
 
     val redditTil = ContainerTab.Props(
-      ContainerTab.AnchorProps("ns"),
+      ContainerTab.AnchorProps(),
       ContainerTab.ImageProps("src", RedditTil, icon = Icon.reddit, imgText = "TIL"),
       RedditTil,
       onSelectedUrl = TabFeedSources.RedditTil
     )
 
     val askReddit = ContainerTab.Props(
-      ContainerTab.AnchorProps("ns"),
+      ContainerTab.AnchorProps(),
       ContainerTab.ImageProps("src", AskReddit, icon = Icon.reddit, imgText = "Ask"),
       AskReddit,
       onSelectedUrl = TabFeedSources.AskReddit
@@ -80,21 +80,21 @@ object HomeInits {
 
   def generateTech = {
     val redditTech = ContainerTab.Props(
-      ContainerTab.AnchorProps("ns"),
+      ContainerTab.AnchorProps(),
       ContainerTab.ImageProps("src", RedditTech, icon = Icon.reddit, imgText = "Tech News"),
       RedditTech,
       onSelectedUrl = TabFeedSources.RedditTech
     )
 
     val lifeHacker = ContainerTab.Props(
-      ContainerTab.AnchorProps("ns"),
+      ContainerTab.AnchorProps(),
       ContainerTab.ImageProps("src", LifeHacker, imgText = LifeHacker),
       LifeHacker,
       onSelectedUrl = TabFeedSources.LifeHacker
     )
 
     val redditTechnology = ContainerTab.Props(
-      ContainerTab.AnchorProps("ns"),
+      ContainerTab.AnchorProps(),
       ContainerTab.ImageProps("src", RedditTechnology, icon = Icon.reddit, imgText = "Technology"),
       RedditTechnology,
       onSelectedUrl = TabFeedSources.RedditTechnology
@@ -109,7 +109,7 @@ object HomeInits {
 
   def generateProgramming = {
     val redditProgramming = ContainerTab.Props(
-      ContainerTab.AnchorProps("ns"),
+      ContainerTab.AnchorProps(),
       ContainerTab.ImageProps("src", RedditProgramming, icon = Icon.reddit, imgText = "Programming"),
       RedditProgramming,
       onSelectedUrl = TabFeedSources.RedditProgramming
@@ -123,14 +123,14 @@ object HomeInits {
     )
 
     val redditCoding = ContainerTab.Props(
-      ContainerTab.AnchorProps("ns"),
+      ContainerTab.AnchorProps(),
       ContainerTab.ImageProps("src", RedditCoding, icon = Icon.reddit, imgText = "Coding"),
       RedditCoding,
       onSelectedUrl = TabFeedSources.RedditCoding
     )
 
     val redditProgHumor = ContainerTab.Props(
-      ContainerTab.AnchorProps("ns"),
+      ContainerTab.AnchorProps(),
       ContainerTab.ImageProps("src", RedditProgrammingHumor, imgText = "Humor"),
       RedditProgrammingHumor,
       onSelectedUrl = TabFeedSources.RedditProgrammingHumor
@@ -146,14 +146,14 @@ object HomeInits {
 
   def generateImages = {
     val redditPics = ContainerTab.Props(
-      ContainerTab.AnchorProps("ns"),
+      ContainerTab.AnchorProps(),
       ContainerTab.ImageProps("src", RedditPics, icon = Icon.reddit, imgText = "Pics"),
       RedditPics,
       onSelectedUrl = TabFeedSources.RedditPics
     )
 
     val redditComics = ContainerTab.Props(
-      ContainerTab.AnchorProps("ns"),
+      ContainerTab.AnchorProps(),
       ContainerTab.ImageProps("src", RedditComics, icon = Icon.reddit, imgText = "Comics"),
       RedditComics,
       onSelectedUrl = TabFeedSources.RedditComics
