@@ -45,6 +45,7 @@ class RootActor extends Actor {
 
   val noAgenda = context.system.actorOf(Props(classOf[SupervisorActor], TabId.NoAgenda))
   val hardcoreHistory = context.system.actorOf(Props(classOf[SupervisorActor], TabId.HardcoreHistory))
+  val securityNow = context.system.actorOf(Props(classOf[SupervisorActor], TabId.SecurityNow))
   val commonSense = context.system.actorOf(Props(classOf[SupervisorActor], TabId.CommonSense))
 
   println("root actor init")

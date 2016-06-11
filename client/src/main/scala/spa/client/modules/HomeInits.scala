@@ -182,6 +182,13 @@ object HomeInits {
       onSelectedUrl = TabFeedSources.HardcoreHistory
     )
 
+    val securityNow = ContainerTab.Props(
+      ContainerTab.AnchorProps(),
+      ContainerTab.ImageProps("src", SecurityNow, imgText = "Security Now"),
+      SecurityNow,
+      onSelectedUrl = TabFeedSources.SecurityNow
+    )
+
     val commonSense = ContainerTab.Props(
       ContainerTab.AnchorProps(),
       ContainerTab.ImageProps("src", CommonSense, imgText = "Common Sense"),
@@ -192,6 +199,7 @@ object HomeInits {
     List(
       noAgenda,
       hardcoreHistory,
+      securityNow,
       commonSense
     )
   }

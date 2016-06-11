@@ -39,6 +39,7 @@ object TabId{
 
   val NoAgenda = "NoAgenda"
   val HardcoreHistory = "HardcoreHistory"
+  val SecurityNow = "SecurityNow"
   val CommonSense = "CommonSense"
 
 
@@ -71,6 +72,7 @@ object TabFeedSources {
 
   val NoAgenda = "http://feed.nashownotes.com/rss.xml"
   val HardcoreHistory = "https://feeds.feedburner.com/dancarlin/history?format=xml"
+  val SecurityNow = "http://www.leoville.tv/podcasts/sn.xml"
   val CommonSense = "https://feeds.feedburner.com/dancarlin/commonsense?format=xml"
 
 
