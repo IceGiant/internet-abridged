@@ -212,7 +212,7 @@ object TabbedLinkContainer{
   * Individual "tab" on one of the link container navs
   */
 object ContainerTab {
-  case class AnchorProps(id: String, href: String = "JavaScript:void()", rel: String = "nofollow")
+  case class AnchorProps(id: String = "", href: String = "JavaScript:void()", rel: String = "nofollow")
   case class ImageProps(src: String, alt: String, border: String = "0", icon: ReactNode = <.span(), imgText: String = "")
 
   case class Props(anchor: AnchorProps,
