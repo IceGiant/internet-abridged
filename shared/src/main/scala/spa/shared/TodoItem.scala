@@ -30,6 +30,7 @@ object TabId{
   val LifeHacker = "LifeHacker"
   val RedditTechnology = "RedditTechnology"
   val Slashdot = "Slashdot"
+  val Techdirt = "Techdirt"
 
   val RedditProgramming = "RedditProgramming"
   val HackerNews = "HackerNews"
@@ -66,6 +67,7 @@ object TabFeedSources {
   val LifeHacker = "http://lifehacker.com/rss"
   val RedditTechnology = "https://www.reddit.com/r/technology/.rss"
   val Slashdot = "http://rss.slashdot.org/Slashdot/slashdot"
+  val Techdirt = "https://feeds.feedburner.com/techdirt/feed"
 
   val RedditProgramming = "https://www.reddit.com/r/programming/.rss"
   val HackerNews = "https://news.ycombinator.com/rss"

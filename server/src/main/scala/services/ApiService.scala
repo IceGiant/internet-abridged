@@ -93,6 +93,7 @@ object ApiService {
     TabId.LifeHacker -> TabFeedSources.LifeHacker,
     TabId.RedditTechnology -> TabFeedSources.RedditTechnology,
     TabId.Slashdot -> TabFeedSources.Slashdot,
+    TabId.Techdirt -> TabFeedSources.Techdirt,
 
     TabId.RedditProgramming -> TabFeedSources.RedditProgramming,
     TabId.HackerNews -> TabFeedSources.HackerNews,
@@ -119,7 +120,8 @@ object ApiService {
       sourceId match {
         case TabId.LifeHacker => //println("Parsing lifehacker")
           parseRssV2(sourceId)
-        case TabId.Slashdot => pasrseSlashdotFeed(sourceId)
+        case TabId.Slashdot => parseSlashdotFeed(sourceId)
+        case TabId.Techdirt => parseRssV2(sourceId)
 
         case TabId.HackerNews => parseRssV2(sourceId)
 
@@ -134,7 +136,7 @@ object ApiService {
 
   }
 
-  def pasrseSlashdotFeed(sourceId: String): Future[Seq[TitleLink]] = {
+  def parseSlashdotFeed(sourceId: String): Future[Seq[TitleLink]] = {
     val url = siteMapping(sourceId)
     WS.url(url).get().map( futResponse => {
       val entries = for (entry <- futResponse.xml \\ "item")
