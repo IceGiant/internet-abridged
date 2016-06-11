@@ -72,11 +72,19 @@ object HomeInits {
       onSelectedUrl = TabFeedSources.AskReddit
     )
 
+    val redditVideos = ContainerTab.Props(
+      ContainerTab.AnchorProps(),
+      ContainerTab.ImageProps("src", RedditVideos, icon = Icon.reddit, imgText = "Videos"),
+      RedditVideos,
+      onSelectedUrl = TabFeedSources.RedditVideos
+    )
+
     List(
       redditFrontpage,
       redditTop,
       redditTil,
-      askReddit
+      askReddit,
+      redditVideos
     )
   }
 
@@ -124,6 +132,13 @@ object HomeInits {
       onSelectedUrl = TabFeedSources.HackerNews
     )
 
+    val redditProgrammingTop = ContainerTab.Props(
+      ContainerTab.AnchorProps(),
+      ContainerTab.ImageProps("src", RedditProgramming, icon = Icon.reddit, imgText = "Top"),
+      RedditProgramming,
+      onSelectedUrl = TabFeedSources.RedditProgramming
+    )
+
     val redditCoding = ContainerTab.Props(
       ContainerTab.AnchorProps(),
       ContainerTab.ImageProps("src", RedditCoding, icon = Icon.reddit, imgText = "Coding"),
@@ -141,6 +156,7 @@ object HomeInits {
     List(
       redditProgramming,
       hackerNews,
+      redditProgrammingTop,
       redditCoding,
       redditProgHumor
     )

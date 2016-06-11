@@ -24,6 +24,7 @@ object TabId{
   val RedditTop = "RedditTop"
   val RedditTil = "RedditTil"
   val AskReddit = "AskReddit"
+  val RedditVideos = "RedditVideos"
 
   val RedditTech = "RedditTech"
   val LifeHacker = "LifeHacker"
@@ -31,6 +32,7 @@ object TabId{
 
   val RedditProgramming = "RedditProgramming"
   val HackerNews = "HackerNews"
+  val RedditProgrammingTop = "RedditProgrammingTop"
   val RedditCoding = "RedditCoding"
   val RedditProgrammingHumor = "RedditProgrammingHumor"
 
@@ -56,6 +58,7 @@ object TabFeedSources {
   val RedditTop = "https://reddit.com/top/.rss"
   val RedditTil = "https://www.reddit.com/r/todayilearned/.rss"
   val AskReddit = "https://www.reddit.com/r/AskReddit/.rss"
+  val RedditVideos = "https://www.reddit.com/r/videos/.rss"
 
 
   val RedditTech = "https://www.reddit.com/r/tech/.rss"
@@ -64,6 +67,7 @@ object TabFeedSources {
 
   val RedditProgramming = "https://www.reddit.com/r/programming/.rss"
   val HackerNews = "https://news.ycombinator.com/rss"
+  val RedditProgrammingTop = "https://www.reddit.com/r/programming/.rss"
   val RedditCoding = "https://www.reddit.com/r/coding/.rss"
   val RedditProgrammingHumor = "https://www.reddit.com/r/ProgrammerHumor/.rss"
 

@@ -87,6 +87,7 @@ object ApiService {
     TabId.RedditTop -> TabFeedSources.RedditTop,
     TabId.RedditTil -> TabFeedSources.RedditTil,
     TabId.AskReddit -> TabFeedSources.AskReddit,
+    TabId.RedditVideos -> TabFeedSources.RedditVideos,
 
     TabId.RedditTech -> TabFeedSources.RedditTech,
     TabId.LifeHacker -> TabFeedSources.LifeHacker,
@@ -94,6 +95,7 @@ object ApiService {
 
     TabId.RedditProgramming -> TabFeedSources.RedditProgramming,
     TabId.HackerNews -> TabFeedSources.HackerNews,
+    TabId.RedditProgrammingTop -> TabFeedSources.RedditProgrammingTop,
     TabId.RedditCoding -> TabFeedSources.RedditCoding,
     TabId.RedditProgrammingHumor -> TabFeedSources.RedditProgrammingHumor,
 
@@ -116,7 +118,11 @@ object ApiService {
       sourceId match {
         case TabId.LifeHacker => //println("Parsing lifehacker")
           parseRssV2(sourceId)
+
+
         case TabId.HackerNews => parseRssV2(sourceId)
+
+
         case TabId.NoAgenda => parseRssV2(sourceId)
         case TabId.HardcoreHistory => parseRssV2(sourceId)
         case TabId.SecurityNow => parseRssV2(sourceId)
