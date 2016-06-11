@@ -32,6 +32,7 @@ class RootActor extends Actor {
   val askReddit = context.system.actorOf(Props(classOf[SupervisorActor], TabId.AskReddit))
 
   val redditTech = context.system.actorOf(Props(classOf[SupervisorActor], TabId.RedditTech))
+  val lifeHacker = context.system.actorOf(Props(classOf[SupervisorActor], TabId.LifeHacker))
   val redditTechnology = context.system.actorOf(Props(classOf[SupervisorActor], TabId.RedditTechnology))
 
   val redditProgramming = context.system.actorOf(Props(classOf[SupervisorActor], TabId.RedditProgramming))

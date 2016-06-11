@@ -86,6 +86,13 @@ object HomeInits {
       onSelectedUrl = TabFeedSources.RedditTech
     )
 
+    val lifeHacker = ContainerTab.Props(
+      ContainerTab.AnchorProps("ns"),
+      ContainerTab.ImageProps("src", LifeHacker, imgText = LifeHacker),
+      LifeHacker,
+      onSelectedUrl = TabFeedSources.LifeHacker
+    )
+
     val redditTechnology = ContainerTab.Props(
       ContainerTab.AnchorProps("ns"),
       ContainerTab.ImageProps("src", RedditTechnology, icon = Icon.reddit, imgText = "Technology"),
@@ -95,6 +102,7 @@ object HomeInits {
 
     List(
       redditTech,
+      lifeHacker,
       redditTechnology
     )
   }

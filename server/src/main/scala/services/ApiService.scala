@@ -89,6 +89,7 @@ object ApiService {
     TabId.AskReddit -> TabFeedSources.AskReddit,
 
     TabId.RedditTech -> TabFeedSources.RedditTech,
+    TabId.LifeHacker -> TabFeedSources.LifeHacker,
     TabId.RedditTechnology -> TabFeedSources.RedditTechnology,
 
     TabId.RedditProgramming -> TabFeedSources.RedditProgramming,
@@ -97,6 +98,8 @@ object ApiService {
 
     TabId.RedditPics -> TabFeedSources.RedditPics,
     TabId.RedditComics -> TabFeedSources.RedditComics
+
+
   )
 
   def refreshFeed(sourceId: String): Future[Seq[TitleLink]] = {
@@ -104,9 +107,27 @@ object ApiService {
       parseRedditFeed(sourceId)
     }
     else {
-      println(s"Uh oh! from: $sourceId")
-      Future(Seq.empty)
+      sourceId match {
+        case TabId.LifeHacker => println("Parsing lifehacker")
+          parseSitesOwnRssv2(sourceId)
+        case _ => println(s"Uh oh! from: $sourceId")
+          Future(Seq.empty)
+      }
     }
+
+  }
+
+  def parseSitesOwnRssv2(sourceId: String): Future[Seq[TitleLink]] = {
+    val url = siteMapping(sourceId)
+    WS.url(url).get().map( futResponse => {
+      val entries = for (entry <- futResponse.xml \\ "channel" \\ "item")
+        yield {
+          val title = entry \\ "title"
+          val href = entry \\ "link"
+          TitleLink(title.text, href.text)
+        }
+      entries
+    })
   }
 
   def parseRedditFeed(sourceId: String): Future[Seq[TitleLink]] = {

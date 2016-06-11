@@ -26,6 +26,7 @@ object TabId{
   val AskReddit = "AskReddit"
 
   val RedditTech = "RedditTech"
+  val LifeHacker = "LifeHacker"
   val RedditTechnology = "RedditTechnology"
 
   val RedditProgramming = "RedditProgramming"
@@ -34,6 +35,8 @@ object TabId{
 
   val RedditPics = "RedditPics"
   val RedditComics = "RedditComics"
+
+
 
 
   /*Maybe
@@ -52,6 +55,7 @@ object TabFeedSources {
 
 
   val RedditTech = "https://www.reddit.com/r/tech/.rss"
+  val LifeHacker = "http://lifehacker.com/rss"
   val RedditTechnology = "https://www.reddit.com/r/technology/.rss"
 
   val RedditProgramming = "https://www.reddit.com/r/programming/.rss"
@@ -60,6 +64,8 @@ object TabFeedSources {
 
   val RedditPics = "https://www.reddit.com/r/pics/.rss"
   val RedditComics = "https://www.reddit.com/r/comics/.rss"
+
+
 
 
   /* maybe
