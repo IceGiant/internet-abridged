@@ -134,9 +134,9 @@ object HomeInits {
 
     val redditProgrammingTop = ContainerTab.Props(
       ContainerTab.AnchorProps(),
-      ContainerTab.ImageProps("src", RedditProgramming, icon = Icon.reddit, imgText = "Top"),
-      RedditProgramming,
-      onSelectedUrl = TabFeedSources.RedditProgramming
+      ContainerTab.ImageProps("src", RedditProgrammingTop, icon = Icon.reddit, imgText = "Top"),
+      RedditProgrammingTop,
+      onSelectedUrl = TabFeedSources.RedditProgrammingTop
     )
 
     val redditCoding = ContainerTab.Props(
