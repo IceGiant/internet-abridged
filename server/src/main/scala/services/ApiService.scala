@@ -93,6 +93,7 @@ object ApiService {
     TabId.RedditTechnology -> TabFeedSources.RedditTechnology,
 
     TabId.RedditProgramming -> TabFeedSources.RedditProgramming,
+    TabId.HackerNews -> TabFeedSources.HackerNews,
     TabId.RedditCoding -> TabFeedSources.RedditCoding,
     TabId.RedditProgrammingHumor -> TabFeedSources.RedditProgrammingHumor,
 
@@ -108,8 +109,9 @@ object ApiService {
     }
     else {
       sourceId match {
-        case TabId.LifeHacker => println("Parsing lifehacker")
+        case TabId.LifeHacker => //println("Parsing lifehacker")
           parseSitesOwnRssv2(sourceId)
+        case TabId.HackerNews => parseSitesOwnRssv2(sourceId)
         case _ => println(s"Uh oh! from: $sourceId")
           Future(Seq.empty)
       }

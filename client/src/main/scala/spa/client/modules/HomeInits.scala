@@ -115,6 +115,13 @@ object HomeInits {
       onSelectedUrl = TabFeedSources.RedditProgramming
     )
 
+    val hackerNews = ContainerTab.Props(
+      ContainerTab.AnchorProps(),
+      ContainerTab.ImageProps("src", HackerNews, icon = Icon.yCombinator, imgText = "Hacker News"),
+      HackerNews,
+      onSelectedUrl = TabFeedSources.HackerNews
+    )
+
     val redditCoding = ContainerTab.Props(
       ContainerTab.AnchorProps("ns"),
       ContainerTab.ImageProps("src", RedditCoding, icon = Icon.reddit, imgText = "Coding"),
@@ -124,13 +131,14 @@ object HomeInits {
 
     val redditProgHumor = ContainerTab.Props(
       ContainerTab.AnchorProps("ns"),
-      ContainerTab.ImageProps("src", RedditProgrammingHumor, /*icon = Icon.reddit,*/ imgText = "Humor"),
+      ContainerTab.ImageProps("src", RedditProgrammingHumor, imgText = "Humor"),
       RedditProgrammingHumor,
       onSelectedUrl = TabFeedSources.RedditProgrammingHumor
     )
 
     List(
       redditProgramming,
+      hackerNews,
       redditCoding,
       redditProgHumor
     )
