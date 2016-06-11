@@ -92,6 +92,7 @@ object ApiService {
     TabId.RedditTech -> TabFeedSources.RedditTech,
     TabId.LifeHacker -> TabFeedSources.LifeHacker,
     TabId.RedditTechnology -> TabFeedSources.RedditTechnology,
+    TabId.Slashdot -> TabFeedSources.Slashdot,
 
     TabId.RedditProgramming -> TabFeedSources.RedditProgramming,
     TabId.HackerNews -> TabFeedSources.HackerNews,
@@ -118,10 +119,10 @@ object ApiService {
       sourceId match {
         case TabId.LifeHacker => //println("Parsing lifehacker")
           parseRssV2(sourceId)
+        case TabId.Slashdot => parseRssV2(sourceId)
 
 
         case TabId.HackerNews => parseRssV2(sourceId)
-
 
         case TabId.NoAgenda => parseRssV2(sourceId)
         case TabId.HardcoreHistory => parseRssV2(sourceId)

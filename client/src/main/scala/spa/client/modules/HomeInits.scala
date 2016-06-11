@@ -110,10 +110,18 @@ object HomeInits {
       onSelectedUrl = TabFeedSources.RedditTechnology
     )
 
+    val slashdot = ContainerTab.Props(
+      ContainerTab.AnchorProps(),
+      ContainerTab.ImageProps("src", Slashdot, imgText = "/."),
+      Slashdot,
+      onSelectedUrl = TabFeedSources.Slashdot
+    )
+
     List(
       redditTech,
       lifeHacker,
-      redditTechnology
+      redditTechnology,
+      slashdot
     )
   }
 
