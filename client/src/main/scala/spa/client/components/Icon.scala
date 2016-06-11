@@ -598,6 +598,7 @@ object Icon {
   def xing = apply("xing")
   def xingSquare = apply("xing-square")
   def yahoo = apply("yahoo")
+  def yCombinator = apply("y-combinator")
   def yelp = apply("yelp")
   def yen = apply("yen")
   def youtube = apply("youtube")
