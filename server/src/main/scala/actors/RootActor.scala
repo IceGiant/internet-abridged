@@ -3,6 +3,7 @@ package actors
 import akka.actor.SupervisorStrategy.Restart
 import akka.remote.ContainerFormats.ActorRef
 import akka.actor._
+import services.ApiService
 import spa.shared.TabId
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -26,31 +27,10 @@ class RootActor extends Actor {
   }
   //initialize DB actors
   println("try to creat actor")
-  val reddit = context.system.actorOf(Props(classOf[SupervisorActor], TabId.Reddit))
-  val redditTop = context.system.actorOf(Props(classOf[SupervisorActor], TabId.RedditTop))
-  val redditTil = context.system.actorOf(Props(classOf[SupervisorActor], TabId.RedditTil))
-  val askReddit = context.system.actorOf(Props(classOf[SupervisorActor], TabId.AskReddit))
-  val redditVideos = context.system.actorOf(Props(classOf[SupervisorActor], TabId.RedditVideos))
 
-  val redditTech = context.system.actorOf(Props(classOf[SupervisorActor], TabId.RedditTech))
-  val lifeHacker = context.system.actorOf(Props(classOf[SupervisorActor], TabId.LifeHacker))
-  val redditTechnology = context.system.actorOf(Props(classOf[SupervisorActor], TabId.RedditTechnology))
-  val slashdot = context.system.actorOf(Props(classOf[SupervisorActor], TabId.Slashdot))
-  val techdirt = context.system.actorOf(Props(classOf[SupervisorActor], TabId.Techdirt))
-
-  val redditProgramming = context.system.actorOf(Props(classOf[SupervisorActor], TabId.RedditProgramming))
-  val hackerNews = context.system.actorOf(Props(classOf[SupervisorActor], TabId.HackerNews))
-  val redditProgrammingTop = context.system.actorOf(Props(classOf[SupervisorActor], TabId.RedditProgrammingTop))
-  val redditCoding = context.system.actorOf(Props(classOf[SupervisorActor], TabId.RedditCoding))
-  val redditProgrammingHumor = context.system.actorOf(Props(classOf[SupervisorActor], TabId.RedditProgrammingHumor))
-
-  val redditPics= context.system.actorOf(Props(classOf[SupervisorActor], TabId.RedditPics))
-  val redditComics= context.system.actorOf(Props(classOf[SupervisorActor], TabId.RedditComics))
-
-  val noAgenda = context.system.actorOf(Props(classOf[SupervisorActor], TabId.NoAgenda))
-  val hardcoreHistory = context.system.actorOf(Props(classOf[SupervisorActor], TabId.HardcoreHistory))
-  val securityNow = context.system.actorOf(Props(classOf[SupervisorActor], TabId.SecurityNow))
-  val commonSense = context.system.actorOf(Props(classOf[SupervisorActor], TabId.CommonSense))
+  val feedParseActors = ApiService.siteMapping.keys.map( key =>
+    context.system.actorOf(Props(classOf[SupervisorActor], key))
+  )
 
   println("root actor init")
 
