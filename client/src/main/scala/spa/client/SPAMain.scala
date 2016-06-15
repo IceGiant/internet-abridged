@@ -22,9 +22,9 @@ object SPAMain extends js.JSApp {
 
   case object HomeLoc extends Loc
 
-  //case object TodoLoc extends Loc
-
   case object AboutLoc extends Loc
+
+  case object FeedbackLoc extends Loc
 
   // configure the router
   val routerConfig = RouterConfigDsl[Loc].buildConfig { dsl =>
@@ -32,8 +32,8 @@ object SPAMain extends js.JSApp {
 
     // wrap/connect components to the circuit
     (staticRoute(root, HomeLoc) ~> renderR(ctl => Home(ctl))
-      //| staticRoute("#todo", TodoLoc) ~> renderR(ctl => SPACircuit.connect(_.todos)(Todo(_)))
-      | staticRoute("#info", AboutLoc) ~> renderR(ctl => NewsCircuit.connect(_.newsLinks)(About(_)))
+      | staticRoute("#about", AboutLoc) ~> renderR(ctl => About(ctl))
+      | staticRoute("#feedback", FeedbackLoc) ~> renderR(ctl => Feedback(ctl))
       ).notFound(redirectToPage(HomeLoc)(Redirect.Replace))
   }.renderWith(layout)
 

@@ -50,7 +50,7 @@ object Bootstrap {
     val component = ReactComponentB[Props]("Panel")
       .renderPC((_, p, c) =>
         <.div(bss.panelOpt(p.style),
-          <.div(bss.panelHeading, p.heading),
+          <.div(bss.panelHeading, <.h4(p.heading)),
           <.div(bss.panelBody, c)
         )
       ).build
