@@ -30,15 +30,16 @@ object About {
         Panel(Panel.Props("About internet-abridged.com"),
           <.div(
             <.p(
-              """I created this site to learn React.js to create the UI for a "single page app"
-                |and create an aggregator for myself entirely built in Scala.  All the JavaScript, HTML,
+              """I embarked on this project to use Scala to create a "single page app" and a news aggregator
+                | for myself.  As a side effect, I learned React.js in the process.  All the JavaScript, HTML,
                 |and backend server code used for this site are written in the same language, leveraging a
-                |library for the HTML fragments, and the Scala.js compiler to compile Scala to browser JS
-                |instead of server side JVM code.  Server side, I make use of a small set of Akka Actors to
-                |concurrently retrieve updated feeds roughly every fifteen minutes.""".stripMargin),
+                |library for the HTML fragments, and the Scala.js compiler (with the help of a React library)
+                |to compile Scala to browser JS instead of server side JVM code.  Server side, I make use of
+                |a small set of Akka Actors to concurrently retrieve updated feeds roughly every fifteen
+                |minutes.""".stripMargin),
             <.div(
               "Do you have questions about the site?  Suggestions for feeds you think I should aggregate?  ",
-              "Send me some ", p.router.link(FeedbackLoc)("feedback.  "),
+              "Send me some ", p.router.link(FeedbackLoc)("feedback"), ".  ",
               "Interested in me as a candidate to work at your company?  ",
               "Let's see if we'd make a good fit for one another.  ",
               p.router.link(FeedbackLoc)("You can reach me the same way.")
