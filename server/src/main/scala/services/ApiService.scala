@@ -67,17 +67,15 @@ class ApiService extends Api {
 
   override def updateNewsList(tabId: String, contentType: String): Future[Seq[LinkObject]] = {
     //Make a call to the DB and get the list of links for the relevant news source
-    /*try {
-      Await.result(*/models.NewsLinkModel.store.selectByNewsSourceId(tabId)/*, Duration.Inf)
-    }
-    catch {
-      case e: Exception =>
-        println("caught exception")
-        println(e.getMessage)
-        Seq.empty[LinkObject]
-    }*/
+    models.NewsLinkModel.store.selectByNewsSourceId(tabId)
   }
 
+  override def submitFeedback(name: String = "Anonymous",
+                              email: String = "anonymous@internet-abridged.com",
+                              subject: String, message: String): Future[Boolean] = {
+    //Send information off via Play mailer to my email address
+    Future(true)
+  }
 }
 
 
