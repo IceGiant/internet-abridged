@@ -70,9 +70,7 @@ class ApiService extends Api {
     models.NewsLinkModel.store.selectByNewsSourceId(tabId)
   }
 
-  override def submitFeedback(name: String = "Anonymous",
-                              email: String = "anonymous@internet-abridged.com",
-                              subject: String, message: String): Future[Boolean] = {
+  override def submitFeedback(feedbackDate: EmailFormData): Future[Boolean] = {
     //Send information off via Play mailer to my email address
     Future(true)
   }
