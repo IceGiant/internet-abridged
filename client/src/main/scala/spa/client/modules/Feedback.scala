@@ -1,12 +1,13 @@
 package spa.client.modules
 
 import japgolly.scalajs.react.vdom.prefix_<^._
-import japgolly.scalajs.react.{ReactComponentB, Callback, BackendScope}
+import japgolly.scalajs.react._
 import japgolly.scalajs.react.extra.router.RouterCtl
 import spa.client.SPAMain.Loc
 import spa.client.components.Bootstrap.{Button, Panel}
 import spa.client.components.GlobalStyles
 import spa.client.logger._
+import spa.shared.EmailFormData
 
 /**
   * Created by skypage on 6/14/16.
@@ -17,14 +18,36 @@ object Feedback {
 
   class Backend($: BackendScope[Props, Unit]) {
 
-    val subject = <.input.text(^.id:="subject", ^.className:="form-control")
-    val message = <.textarea(^.id:="message", ^.className:="form-control", ^.rows:="5")
-    val name = <.input.text(^.id:="name", ^.className:="form-control")
-    val email = <.input.email(^.id:="email", ^.className:="form-control")
+    var subject = ""
+    var message = ""
+    var name = ""
+    var email = ""
 
     def onSubmit= {
-      Callback.log("Testing")
+      if (subject.isEmpty || message.isEmpty){
+        //Error message since data is missing
+        Callback.log("Invalid user input")
+      }
+      else {
+        //Todo: Send information to the server
+        val submitData = EmailFormData(name, email, subject, message)
+        log.debug(submitData.toString)
+        Callback.log("Testing")
+      }
     }
+
+    def onSubjectChange(e: ReactEventI) =
+      Callback(subject = e.target.value)
+
+    def onMessageChange(e: ReactEventI) =
+      Callback(message = e.target.value)
+
+    def onNameChange(e: ReactEventI) =
+      Callback(name = e.target.value)
+
+    def onEmailChange(e: ReactEventI) =
+      Callback(email = e.target.value)
+
 
     def render(p: Props) = {//}, s: State) = {
       <.div(^.className:="col-md-8 col-md-offset-2")(
@@ -32,9 +55,9 @@ object Feedback {
           <.form()(
             <.div(^.className:="form-group")(
               <.label(^.`for`:="subject")("Subject:"), <.br,
-              subject, <.br,
+              <.input.text(^.id:="subject", ^.className:="form-control", ^.onChange ==> onSubjectChange), <.br,
               <.label(^.`for`:="message")("Message:"), <.br,
-              message, <.br, <.br,
+              <.textarea(^.id:="message", ^.className:="form-control", ^.rows:="5", ^.onChange ==> onMessageChange), <.br, <.br,
 
               <.b("Optional information:"),
               <.p()(
@@ -43,9 +66,9 @@ object Feedback {
                    without an email address, so keep that in mind.  Your email address will only
                    be used as a possible way for me to reply to you."""),
               <.label(^.`for`:="name")("Your name:"), <.br,
-              name, <.br,
+              <.input.text(^.id:="name", ^.className:="form-control", ^.onChange ==> onNameChange), <.br,
               <.label(^.`for`:="email")("Your email:"), <.br,
-              email, <.br,
+              <.input.email(^.id:="email", ^.className:="form-control"), ^.onChange ==> onEmailChange, <.br,
 
               Button(Button.Props(onSubmit, addStyles = Seq(bss.pullRight, bss.button)), "Submit")
             )
