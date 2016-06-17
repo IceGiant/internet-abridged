@@ -17,6 +17,11 @@ object Feedback {
 
   class Backend($: BackendScope[Props, Unit]) {
 
+    val subject = <.input.text(^.id:="subject", ^.className:="form-control")
+    val message = <.textarea(^.id:="message", ^.className:="form-control", ^.rows:="5")
+    val name = <.input.text(^.id:="name", ^.className:="form-control")
+    val email = <.input.email(^.id:="email", ^.className:="form-control")
+
     def onSubmit= {
       Callback.log("Testing")
     }
@@ -27,9 +32,9 @@ object Feedback {
           <.form()(
             <.div(^.className:="form-group")(
               <.label(^.`for`:="subject")("Subject:"), <.br,
-              <.input.text(^.id:="subject", ^.className:="form-control")(), <.br,
+              subject, <.br,
               <.label(^.`for`:="message")("Message:"), <.br,
-              <.textarea(^.id:="message", ^.className:="form-control", ^.rows:="5")(), <.br, <.br,
+              message, <.br, <.br,
 
               <.b("Optional information:"),
               <.p()(
@@ -38,9 +43,9 @@ object Feedback {
                    without an email address, so keep that in mind.  Your email address will only
                    be used as a possible way for me to reply to you."""),
               <.label(^.`for`:="name")("Your name:"), <.br,
-              <.input.text(^.id:="name", ^.className:="form-control"), <.br,
+              name, <.br,
               <.label(^.`for`:="email")("Your email:"), <.br,
-              <.input.email(^.id:="email", ^.className:="form-control"), <.br,
+              email, <.br,
 
               Button(Button.Props(onSubmit, addStyles = Seq(bss.pullRight, bss.button)), "Submit")
             )
