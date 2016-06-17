@@ -5,18 +5,20 @@ import java.nio.ByteBuffer
 import actors.RootActor
 import akka.actor.{Props, ActorSystem}
 import boopickle.Default._
+import com.google.inject.{Inject, Singleton}
 import play.api.mvc._
 import services.ApiService
 import spa.shared.Api
 
 import scala.concurrent.ExecutionContext.Implicits.global
 
-object Router extends autowire.Server[ByteBuffer, Pickler, Pickler] {
+class Router extends autowire.Server[ByteBuffer, Pickler, Pickler] {
   override def read[R: Pickler](p: ByteBuffer) = Unpickle[R].fromBytes(p)
   override def write[R: Pickler](r: R) = Pickle.intoBytes(r)
 }
 
-object Application extends Controller {
+@Singleton
+class Application @Inject() (router: Router) extends Controller {
   val apiService = new ApiService()
   val systemName = "Scrapers"
   val system1 = ActorSystem(systemName)
@@ -35,7 +37,7 @@ object Application extends Controller {
       val b = request.body.asBytes(parse.UNLIMITED).get
 
       // call Autowire route
-      Router.route[Api](apiService)(
+      router.route[Api](apiService)(
         autowire.Core.Request(path.split("/"), Unpickle[Map[String, ByteBuffer]].fromBytes(ByteBuffer.wrap(b)))
       ).map(buffer => {
         val data = Array.ofDim[Byte](buffer.remaining())
