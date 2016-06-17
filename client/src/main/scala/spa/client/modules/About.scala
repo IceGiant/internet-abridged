@@ -40,8 +40,7 @@ object About {
             <.div(
               "Do you have questions about the site?  Suggestions for feeds you think I should aggregate?  ",
               "Send me some ", p.router.link(FeedbackLoc)("feedback"), ".  ",
-              "Interested in me as a candidate to work at your company?  ",
-              "Let's see if we'd make a good fit for one another.  ",
+              "Is there another reason you want to talk to me?  ",
               p.router.link(FeedbackLoc)("You can reach me the same way.")
             )
           )
