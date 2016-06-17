@@ -32,7 +32,7 @@ class SupervisorActor(tabId: String) extends Actor{
     scraper ! StartScraping
   }
 
-  context.system.scheduler.schedule(15.seconds, 15.minutes)(deleteAndRefresh())
+  context.system.scheduler.schedule(0.seconds, 15.minutes)(deleteAndRefresh())
 
   def receive = {
     case _ => println("Unexpected msg to DbActor")//bad message
