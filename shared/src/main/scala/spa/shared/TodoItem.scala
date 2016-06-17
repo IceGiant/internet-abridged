@@ -91,3 +91,7 @@ object TabFeedSources {
   val GoogleNewsUS = "https://news.google.com/news/section?pz=1&cf=all&topic=n&ict=ln"
   */
 }
+
+case class EmailFormData(name: String = "Anonymous",
+                         email: String = "anonymous@internet-abridged.com",
+                         subject: String, message: String)
