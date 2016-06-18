@@ -6,6 +6,7 @@ import actors.RootActor
 import akka.actor.{Props, ActorSystem}
 import boopickle.Default._
 import com.google.inject.{Inject, Singleton}
+import play.api.libs.mailer.MailerClient
 import play.api.mvc._
 import services.ApiService
 import spa.shared.Api
@@ -18,12 +19,11 @@ class Router extends autowire.Server[ByteBuffer, Pickler, Pickler] {
 }
 
 @Singleton
-class Application @Inject() (router: Router) extends Controller {
-  val apiService = new ApiService()
+class Application @Inject() (router: Router, mailer: MailerClient) extends Controller {
+  val apiService = new ApiService(mailer)
   val systemName = "Scrapers"
   val system1 = ActorSystem(systemName)
   val rootActor = system1.actorOf(Props[RootActor])
-
 
   def index = Action {
     Ok(views.html.index("The Internet (Abridged)"))

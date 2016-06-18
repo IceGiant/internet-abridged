@@ -4,6 +4,7 @@ import java.util.{Date, UUID}
 
 import com.ning.http.client.Response
 import play.api.Play.current
+import play.api.libs.mailer.{Email, MailerClient}
 import play.libs.F.Promise
 import spa.shared._
 
@@ -15,7 +16,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.xml.NodeSeq
 import play.api.libs.ws.WS
 
-class ApiService extends Api {
+class ApiService (mailer: MailerClient) extends Api {
   /*
   var todos = Seq(
     TodoItem("41424344-4546-4748-494a-4b4c4d4e4f50", 0x61626364, "Wear shirt that says “Life”. Hand out lemons on street corner.", TodoLow, false),
@@ -70,9 +71,21 @@ class ApiService extends Api {
     models.NewsLinkModel.store.selectByNewsSourceId(tabId)
   }
 
-  override def submitFeedback(feedbackDate: EmailFormData): Future[Boolean] = {
+  override def submitFeedback(feedbackData: EmailFormData): Future[Boolean] = {
     //Send information off via Play mailer to my email address
-    Future(true)
+    val email = Email(
+      feedbackData.subject,
+      s"${feedbackData.name} <${feedbackData.email}>",
+      bodyText = Some(feedbackData.message)
+    )
+    Future(mailer.send(email)).map( res => {
+      res match {
+        case s: String => println(s"Got result: $res")
+          true
+        case _ => println("Email sending error")
+          false
+      }
+    })
   }
 }
 
