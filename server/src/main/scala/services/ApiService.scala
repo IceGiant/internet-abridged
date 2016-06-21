@@ -72,21 +72,25 @@ class ApiService @Inject() (mailer: MailerClient) extends Api {
     models.NewsLinkModel.store.selectByNewsSourceId(tabId)
   }
 
+  val recipient: String = current.configuration.getString("play.mailer.user") match {
+    case Some(user) => user
+  }
+
   override def submitFeedback(feedbackData: EmailFormData): Future[Boolean] = {
     //Send information off via Play mailer to my email address
     val email = Email(
       feedbackData.subject,
       s"${feedbackData.name} <${feedbackData.email}>",
+      Seq(recipient),
       bodyText = Some(feedbackData.message)
     )
-    Future(mailer.send(email)).map( res => {
-      res match {
-        case s: String => println(s"Got result: $res")
+    Future(mailer.send(email)).map( _ match {
+        case s: String => println(s"Got result: $s")
           true
         case _ => println("Email sending error")
           false
       }
-    })
+    )
   }
 }
 
