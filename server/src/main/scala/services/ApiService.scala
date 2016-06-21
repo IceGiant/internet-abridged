@@ -2,6 +2,7 @@ package services
 
 import java.util.{Date, UUID}
 
+import javax.inject.Inject
 import com.ning.http.client.Response
 import play.api.Play.current
 import play.api.libs.mailer.{Email, MailerClient}
@@ -16,7 +17,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.xml.NodeSeq
 import play.api.libs.ws.WS
 
-class ApiService (mailer: MailerClient) extends Api {
+class ApiService @Inject() (mailer: MailerClient) extends Api {
   /*
   var todos = Seq(
     TodoItem("41424344-4546-4748-494a-4b4c4d4e4f50", 0x61626364, "Wear shirt that says “Life”. Hand out lemons on street corner.", TodoLow, false),

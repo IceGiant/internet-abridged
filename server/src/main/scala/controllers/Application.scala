@@ -1,14 +1,14 @@
 package controllers
 
 import java.nio.ByteBuffer
+import javax.inject._
 
 import actors.RootActor
 import akka.actor.{Props, ActorSystem}
 import boopickle.Default._
-import com.google.inject.{Inject, Singleton}
 import play.api.libs.mailer.MailerClient
 import play.api.mvc._
-import services.ApiService
+import services.{ ApiService}
 import spa.shared.Api
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -19,8 +19,7 @@ class Router extends autowire.Server[ByteBuffer, Pickler, Pickler] {
 }
 
 @Singleton
-class Application @Inject() (router: Router, mailer: MailerClient) extends Controller {
-  val apiService = new ApiService(mailer)
+class Application @Inject()(router: Router, apiService: ApiService) extends Controller {
   val systemName = "Scrapers"
   val system1 = ActorSystem(systemName)
   val rootActor = system1.actorOf(Props[RootActor])
