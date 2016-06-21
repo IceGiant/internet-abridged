@@ -14,5 +14,3 @@ addSbtPlugin("com.vmunier" % "sbt-play-scalajs" % "0.2.9")
 addSbtPlugin("com.typesafe.sbt" % "sbt-digest" % "1.1.0")
 
 addSbtPlugin("com.typesafe.sbt" % "sbt-gzip" % "1.0.0")
-
-//addSbtPlugin("com.typesafe.play" % "play-mailer_2.11" % "4.0.0")
