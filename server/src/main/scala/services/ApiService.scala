@@ -74,6 +74,8 @@ class ApiService @Inject() (mailer: MailerClient) extends Api {
 
   val recipient: String = current.configuration.getString("play.mailer.user") match {
     case Some(user) => user
+    case _ => println("Missing mailer configuration")
+      ""
   }
 
   override def submitFeedback(feedbackData: EmailFormData): Future[Boolean] = {
