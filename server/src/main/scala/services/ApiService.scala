@@ -186,7 +186,7 @@ object ApiService {
           val source = entry \\ "content"
           val html = source.text
           val end = html.split("""<span><a href="""")
-          val href = end(1).split("\">")
+          val href = end(1).replace("&amp;", "&").split("\">")
           TitleLink(title.text, href.head)
         }
       entries
