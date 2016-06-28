@@ -1,55 +1,131 @@
 package spa.client.modules
 
+import diode.Circuit
+import diode.react._
+import diode.react.ReactPot._
+import diode.data.{Empty, Pot}
 import japgolly.scalajs.react.vdom.prefix_<^._
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.extra.router.RouterCtl
-import spa.client.SPAMain.Loc
+import spa.client.SPAMain._
 import spa.client.components.Bootstrap.{Button, Panel}
 import spa.client.components.GlobalStyles
 import spa.client.logger._
-import spa.shared.EmailFormData
+import spa.client.services.{FeedbackHandler, FeedbackResponse, SendFeedback}
+import spa.shared.{EmailFormData, EmailValidation}
 
 /**
   * Created by skypage on 6/14/16.
   */
 object Feedback {
   case class Props(router: RouterCtl[Loc])
+
+
+  case class FeedbackResponseModel(sent: Pot[FeedbackResponse])
+
+  object FeedbackCircuit extends Circuit[FeedbackResponseModel] with ReactConnector[FeedbackResponseModel] {
+    // initial application model
+    override protected def initialModel = FeedbackResponseModel(Empty)
+    // combine all handlers into one
+    override protected val actionHandler = combineHandlers(
+      new FeedbackHandler(zoomRW(_.sent)((m, v) => m.copy(sent = v)))
+    )
+  }
+
+  val feedbackComponent = FeedbackCircuit.connect(_.sent)(p => FeedbackForm(p))
+
+  private val component = ReactComponentB[Props]("SearchableComponent")
+    .render_P { p =>
+      feedbackComponent
+    }.build
+
+  /** Returns a function compatible with router location system while using our own props */
+  def apply(router: RouterCtl[Loc]) = component(Props(router))
+}
+
+object FeedbackForm {
   @inline private def bss = GlobalStyles.bootstrapStyles
 
-  class Backend($: BackendScope[Props, Unit]) {
+  case class Props(proxy: ModelProxy[Pot[FeedbackResponse]])
+  case class State(name: String = "",
+                   message: String = "",
+                   subject: String = "",
+                   email: String = "",
+                   validInput: Boolean = true,
+                   inputMessage: String = "",
+                   submitDisabled: Boolean = false
+                  )
 
-    var subject = ""
-    var message = ""
-    var name = ""
-    var email = ""
+  class Backend($: BackendScope[Props, State]) {
 
-    def onSubmit= {
-      if (subject.isEmpty || message.isEmpty){
-        //Error message since data is missing
-        Callback.log("Invalid user input")
+    def onSubmit (proxy: ModelProxy[Pot[FeedbackResponse]]) = {
+      var validInput: Boolean = true
+
+      $.modState( s => {
+        if (s.subject.trim.isEmpty) {
+          validInput = false
+          s.copy(validInput = false, inputMessage = "You're missing a subject")
+        }
+        else if (s.message.trim.isEmpty) {
+          validInput = false
+          s.copy(validInput = false, inputMessage = "You're missing a message")
+        }
+        else if (s.email.trim.nonEmpty) {
+          if (EmailValidation.isValid(s.email)) {
+            s.copy(validInput = true, inputMessage = "", submitDisabled = true)
+          }
+          else {
+            validInput = false
+            s.copy(validInput = false, inputMessage = "Your email is invalid")
+          }
+        }
+        else {
+          s.copy(validInput = true, inputMessage = "", submitDisabled = true)
+        }
+    }) >> $.state >>= {s =>
+        //This chains the state modification Callback to the Callback that communicates with the server
+        if (validInput) {
+          val submitData = EmailFormData(s.name, s.email, s.subject, s.message)
+          proxy.dispatch(SendFeedback(submitData))
+        }
+        else Callback()
       }
-      else {
-        //Todo: Send information to the server
-        val submitData = EmailFormData(name, email, subject, message)
-        log.debug(submitData.toString)
-        Callback.log("Testing")
-      }
+  }
+
+    def onSubjectChange(e: ReactEventI) = {
+      val text = e.target.value.toString
+      log.debug(text)
+      $.modState(s => {
+        s.copy(subject = text)
+      })
     }
 
-    def onSubjectChange(e: ReactEventI) =
-      Callback(subject = e.target.value)
+    def onMessageChange(e: ReactEventI) = {
+      val text = e.target.value.toString
+      log.debug(text)
+      $.modState(s => {
+        s.copy(message = text)
+      })
+    }
 
-    def onMessageChange(e: ReactEventI) =
-      Callback(message = e.target.value)
+    def onNameChange(e: ReactEventI) = {
+      val text = e.target.value.toString
+      log.debug(text)
+      $.modState(s => {
+        s.copy(name = text)
+      })
+    }
 
-    def onNameChange(e: ReactEventI) =
-      Callback(name = e.target.value)
+    def onEmailChange(e: ReactEventI) = {
+      val text = e.target.value.toString
+      log.debug(text)
+      $.modState(s => {
+        s.copy(email = text)
+      })
+    }
 
-    def onEmailChange(e: ReactEventI) =
-      Callback(email = e.target.value)
 
-
-    def render(p: Props) = {//}, s: State) = {
+    def render(p: Props, s: State) = {
       <.div(^.className:="col-md-8 col-md-offset-2")(
         Panel(Panel.Props("Feedback"),
           <.form()(
@@ -68,11 +144,30 @@ object Feedback {
               <.label(^.`for`:="name")("Your name:"), <.br,
               <.input.text(^.id:="name", ^.className:="form-control", ^.onChange ==> onNameChange), <.br,
               <.label(^.`for`:="email")("Your email:"), <.br,
-              <.input.email(^.id:="email", ^.className:="form-control"), ^.onChange ==> onEmailChange, <.br,
-
-              Button(Button.Props(onSubmit, addStyles = Seq(bss.pullRight, bss.button)), "Submit")
+              <.input.email(^.id:="email", ^.className:="form-control", ^.onChange ==> onEmailChange), <.br,
+              Button(Button.Props(onSubmit(p.proxy), addStyles = Seq(bss.pullRight, bss.button), disabled = s.submitDisabled), "Submit"),
+              <.div(
+                if (s.validInput) {
+                  <.span(
+                    p.proxy().renderFailed(ex => <.p("Load failed")), p.proxy().renderPending(pend => <.p("Loading...")),
+                    p.proxy().render(result =>
+                      if (result.sent) {
+                        <.p("Success!  Thanks for your input!")
+                      }
+                      else <.p("Submitting your message...")
+                    )
+                  )
+                }
+                else {
+                  <.span(
+                    <.p(^.color := "red")("Looks like you made a mistake:"),
+                    <.p(^.color := "red")(s.inputMessage)
+                  )
+                }
+              )
             )
-          ))
+          )
+        )
       )
     }
 
@@ -80,11 +175,10 @@ object Feedback {
 
   val component = ReactComponentB[Props]("Feedback")
     .initialState({
-      log.debug("Feedback init")
+      State()
     })
     .renderBackend[Backend]
     .build
 
-  /** Returns a function compatible with router location system while using our own props */
-  def apply(router: RouterCtl[Loc]) = component(Props(router))
+  def apply(sent: ModelProxy[Pot[FeedbackResponse]]) = component(Props(sent))
 }
