@@ -7,6 +7,7 @@ import com.ning.http.client.Response
 import play.api.Play.current
 import play.api.libs.mailer.{Email, MailerClient}
 import play.libs.F.Promise
+import play.api.data.validation
 import spa.shared._
 
 import scala.concurrent.{Await, Future}
@@ -72,27 +73,43 @@ class ApiService @Inject() (mailer: MailerClient) extends Api {
     models.NewsLinkModel.store.selectByNewsSourceId(tabId)
   }
 
+  //Get email to send feedback to from the config
   val recipient: String = current.configuration.getString("play.mailer.user") match {
     case Some(user) => user
     case _ => println("Missing mailer configuration")
       ""
   }
 
+  val anonymousSender = "Anonymous <anon@null.null>"
+
+
   override def submitFeedback(feedbackData: EmailFormData): Future[Boolean] = {
     //Send information off via Play mailer to my email address
-    val email = Email(
-      feedbackData.subject,
-      s"${feedbackData.name} <${feedbackData.email}>",
-      Seq(recipient),
-      bodyText = Some(feedbackData.message)
-    )
-    Future(mailer.send(email)).map( _ match {
-        case s: String => println(s"Got result: $s")
-          true
-        case _ => println("Email sending error")
-          false
-      }
-    )
+    try {
+      if (feedbackData.message.trim.length > 0 && feedbackData.subject.trim.length > 0) {
+        val name = if (feedbackData.name.trim.nonEmpty) feedbackData.name else feedbackData.email
+
+        val email = Email(
+          feedbackData.subject, {
+            if (EmailValidation.isValid(feedbackData.email)) s"${name} <${feedbackData.email}>"
+            else anonymousSender
+          },
+          Seq(recipient),
+          bodyText = Some(feedbackData.message)
+        )
+        Future(mailer.send(email)).map(_ match {
+          case s: String => println(s"Got email sending result: $s")
+            true
+          case _ => println("Email sending error")
+            false
+        })
+      } else Future(false)
+    }
+    catch {
+      case e: Exception => println(feedbackData.toString)
+        e.printStackTrace()
+        Future(false)
+    }
   }
 }
 
