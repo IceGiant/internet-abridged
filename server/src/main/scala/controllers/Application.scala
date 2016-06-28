@@ -4,14 +4,14 @@ import java.nio.ByteBuffer
 import javax.inject._
 
 import actors.RootActor
-import akka.actor.{Props, ActorSystem}
+import akka.actor.{ActorSystem, Props}
 import boopickle.Default._
-import play.api.libs.mailer.MailerClient
 import play.api.mvc._
-import services.{ ApiService}
+import services.ApiService
 import spa.shared.Api
 
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 
 class Router extends autowire.Server[ByteBuffer, Pickler, Pickler] {
   override def read[R: Pickler](p: ByteBuffer) = Unpickle[R].fromBytes(p)
@@ -29,7 +29,7 @@ class Application @Inject()(router: Router, apiService: ApiService) extends Cont
   }
 
   def autowireApi(path: String) = Action.async(parse.raw) {
-    implicit request =>
+    implicit request => try {
       println(s"Request path: $path")
 
       // get the request body as Array[Byte]
@@ -43,6 +43,10 @@ class Application @Inject()(router: Router, apiService: ApiService) extends Cont
         buffer.get(data)
         Ok(data)
       })
+    } catch {
+      case e: Exception =>
+        Future(InternalServerError)
+    }
   }
 
   def logging = Action(parse.anyContent) {
