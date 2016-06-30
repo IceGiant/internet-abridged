@@ -53,7 +53,8 @@ object FeedbackForm {
                    email: String = "",
                    validInput: Boolean = true,
                    inputMessage: String = "",
-                   submitDisabled: Boolean = false
+                   submitDisabled: Boolean = false,
+                   submitClicked: Boolean = false
                   )
 
   class Backend($: BackendScope[Props, State]) {
@@ -64,23 +65,23 @@ object FeedbackForm {
       $.modState( s => {
         if (s.subject.trim.isEmpty) {
           validInput = false
-          s.copy(validInput = false, inputMessage = "You're missing a subject")
+          s.copy(validInput = false, inputMessage = "You're missing a subject", submitClicked = true)
         }
         else if (s.message.trim.isEmpty) {
           validInput = false
-          s.copy(validInput = false, inputMessage = "You're missing a message")
+          s.copy(validInput = false, inputMessage = "You're missing a message", submitClicked = true)
         }
         else if (s.email.trim.nonEmpty) {
           if (EmailValidation.isValid(s.email)) {
-            s.copy(validInput = true, inputMessage = "", submitDisabled = true)
+            s.copy(validInput = true, inputMessage = "", submitDisabled = true, submitClicked = true)
           }
           else {
             validInput = false
-            s.copy(validInput = false, inputMessage = "Your email is invalid")
+            s.copy(validInput = false, inputMessage = "Your email is invalid", submitClicked = true)
           }
         }
         else {
-          s.copy(validInput = true, inputMessage = "", submitDisabled = true)
+          s.copy(validInput = true, inputMessage = "", submitDisabled = true, submitClicked = true)
         }
     }) >> $.state >>= {s =>
         //This chains the state modification Callback to the Callback that communicates with the server
@@ -147,23 +148,25 @@ object FeedbackForm {
               <.input.email(^.id:="email", ^.className:="form-control", ^.onChange ==> onEmailChange), <.br,
               Button(Button.Props(onSubmit(p.proxy), addStyles = Seq(bss.pullRight, bss.button), disabled = s.submitDisabled), "Submit"),
               <.div(
-                if (s.validInput) {
-                  <.span(
-                    p.proxy().renderFailed(ex => <.p("Load failed")), p.proxy().renderPending(pend => <.p("Loading...")),
-                    p.proxy().render(result =>
-                      if (result.sent) {
-                        <.p("Success!  Thanks for your input!")
-                      }
-                      else <.p("Submitting your message...")
+                if (s.submitClicked) {
+                  if (s.validInput) {
+                    <.span(
+                      p.proxy().renderFailed(ex => <.p("Load failed")), p.proxy().renderPending(pend => <.p("Loading...")),
+                      p.proxy().render(result =>
+                        if (result.sent) {
+                          <.p("Success!  Thanks for your input!")
+                        }
+                        else <.p("Submitting your message...")
+                      )
                     )
-                  )
-                }
-                else {
-                  <.span(
-                    <.p(^.color := "red")("Looks like you made a mistake:"),
-                    <.p(^.color := "red")(s.inputMessage)
-                  )
-                }
+                  }
+                  else {
+                    <.span(
+                      <.p(^.color := "red")("Looks like you made a mistake:"),
+                      <.p(^.color := "red")(s.inputMessage)
+                    )
+                  }
+                } else <.span
               )
             )
           )
