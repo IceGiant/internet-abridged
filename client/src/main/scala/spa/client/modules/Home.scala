@@ -261,7 +261,7 @@ object LinkList {
           <.li(bss.listGroup.item, ^.borderRadius := "0 !important")(
             <.a(^.href := item.href,
               ^.rel := "nofollow",
-              ^.target := "external"
+              ^.target := s"external-${UniqueTarget()}"
             )(
               item.title
             )
@@ -284,3 +284,10 @@ object LinkList {
     linkList(Props(items, hidden, searchFilter))
 }
 
+object UniqueTarget {
+  var counter: Int = 0
+  def apply(): Int = {
+    counter += 1
+    counter
+  }
+}
