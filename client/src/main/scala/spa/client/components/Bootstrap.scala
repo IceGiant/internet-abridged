@@ -32,11 +32,12 @@ object Bootstrap {
 
   object Button {
 
-    case class Props(onClick: Callback, style: CommonStyle.Value = CommonStyle.default, addStyles: Seq[StyleA] = Seq())
+    case class Props(onClick: Callback, style: CommonStyle.Value = CommonStyle.default, addStyles: Seq[StyleA] = Seq(), disabled: Boolean = false)
 
     val component = ReactComponentB[Props]("Button")
       .renderPC((_, p, c) =>
-        <.button(bss.buttonOpt(p.style), p.addStyles, ^.tpe := "button", ^.onClick --> p.onClick, c)
+        if (p.disabled) <.button(bss.buttonOpt(p.style), p.addStyles, ^.disabled := p.disabled, ^.tpe := "button", ^.onClick --> p.onClick, c)
+        else <.button(bss.buttonOpt(p.style), p.addStyles, ^.tpe := "button", ^.onClick --> p.onClick, c)
       ).build
 
     def apply(props: Props, children: ReactNode*) = component(props, children: _*)

@@ -7,7 +7,6 @@ import diode.data.{Empty, Pot}
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.prefix_<^._
-import org.scalajs.dom.raw.{HTMLAnchorElement, HTMLDivElement, HTMLUListElement}
 import spa.client.SPAMain._
 import spa.client.components.Bootstrap._
 import spa.client.components._
@@ -262,7 +261,7 @@ object LinkList {
           <.li(bss.listGroup.item, ^.borderRadius := "0 !important")(
             <.a(^.href := item.href,
               ^.rel := "nofollow",
-              ^.target := "external"
+              ^.target := s"external-${UniqueTarget()}"
             )(
               item.title
             )
@@ -285,3 +284,10 @@ object LinkList {
     linkList(Props(items, hidden, searchFilter))
 }
 
+object UniqueTarget {
+  var counter: Int = 0
+  def apply(): Int = {
+    counter += 1
+    counter
+  }
+}

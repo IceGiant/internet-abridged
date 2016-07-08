@@ -5,7 +5,7 @@ import diode._
 import diode.data._
 import diode.util._
 import diode.react.ReactConnector
-import spa.shared.{Api, LinkObject, TodoItem}
+import spa.shared.{Api, EmailFormData, LinkObject, TodoItem}
 import boopickle.Default._
 
 import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
@@ -15,10 +15,8 @@ import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
   override def next(value: Pot[String]) = UpdateMotd(value)
 }*/
 
-case class UpdateListOfLinks(links: Seq[LinkObject])
-
 case class RefreshLinks(tabId: String, contentType: String = "article")
-
+case class UpdateListOfLinks(links: Seq[LinkObject])
 case class Links(items: Seq[LinkObject]) {
   def updated(newItem: LinkObject) = {
     items.indexWhere(_.id == newItem.id) match {
@@ -31,6 +29,13 @@ case class Links(items: Seq[LinkObject]) {
     }
   }
   def remove(item: LinkObject) = Links(items.filterNot(_ == item))
+}
+
+
+case class SendFeedback(feedbackDate: EmailFormData)
+case class FeedbackSent(sent: Boolean)
+case class FeedbackResponse(sent: Boolean) {
+  def updated(value: Boolean) = FeedbackResponse(value)
 }
 
 
@@ -66,6 +71,24 @@ class LinkHandler[M](modelRW: ModelRW[M, Pot[Links]]) extends ActionHandler(mode
       effectOnly(Effect(AjaxClient[Api].updateNewsList(tab, contentType).call().map(UpdateListOfLinks)))
   }
 }
+
+/**
+  * Handles actions related to feedback submission
+  *
+  * @param modelRW Reader/Writer to access the model
+  */
+
+class FeedbackHandler[M](modelRW: ModelRW[M, Pot[FeedbackResponse]]) extends ActionHandler(modelRW) {
+  override def handle = {
+    case FeedbackSent(response) =>
+      updated(Ready(FeedbackResponse(response)))
+    case SendFeedback(feedback) =>
+      effectOnly(Effect(AjaxClient[Api].submitFeedback(feedback).call().map(FeedbackSent)))
+
+  }
+}
+
+
 
 
 // Application circuit
