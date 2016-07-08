@@ -40,11 +40,10 @@ object Home {
 
     def render(p: Props, s: State) = {
       <.div(^.paddingTop:="10")(
+        <.meta(^.name := "description",
+          ^.contentAttr := "The Net is vast and infinite, but some of the best parts are aggregated here."),
         //searchField,
         SectionsByTopic(s.search)
-
-        // create a link to the To Do view
-        //<.div(router.link(TodoLoc)("Check your todos!"))
       )
     }
   }
