@@ -23,7 +23,7 @@ object Settings {
   /** Declare global dependency versions here to avoid mismatches in multi part dependencies */
   object versions {
     val scala = "2.11.8"
-    val scalaDom = "0.9.0"
+    val scalaDom = "0.9.1"
     val scalajsReact = "0.10.4"
     val scalajsJquery = "0.9.0"
     val scalaCSS = "0.3.1"
