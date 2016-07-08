@@ -17,7 +17,7 @@ import spa.client.services._
 import spa.shared._
 
 /**
-  * Eventually will be a simple about page with a link to a feedback form
+  * Some information about the site, linking to a feedback form and the source code on GitHub
   */
 
 object About {
@@ -42,7 +42,9 @@ object About {
               "Send me some ", p.router.link(FeedbackLoc)("feedback"), ".  ",
               "Is there another reason you want to talk to me?  ",
               p.router.link(FeedbackLoc)("You can reach me the same way.")
-            )
+            ),<.br,
+            <.p("For those curious, you can view the source code for this site ",
+              <.a(^.href := "https://github.com/IceGiant/internet-abridged")("on GitHub"), ".")
           )
         )
       )
