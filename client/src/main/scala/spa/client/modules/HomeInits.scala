@@ -125,9 +125,8 @@ object HomeInits {
     )
 
     List(
-      redditTech,
-      lifeHacker,
       redditTechnology,
+      lifeHacker,
       slashdot,
       techdirt
     )
