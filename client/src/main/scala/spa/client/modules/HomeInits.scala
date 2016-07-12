@@ -37,7 +37,7 @@ object HomeInits {
 
   var cachedTabStates = Seq(
     TabState(reddit, TabId.Reddit),
-    TabState(tech, TabId.RedditTech),
+    TabState(tech, TabId.RedditTechnology),
     TabState(images, TabId.RedditPics),
     TabState(programming, TabId.RedditProgramming),
     TabState(podcasts, TabId.NoAgenda)
@@ -89,11 +89,12 @@ object HomeInits {
   }
 
   def generateTech = {
-    val redditTech = ContainerTab.Props(
+
+    val redditTechnology = ContainerTab.Props(
       ContainerTab.AnchorProps(),
-      ContainerTab.ImageProps("src", RedditTech, icon = Icon.reddit, imgText = "Tech News"),
-      RedditTech,
-      onSelectedUrl = TabFeedSources.RedditTech
+      ContainerTab.ImageProps("src", RedditTechnology, icon = Icon.reddit, imgText = "Technology"),
+      RedditTechnology,
+      onSelectedUrl = TabFeedSources.RedditTechnology
     )
 
     val lifeHacker = ContainerTab.Props(
@@ -101,13 +102,6 @@ object HomeInits {
       ContainerTab.ImageProps("src", LifeHacker, imgText = LifeHacker),
       LifeHacker,
       onSelectedUrl = TabFeedSources.LifeHacker
-    )
-
-    val redditTechnology = ContainerTab.Props(
-      ContainerTab.AnchorProps(),
-      ContainerTab.ImageProps("src", RedditTechnology, icon = Icon.reddit, imgText = "Technology"),
-      RedditTechnology,
-      onSelectedUrl = TabFeedSources.RedditTechnology
     )
 
     val slashdot = ContainerTab.Props(

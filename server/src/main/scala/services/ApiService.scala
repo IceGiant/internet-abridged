@@ -122,9 +122,8 @@ object ApiService {
     TabId.AskReddit -> TabFeedSources.AskReddit,
     TabId.RedditVideos -> TabFeedSources.RedditVideos,
 
-    TabId.RedditTech -> TabFeedSources.RedditTech,
-    TabId.LifeHacker -> TabFeedSources.LifeHacker,
     TabId.RedditTechnology -> TabFeedSources.RedditTechnology,
+    TabId.LifeHacker -> TabFeedSources.LifeHacker,
     TabId.Slashdot -> TabFeedSources.Slashdot,
     TabId.Techdirt -> TabFeedSources.Techdirt,
 
