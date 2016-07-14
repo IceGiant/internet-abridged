@@ -24,16 +24,16 @@ object Settings {
   object versions {
     val scala = "2.11.8"
     val scalaDom = "0.9.1"
-    val scalajsReact = "0.10.4"
+    val scalajsReact = "0.11.0"
     val scalajsJquery = "0.9.0"
-    val scalaCSS = "0.3.1"
+    val scalaCSS = "0.4.1"
     val log4js = "1.4.10"
     val autowire = "0.2.5"
     val booPickle = "1.1.2"
-    val diode = "0.5.0"
+    val diode = "0.5.1"
     val uTest = "0.3.1"
 
-    val react = "0.14.7"
+    val react = "15.0.1"
     val jQuery = "1.11.1"
     val bootstrap = "3.3.6"
     val chartjs = "1.0.1"
@@ -43,7 +43,7 @@ object Settings {
     val playSlick = "1.0.1"
     val slick = "3.1.1"
     val akka = "2.4.6"
-    val playMailer = "4.0.0"
+    val playMailer = "5.0.0"
     val scalaGuice = "4.0.0"
 
     val dispatch = "0.11.2"
@@ -56,7 +56,7 @@ object Settings {
   val sharedDependencies = Def.setting(Seq(
     "com.lihaoyi" %%% "autowire" % versions.autowire,
     "me.chrons" %%% "boopickle" % versions.booPickle,
-    "com.lihaoyi" %%% "utest" % versions.uTest
+    "com.lihaoyi" %%% "utest" % versions.uTest % Test
   ))
 
   /** Dependencies only used by the JVM project */
