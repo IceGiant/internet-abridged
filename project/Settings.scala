@@ -34,7 +34,7 @@ object Settings {
     val uTest = "0.3.1"
 
     val react = "15.0.1"
-    val jQuery = "1.11.1"
+    val jQuery = "1.12.4"
     val bootstrap = "3.3.6"
     val chartjs = "1.0.1"
 

@@ -27,7 +27,7 @@ object Feedback {
     // initial application model
     override protected def initialModel = FeedbackResponseModel(Empty)
     // combine all handlers into one
-    override protected val actionHandler = combineHandlers(
+    override protected val actionHandler = foldHandlers(
       new FeedbackHandler(zoomRW(_.sent)((m, v) => m.copy(sent = v)))
     )
   }

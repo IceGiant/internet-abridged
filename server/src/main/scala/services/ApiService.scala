@@ -1,9 +1,11 @@
 package services
 
 import java.util.{Date, UUID}
-
 import javax.inject.Inject
+
+import com.google.inject.Singleton
 import com.ning.http.client.Response
+import models.{NewsLinkModel, NewsLinkStore}
 import play.api.Play.current
 import play.api.libs.mailer.{Email, MailerClient}
 import play.libs.F.Promise
@@ -12,11 +14,10 @@ import spa.shared._
 
 import scala.concurrent.{Await, Future}
 import scala.concurrent.duration._
-
 import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.xml.NodeSeq
-import play.api.libs.ws.WS
+import play.api.libs.ws.{WS, WSClient}
 
 class ApiService @Inject() (mailer: MailerClient) extends Api {
   /*
@@ -70,7 +71,7 @@ class ApiService @Inject() (mailer: MailerClient) extends Api {
 
   override def updateNewsList(tabId: String, contentType: String): Future[Seq[LinkObject]] = {
     //Make a call to the DB and get the list of links for the relevant news source
-    models.NewsLinkModel.store.selectByNewsSourceId(tabId)
+    NewsLinkModel.store.selectByNewsSourceId(tabId)
   }
 
   //Get email to send feedback to from the config
@@ -113,8 +114,8 @@ class ApiService @Inject() (mailer: MailerClient) extends Api {
   }
 }
 
-
-object ApiService {
+@Singleton
+class WebServiceParser @Inject()(wsClient: WSClient) {
   val siteMapping = Map(
     TabId.Reddit -> TabFeedSources.Reddit,
     TabId.RedditTop -> TabFeedSources.RedditTop,
@@ -170,7 +171,7 @@ object ApiService {
 
   def parseSlashdotFeed(sourceId: String): Future[Seq[TitleLink]] = {
     val url = siteMapping(sourceId)
-    WS.url(url).get().map( futResponse => {
+    wsClient.url(url).get().map( futResponse => {
       val entries = for (entry <- futResponse.xml \\ "item")
         yield {
           val title = entry \\ "title"
@@ -183,7 +184,7 @@ object ApiService {
 
   def parseRssV2(sourceId: String): Future[Seq[TitleLink]] = {
     val url = siteMapping(sourceId)
-    WS.url(url).get().map( futResponse => {
+    wsClient.url(url).get().map( futResponse => {
       val entries = for (entry <- futResponse.xml \\ "channel" \\ "item")
         yield {
           val title = entry \\ "title"
@@ -196,7 +197,7 @@ object ApiService {
 
   def parseRedditFeed(sourceId: String): Future[Seq[TitleLink]] = {
     val url = siteMapping(sourceId)
-    WS.url(url).get().map( futResponse => {
+    wsClient.url(url).get().map( futResponse => {
       val entries = for (entry <- futResponse.xml \\ "feed" \\ "entry")
         yield {
           val title = entry \\ "title"

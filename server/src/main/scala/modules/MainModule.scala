@@ -1,8 +1,8 @@
 package modules
 
 import com.google.inject.AbstractModule
+import models._
 import net.codingwell.scalaguice._
-import services.{ApiService}
 
 /**
   * Created by skypage on 6/16/16.
