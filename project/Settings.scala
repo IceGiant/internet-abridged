@@ -36,6 +36,7 @@ object Settings {
     val react = "0.14.7"
     val jQuery = "1.11.1"
     val bootstrap = "3.3.6"
+    val fontAwesome = "4.6.3"
     val chartjs = "1.0.1"
 
     val playScripts = "0.4.0"
@@ -64,7 +65,7 @@ object Settings {
     "com.vmunier" %% "play-scalajs-scripts" % versions.playScripts,
     "com.typesafe.slick" %% "slick" % versions.slick,
     "com.typesafe.play" %% "play-slick" % versions.playSlick,
-    "org.webjars" % "font-awesome" % "4.6.3" % Provided,
+    "org.webjars" % "font-awesome" % versions.fontAwesome % Provided,
     "org.webjars" % "bootstrap" % versions.bootstrap % Provided,
     "net.databinder.dispatch" %% "dispatch-core" % versions.dispatch,
     "com.typesafe.akka" %% "akka-cluster" % versions.akka,
