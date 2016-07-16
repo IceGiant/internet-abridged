@@ -7,6 +7,7 @@ import diode.data.{Empty, Pot}
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.prefix_<^._
+import org.scalajs.dom
 import spa.client.SPAMain._
 import spa.client.components.Bootstrap._
 import spa.client.components._
@@ -36,10 +37,11 @@ object Home {
       cb >> $.modState(s => s.copy(search = text))
     }
 
-    val searchField = <.input.text(GlobalStyles.bootstrapStyles.formControl, ^.id := "search", ^.placeholder := "Search...", ^.onChange==>onTextChange)
+    val searchField = <.input.text(GlobalStyles.bootstrapStyles.formControl,
+      ^.id := "search", ^.placeholder := "Search...", ^.onChange ==> onTextChange)
 
     def render(p: Props, s: State) = {
-      <.div(^.paddingTop:="10")(
+      <.div(^.paddingTop:="10px")(
         <.meta(^.name := "description",
           ^.contentAttr := "The Net is vast and infinite, but some of the best parts are aggregated here."),
         //searchField,
@@ -104,7 +106,7 @@ object SectionsByTopic{
       val podcastComponent = podcastCircuit.connect(_.links)(p =>
         TabbedLinkContainer(TabbedLinkContainer.Props(p, HomeInits.podcasts, "Podcasts", podcastTabs, searchFilter = search)))
 
-      <.div(^.paddingTop:="10")(
+      <.div(^.paddingTop:="10px")(
         redditComponent,
         techComponent,
         imageComponent,
@@ -119,6 +121,7 @@ object SectionsByTopic{
 /**
   * Container of selectable tabs in a nav which update the links below the nav to reflect the selection
   */
+
 object TabbedLinkContainer{
 
   @inline private def bss = GlobalStyles.bootstrapStyles
@@ -146,39 +149,78 @@ object TabbedLinkContainer{
     }
 
     def coloredCollapseButton(isCollapsed: Boolean) = {
-      <.button(bss.pullRight, bss.button, ^.borderRadius:="0 !important",
+      <.button(bss.pullRight, bss.button, ^.borderRadius:="0px !important",
         if (isCollapsed) ^.background:="#222"
         else ^.background:="#000000",
         if (isCollapsed) ^.color:="#9d9d9d"
         else ^.color:="#ffffff",
-        ^.paddingLeft:="4",
-        ^.paddingRight:="4",
-        ^.paddingBottom:="0",
-        ^.height:="50",
-        ^.width:="50",
+        ^.borderRadius := "0px",
+        ^.padding := "4px",
+        ^.paddingBottom := "0px",
+        ^.height := "50px",
+        ^.width := "50px",
         ^.onClick --> collapseExpand)(
-        <.h3(^.marginTop:="3", ^.marginBottom:="9", ^.marginTop:="3")(
+        <.h3(^.marginTop := "3px", ^.marginBottom := "9px", ^.marginTop := "3px")(
           if (isCollapsed) Icon.caretDown
           else Icon.caretUp
         )
       )
     }
 
-    def render(p: Props, s: StateProps) = {
-      <.div(
-          ^.id := p.id,
-      <.nav(^.id := "tn", ^.className := "navbar navbar-inverse", ^.marginBottom:="0", ^.borderRadius:="0 !important")(
-          <.div(^.className := "navbar-header", <.span(^.className := "navbar-brand", p.sectionName)), <.ul(^.className := "nav navbar-nav")(
-            {
-              for (props <- p.tabs) yield {
-                  ContainerTab(ContainerTab.Props(props.anchor, props.img, props.tabId, props.style, props.onSelectedUrl, selectTab, props.tabId==s.tabId))
-              }
-            }
-          ),
-        coloredCollapseButton(s.linksHidden)
-      ),
+    def settingsButton(divId: String) = {
+      <.button(^.`type` := "button",
+        ^.className := "navbar-toggle",
+        ^.color:="#ffffff",
+        ^.borderRadius := "0px",
+        ^.padding := "4px",
+        ^.marginTop := "0px",
+        ^.marginBottom := "0px",
+        ^.marginRight := "0px",
+        ^.marginLeft := "5px",
+        ^.background := "#000000",
+        ^.color := "#9d9d9d",
+        ^.height := "50px",
+        ^.width := "50px",
+        "data-toggle".reactAttr := "collapse",
+        "data-target".reactAttr := s"#${divId}-items")(
+        Icon.bars
+      )
+    }
 
-        <.div(^.borderRadius:="0 !important")(
+    def render(p: Props, s: StateProps) = {
+      <.div(^.borderRadius:="0px !important", ^.marginBottom := "20px")(
+        ^.id := p.id,
+        <.nav(^.id := "tn", ^.className := "navbar navbar-inverse", ^.marginBottom:="0px", ^.borderRadius:="0px")(
+          <.div(^.className := "row")(
+            <.div(^.className := "col-sm-11")(
+              <.span(^.className := "navbar-header", ^.borderRadius:="0px !important",
+                <.span(^.className := "navbar-brand", p.sectionName))
+              (
+                settingsButton(p.id),
+                if (dom.window.innerWidth < 768) { //Only show collapse button here on mobile browsers
+                  <.span("data-toggle".reactAttr := "collapse")(
+                    coloredCollapseButton(s.linksHidden))
+                }
+                else <.span
+              ),
+              <.span(^.id := s"${p.id}-items", ^.className := "collapse navbar-collapse", ^.borderRadius:="0px !important")(
+                <.ul(^.className := "nav navbar-nav", ^.borderRadius:="0px !important")(
+                  for (props <- p.tabs) yield {
+                    ContainerTab(ContainerTab.Props(props.anchor, props.img, props.tabId, props.style, props.onSelectedUrl, selectTab, props.tabId == s.tabId))
+                  }
+                )
+              )
+            ),
+            if (dom.window.innerWidth > 768) { //Only show collapse button here on desktops
+              <.div(^.className := "col-sm-1")(
+                coloredCollapseButton(s.linksHidden)
+              )
+            }
+            else <.span
+          )
+        ),
+
+        <.div(^.borderRadius := "0px !important")(
           p.proxy().renderFailed(ex => {
             log.debug(s"${p.sectionName} error")
             <.p("Error loading")
@@ -200,8 +242,8 @@ object TabbedLinkContainer{
     .initialState_P(
       props => {
         val state = HomeInits.getState(props.id)
-      //log.debug(s"initial state set to ${state}")
-      StateProps(state)})
+        //log.debug(s"initial state set to ${state}")
+        StateProps(state)})
     .renderBackend[Backend]
     .componentDidMount(scope => scope.backend.mounted(scope.props, scope.state))
     .build
@@ -215,7 +257,7 @@ object TabbedLinkContainer{
   */
 object ContainerTab {
   case class AnchorProps(id: String = "", href: String = "JavaScript:void()", rel: String = "nofollow")
-  case class ImageProps(src: String, alt: String, border: String = "0", icon: ReactNode = <.span(), imgText: String = "")
+  case class ImageProps(src: String, alt: String, border: String = "0px", icon: ReactNode = <.span(), imgText: String = "")
 
   case class Props(anchor: AnchorProps,
                    img: ImageProps,
@@ -257,7 +299,7 @@ object LinkList {
       val style = bss.listGroup
       def renderItem(item: LinkObject) = {
         if (item.title.toLowerCase.contains(p.titleFilter.toLowerCase)) {
-          <.li(bss.listGroup.item, ^.borderRadius := "0 !important")(
+          <.li(bss.listGroup.item, ^.borderRadius := "0px")(
             <.a(^.href := item.href,
               ^.rel := "nofollow",
               ^.target := s"external-${UniqueTarget()}"
@@ -269,12 +311,12 @@ object LinkList {
         else <.span
       }
       if (p.items.nonEmpty) {
-        <.ul(^.marginBottom := "0", bss.listGroup.listGroup, ^.borderRadius := "0 !important")(
+        <.ul(^.marginBottom := "0", bss.listGroup.listGroup, ^.borderRadius := "0px")(
           !p.hidden ?= p.items map renderItem
         )
       }
       else {
-        <.li(bss.listGroup.item, ^.borderRadius := "0 !important")("Couldn't pull any data")
+        <.li(bss.listGroup.item, ^.borderRadius := "0px")("Couldn't pull any data")
       }
     })
     .build
