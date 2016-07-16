@@ -170,7 +170,6 @@ object TabbedLinkContainer{
     def settingsButton(divId: String) = {
       <.button(^.`type` := "button",
         ^.className := "navbar-toggle",
-        ^.color:="#ffffff",
         ^.borderRadius := "0px",
         ^.padding := "4px",
         ^.marginTop := "0px",
