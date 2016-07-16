@@ -97,7 +97,7 @@ object NewsCircuit extends Circuit[RootNewsModel] with ReactConnector[RootNewsMo
   // initial application model
   override protected def initialModel = RootNewsModel(Empty, Empty)
   // combine all handlers into one
-  override protected val actionHandler = combineHandlers(
+  override protected val actionHandler = foldHandlers(
     new LinkHandler(zoomRW(_.newsLinks)((m, v) => m.copy(newsLinks = v))),
     new LinkHandler(zoomRW(_.testLinks)((m, v) => m.copy(testLinks = v)))
   )

@@ -69,7 +69,7 @@ object SectionsByTopic{
     // initial application model
     override protected def initialModel = LinksModel(Empty)
     // combine all handlers into one
-    override protected val actionHandler = combineHandlers(
+    override protected val actionHandler = foldHandlers(
       new LinkHandler(zoomRW(_.links)((m, v) => m.copy(links = v)))
     )
   }
@@ -128,7 +128,7 @@ object TabbedLinkContainer{
 
   class Backend($: BackendScope[Props, StateProps]) {
     def mounted(props: Props, state: StateProps) = {
-      val cb = Callback.ifTrue(props.proxy().isEmpty, {props.proxy.dispatch(RefreshLinks(state.tabId))})
+      val cb = Callback.when(props.proxy().isEmpty)({props.proxy.dispatch(RefreshLinks(state.tabId))})
       cb >> $.modState(s => s.copy(linksHidden = props.startLinksHidden))
     }
 
@@ -166,7 +166,7 @@ object TabbedLinkContainer{
 
     def render(p: Props, s: StateProps) = {
       <.div(
-          ^.id := p.id, bss.panel,
+          ^.id := p.id,
       <.nav(^.id := "tn", ^.className := "navbar navbar-inverse", ^.marginBottom:="0", ^.borderRadius:="0 !important")(
           <.div(^.className := "navbar-header", <.span(^.className := "navbar-brand", p.sectionName)), <.ul(^.className := "nav navbar-nav")(
             {

@@ -6,8 +6,9 @@ import javax.inject._
 import actors.RootActor
 import akka.actor.{ActorSystem, Props}
 import boopickle.Default._
+import models.{NewsLinkModel, NewsLinkStore}
 import play.api.mvc._
-import services.ApiService
+import services.{ApiService, WebServiceParser}
 import spa.shared.Api
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -19,10 +20,10 @@ class Router extends autowire.Server[ByteBuffer, Pickler, Pickler] {
 }
 
 @Singleton
-class Application @Inject()(router: Router, apiService: ApiService) extends Controller {
+class Application @Inject()(router: Router, apiService: ApiService, serviceParser: WebServiceParser) extends Controller {
   val systemName = "Scrapers"
   val system1 = ActorSystem(systemName)
-  val rootActor = system1.actorOf(Props[RootActor])
+  val rootActor = system1.actorOf(Props(classOf[RootActor], serviceParser, NewsLinkModel.store))
 
   def index = Action {
     Ok(views.html.index("The Internet (Abridged)"))
@@ -37,7 +38,7 @@ class Application @Inject()(router: Router, apiService: ApiService) extends Cont
 
       // call Autowire route
       router.route[Api](apiService)(
-        autowire.Core.Request(path.split("/"), Unpickle[Map[String, ByteBuffer]].fromBytes(ByteBuffer.wrap(b)))
+        autowire.Core.Request(path.split("/"), Unpickle[Map[String, ByteBuffer]].fromBytes(b.asByteBuffer))
       ).map(buffer => {
         val data = Array.ofDim[Byte](buffer.remaining())
         buffer.get(data)
