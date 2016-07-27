@@ -1,7 +1,11 @@
 package models
 
+import javax.inject._
+import play.api.db.slick.DatabaseConfigProvider
+import play.api.mvc._
 import play.api.Play.current
 import services.TitleLink
+import slick.driver.JdbcProfile
 
 import scala.concurrent.duration.Duration
 import scala.concurrent.{Await, Future}
@@ -12,18 +16,18 @@ import spa.shared._
   * Created by molmsted on 4/4/2016.
   */
 
-object NewsLinkModel {
+class NewsLinkModel @Inject() (newsStore: NewsLinkSlickStore) {
   val store: NewsLinkStore = current.configuration.getString("module.links.store") match {
     case Some(impl) => impl match {
-      case "Slick" => NewsLinkSlickStore
-      case _ => NewsLinkSlickStore
+      case "Slick" => newsStore
+      case _ => newsStore
     }
-    case None => NewsLinkSlickStore
+    case None => newsStore
   }
 }
 
 
-trait NewsLinkStore {
+trait NewsLinkStore  {
   def all: Future[Seq[LinkObject]]
 
   def selectById(id: Long): Future[LinkObject]
@@ -39,9 +43,9 @@ trait NewsLinkStore {
   def delete(sourceId: String): Future[Boolean]
 }
 
-object NewsLinkSlickStore extends NewsLinkStore {
+@Singleton()
+class NewsLinkSlickStore @Inject() (dbConfigProvider: DatabaseConfigProvider) extends NewsLinkStore {
 
-  import play.api.db.DB
   import slick.driver.H2Driver.api._
 
   class Links(tag: Tag) extends Table[LinkRow](tag, "LINKSTABLE"){
@@ -52,7 +56,8 @@ object NewsLinkSlickStore extends NewsLinkStore {
     def * = (id, sourceId, title, href) <> (LinkRow.tupled, LinkRow.unapply)
   }
 
-  private def db: Database = Database.forDataSource(DB.getDataSource())
+  val dbConfig = dbConfigProvider.get[JdbcProfile]
+  private def db: Database = dbConfig.db
   val links = TableQuery[Links]
 
   override def all: Future[Seq[LinkObject]] = {

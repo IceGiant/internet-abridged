@@ -19,7 +19,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.xml.NodeSeq
 import play.api.libs.ws.{WS, WSClient}
 
-class ApiService @Inject() (mailer: MailerClient) extends Api {
+class ApiService @Inject() (mailer: MailerClient, newsStore: NewsLinkModel) extends Api {
   /*
   var todos = Seq(
     TodoItem("41424344-4546-4748-494a-4b4c4d4e4f50", 0x61626364, "Wear shirt that says “Life”. Hand out lemons on street corner.", TodoLow, false),
@@ -71,7 +71,7 @@ class ApiService @Inject() (mailer: MailerClient) extends Api {
 
   override def updateNewsList(tabId: String, contentType: String): Future[Seq[LinkObject]] = {
     //Make a call to the DB and get the list of links for the relevant news source
-    NewsLinkModel.store.selectByNewsSourceId(tabId)
+    newsStore.store.selectByNewsSourceId(tabId)
   }
 
   //Get email to send feedback to from the config

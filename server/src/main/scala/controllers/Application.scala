@@ -23,10 +23,11 @@ class Router extends autowire.Server[ByteBuffer, Pickler, Pickler] {
 @Singleton
 class Application @Inject() (
                   implicit val config: Configuration, env: Environment,
-                  router: Router, apiService: ApiService, serviceParser: WebServiceParser) extends Controller {
+                  router: Router, apiService: ApiService,
+                  serviceParser: WebServiceParser, newsStore: NewsLinkModel) extends Controller {
   val systemName = "Scrapers"
   val system1 = ActorSystem(systemName)
-  val rootActor = system1.actorOf(Props(classOf[RootActor], serviceParser, NewsLinkModel.store))
+  val rootActor = system1.actorOf(Props(classOf[RootActor], serviceParser, newsStore.store))
 
   def index = Action {
     Ok(views.html.index("The Internet (Abridged)"))

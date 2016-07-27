@@ -60,7 +60,6 @@ lazy val server = (project in file("server"))
     libraryDependencies ++= Settings.jvmDependencies.value
       ++ Seq(
         filters,
-        jdbc,
         evolutions,
         ws),
     commands += ReleaseCmd,

@@ -41,11 +41,12 @@ object Settings {
 
     val playScripts = "0.5.0"
 
-    val playSlick = "1.0.1"
+    val playSlick = "2.0.0"
     val slick = "3.1.1"
     val akka = "2.4.6"
     val playMailer = "5.0.0"
     val scalaGuice = "4.0.0"
+    val h2db = "1.4.192"
 
     val dispatch = "0.11.2"
   }
@@ -63,8 +64,6 @@ object Settings {
   /** Dependencies only used by the JVM project */
   val jvmDependencies = Def.setting(Seq(
     "com.vmunier" %% "play-scalajs-scripts" % versions.playScripts,
-    "com.typesafe.slick" %% "slick" % versions.slick,
-    "com.typesafe.play" %% "play-slick" % versions.playSlick,
     "org.webjars" % "font-awesome" % versions.fontAwesome % Provided,
     "org.webjars" % "bootstrap" % versions.bootstrap % Provided,
     "net.databinder.dispatch" %% "dispatch-core" % versions.dispatch,
@@ -72,7 +71,12 @@ object Settings {
     "com.typesafe.akka" %% "akka-cluster-tools" % versions.akka,
     "com.typesafe.akka" %% "akka-slf4j" % versions.akka,
     "net.codingwell" %% "scala-guice" % versions.scalaGuice,
-    "com.typesafe.play" %% "play-mailer" % versions.playMailer
+    "com.typesafe.play" %% "play-mailer" % versions.playMailer,
+
+    "com.typesafe.slick" %% "slick" % versions.slick,
+    "com.typesafe.play" %% "play-slick" % versions.playSlick,
+    "com.typesafe.play" %% "play-slick-evolutions" % versions.playSlick,
+    "com.h2database" % "h2" % versions.h2db
 
     //,"org.webjars.npm" % "react" % versions.react
   ))
