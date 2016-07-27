@@ -1,6 +1,7 @@
 package models
 
 import javax.inject._
+import play.api.Configuration
 import play.api.db.slick.DatabaseConfigProvider
 import play.api.mvc._
 import play.api.Play.current
@@ -12,12 +13,9 @@ import scala.concurrent.{Await, Future}
 import scala.concurrent.ExecutionContext.Implicits.global
 import spa.shared._
 
-/**
-  * Created by molmsted on 4/4/2016.
-  */
 
-class NewsLinkModel @Inject() (newsStore: NewsLinkSlickStore) {
-  val store: NewsLinkStore = current.configuration.getString("module.links.store") match {
+class NewsLinkModel @Inject() (implicit val config: Configuration, newsStore: NewsLinkSlickStore) {
+  val store: NewsLinkStore = config.getString("module.links.store") match {
     case Some(impl) => impl match {
       case "Slick" => newsStore
       case _ => newsStore

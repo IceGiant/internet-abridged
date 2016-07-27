@@ -6,6 +6,7 @@ import javax.inject.Inject
 import com.google.inject.Singleton
 import com.ning.http.client.Response
 import models.{NewsLinkModel, NewsLinkStore}
+import play.api.Configuration
 import play.api.Play.current
 import play.api.libs.mailer.{Email, MailerClient}
 import play.libs.F.Promise
@@ -19,55 +20,8 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.xml.NodeSeq
 import play.api.libs.ws.{WS, WSClient}
 
-class ApiService @Inject() (mailer: MailerClient, newsStore: NewsLinkModel) extends Api {
-  /*
-  var todos = Seq(
-    TodoItem("41424344-4546-4748-494a-4b4c4d4e4f50", 0x61626364, "Wear shirt that says “Life”. Hand out lemons on street corner.", TodoLow, false),
-    TodoItem("2", 0x61626364, "Make vanilla pudding. Put in mayo jar. Eat in public.", TodoNormal, false),
-    TodoItem("3", 0x61626364, "Walk away slowly from an explosion without looking back.", TodoHigh, false),
-    TodoItem("4", 0x61626364, "Sneeze in front of the pope. Get blessed.", TodoNormal, true)
-  )
-
-  val siteMapping = Map(
-    TabId.Reddit -> TabFeedSources.Reddit,
-    TabId.RedditTop -> TabFeedSources.RedditTop
-  )
-
-  override def welcome(name: String): String = s"Welcome to SPA, $name! Time is now ${new Date}"
-
-  override def getTodos(): Seq[TodoItem] = {
-    // provide some fake Todos
-    Thread.sleep(300)
-    println(s"Sending ${todos.size} Todo items")
-    todos
-  }
-
-  // update a Todo
-  override def updateTodo(item: TodoItem): Seq[TodoItem] = {
-    // TODO, update database etc :)
-    if(todos.exists(_.id == item.id)) {
-      todos = todos.collect {
-        case i if i.id == item.id => item
-        case i => i
-      }
-      println(s"Todo item was updated: $item")
-    } else {
-      // add a new item
-      val newItem = item.copy(id = UUID.randomUUID().toString)
-      todos :+= newItem
-      println(s"Todo item was added: $newItem")
-    }
-    Thread.sleep(300)
-    todos
-  }
-
-  // delete a Todo
-  override def deleteTodo(itemId: String): Seq[TodoItem] = {
-    println(s"Deleting item with id = $itemId")
-    Thread.sleep(300)
-    todos = todos.filterNot(_.id == itemId)
-    todos
-  }*/
+class ApiService @Inject() (implicit val config: Configuration,
+                            mailer: MailerClient, newsStore: NewsLinkModel) extends Api {
 
   override def updateNewsList(tabId: String, contentType: String): Future[Seq[LinkObject]] = {
     //Make a call to the DB and get the list of links for the relevant news source
@@ -75,7 +29,7 @@ class ApiService @Inject() (mailer: MailerClient, newsStore: NewsLinkModel) exte
   }
 
   //Get email to send feedback to from the config
-  val recipient: String = current.configuration.getString("play.mailer.user") match {
+  val recipient: String = config.getString("play.mailer.user") match {
     case Some(user) => user
     case _ => println("Missing mailer configuration")
       ""
