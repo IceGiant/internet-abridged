@@ -29,9 +29,9 @@ object Settings {
     val scalaCSS = "0.4.1"
     val log4js = "1.4.10"
     val autowire = "0.2.5"
-    val booPickle = "1.1.2"
-    val diode = "0.5.1"
-    val uTest = "0.3.1"
+    val booPickle = "1.2.4"
+    val diode = "1.0.0"
+    val uTest = "0.4.3"
 
     val react = "15.0.1"
     val jQuery = "1.12.4"
@@ -39,7 +39,7 @@ object Settings {
     val fontAwesome = "4.6.3"
     val chartjs = "1.0.1"
 
-    val playScripts = "0.4.0"
+    val playScripts = "0.5.0"
 
     val playSlick = "1.0.1"
     val slick = "3.1.1"

@@ -27,16 +27,16 @@ object Feedback {
     // initial application model
     override protected def initialModel = FeedbackResponseModel(Empty)
     // combine all handlers into one
-    override protected val actionHandler = foldHandlers(
+    override protected val actionHandler = composeHandlers(
       new FeedbackHandler(zoomRW(_.sent)((m, v) => m.copy(sent = v)))
     )
   }
 
-  val feedbackComponent = FeedbackCircuit.connect(_.sent)(p => FeedbackForm(p))
+  val feedbackWrapper = FeedbackCircuit.connect(_.sent)
 
   private val component = ReactComponentB[Props]("SearchableComponent")
     .render_P { p =>
-      feedbackComponent
+      feedbackWrapper(FeedbackForm(_))
     }.build
 
   /** Returns a function compatible with router location system while using our own props */

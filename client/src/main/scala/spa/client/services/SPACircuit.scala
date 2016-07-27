@@ -15,8 +15,8 @@ import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
   override def next(value: Pot[String]) = UpdateMotd(value)
 }*/
 
-case class RefreshLinks(tabId: String, contentType: String = "article")
-case class UpdateListOfLinks(links: Seq[LinkObject])
+case class RefreshLinks(tabId: String, contentType: String = "article") extends Action
+case class UpdateListOfLinks(links: Seq[LinkObject]) extends Action
 case class Links(items: Seq[LinkObject]) {
   def updated(newItem: LinkObject) = {
     items.indexWhere(_.id == newItem.id) match {
@@ -32,8 +32,8 @@ case class Links(items: Seq[LinkObject]) {
 }
 
 
-case class SendFeedback(feedbackDate: EmailFormData)
-case class FeedbackSent(sent: Boolean)
+case class SendFeedback(feedbackDate: EmailFormData) extends Action
+case class FeedbackSent(sent: Boolean) extends Action
 case class FeedbackResponse(sent: Boolean) {
   def updated(value: Boolean) = FeedbackResponse(value)
 }
@@ -97,7 +97,7 @@ object NewsCircuit extends Circuit[RootNewsModel] with ReactConnector[RootNewsMo
   // initial application model
   override protected def initialModel = RootNewsModel(Empty, Empty)
   // combine all handlers into one
-  override protected val actionHandler = foldHandlers(
+  override protected val actionHandler = composeHandlers(
     new LinkHandler(zoomRW(_.newsLinks)((m, v) => m.copy(newsLinks = v))),
     new LinkHandler(zoomRW(_.testLinks)((m, v) => m.copy(testLinks = v)))
   )

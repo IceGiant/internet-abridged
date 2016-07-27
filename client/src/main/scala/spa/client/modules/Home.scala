@@ -71,7 +71,7 @@ object SectionsByTopic{
     // initial application model
     override protected def initialModel = LinksModel(Empty)
     // combine all handlers into one
-    override protected val actionHandler = foldHandlers(
+    override protected val actionHandler = composeHandlers(
       new LinkHandler(zoomRW(_.links)((m, v) => m.copy(links = v)))
     )
   }
@@ -95,23 +95,28 @@ object SectionsByTopic{
   private val component = ReactComponentB[Props]("SearchableComponent")
     .render_P { case Props(search) => {
       //Connect sections up to their circuits so calls to the server or searches reflect to this part of the UI
-      val redditComponent = redditCircuit.connect(_.links)(p =>
-        TabbedLinkContainer(TabbedLinkContainer.Props(p, HomeInits.reddit, "Reddit", redditTabs, startLinksHidden = false, searchFilter = search)))
-      val techComponent = techCircuit.connect(_.links)(p =>
-        TabbedLinkContainer(TabbedLinkContainer.Props(p, HomeInits.tech, "Tech", techTabs, searchFilter = search)))
-      val programmingComponent = ProgrammingCircuit.connect(_.links)(p =>
-        TabbedLinkContainer(TabbedLinkContainer.Props(p, HomeInits.programming, "Programming", programmingTabs, searchFilter = search)))
-      val imageComponent = ImageCircuit.connect(_.links)(p =>
-        TabbedLinkContainer(TabbedLinkContainer.Props(p, HomeInits.images, "Images", imageTabs, searchFilter = search)))
-      val podcastComponent = podcastCircuit.connect(_.links)(p =>
-        TabbedLinkContainer(TabbedLinkContainer.Props(p, HomeInits.podcasts, "Podcasts", podcastTabs, searchFilter = search)))
+      val redditWrapper = redditCircuit.connect(_.links)
+      val techWrapper = techCircuit.connect(_.links)
+      val programmingWrapper = ProgrammingCircuit.connect(_.links)
+      val imageWrapper = ImageCircuit.connect(_.links)
+      val podcastWrapper = podcastCircuit.connect(_.links)
 
       <.div(^.paddingTop:="10px")(
-        redditComponent,
-        techComponent,
-        imageComponent,
-        programmingComponent,
-        podcastComponent
+        redditWrapper(p =>
+          TabbedLinkContainer(TabbedLinkContainer.Props(p, HomeInits.reddit, "Reddit", redditTabs, startLinksHidden = false, searchFilter = search))
+        ),
+        techWrapper(p =>
+          TabbedLinkContainer(TabbedLinkContainer.Props(p, HomeInits.tech, "Tech", techTabs, searchFilter = search))
+        ),
+        imageWrapper(p =>
+          TabbedLinkContainer(TabbedLinkContainer.Props(p, HomeInits.images, "Images", imageTabs, searchFilter = search)))
+        ,
+        programmingWrapper(p =>
+          TabbedLinkContainer(TabbedLinkContainer.Props(p, HomeInits.programming, "Programming", programmingTabs, searchFilter = search))
+        ),
+        podcastWrapper(p =>
+          TabbedLinkContainer(TabbedLinkContainer.Props(p, HomeInits.podcasts, "Podcasts", podcastTabs, searchFilter = search))
+        )
       )}
     }.build
 

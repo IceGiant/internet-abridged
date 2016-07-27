@@ -8,6 +8,7 @@ import akka.actor.{ActorSystem, Props}
 import boopickle.Default._
 import models.{NewsLinkModel, NewsLinkStore}
 import play.api.mvc._
+import play.api.{Configuration, Environment}
 import services.{ApiService, WebServiceParser}
 import spa.shared.Api
 
@@ -20,7 +21,9 @@ class Router extends autowire.Server[ByteBuffer, Pickler, Pickler] {
 }
 
 @Singleton
-class Application @Inject()(router: Router, apiService: ApiService, serviceParser: WebServiceParser) extends Controller {
+class Application @Inject() (
+                  implicit val config: Configuration, env: Environment,
+                  router: Router, apiService: ApiService, serviceParser: WebServiceParser) extends Controller {
   val systemName = "Scrapers"
   val system1 = ActorSystem(systemName)
   val rootActor = system1.actorOf(Props(classOf[RootActor], serviceParser, NewsLinkModel.store))
