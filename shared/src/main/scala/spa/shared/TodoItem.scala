@@ -40,6 +40,8 @@ object TabId{
 
   val RedditPics = "RedditPics"
   val RedditComics = "RedditComics"
+  val Xkcd = "Xkcd"
+  val Dilbert = "Dilbert"
 
   val NoAgenda = "NoAgenda"
   val HardcoreHistory = "HardcoreHistory"
@@ -77,6 +79,8 @@ object TabFeedSources {
 
   val RedditPics = "https://www.reddit.com/r/pics/.rss"
   val RedditComics = "https://www.reddit.com/r/comics/.rss"
+  val Xkcd = "https://www.xkcd.com/rss.xml"
+  val Dilbert = "http://dilbert.com/feed"
 
   val NoAgenda = "http://feed.nashownotes.com/rss.xml"
   val HardcoreHistory = "https://feeds.feedburner.com/dancarlin/history?format=xml"

@@ -110,6 +110,8 @@ class WebServiceParser @Inject()(wsClient: WSClient) {
         case TabId.Slashdot => parseSlashdotFeed(sourceId)
         case TabId.Techdirt => parseRssV2(sourceId)
 
+        case TabId.Xkcd => parseRssV2(sourceId)
+
         case TabId.HackerNews => parseRssV2(sourceId)
 
         case TabId.NoAgenda => parseRssV2(sourceId)
