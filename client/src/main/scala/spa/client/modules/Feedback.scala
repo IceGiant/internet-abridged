@@ -89,7 +89,7 @@ object FeedbackForm {
           val submitData = EmailFormData(s.name, s.email, s.subject, s.message)
           proxy.dispatch(SendFeedback(submitData))
         }
-        else Callback()
+        else Callback.log("Input isn't valid yet")
       }
   }
 
