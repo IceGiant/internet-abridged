@@ -19,7 +19,7 @@ object TodoPriority {
 
 case class LinkObject(id: Option[Long], sourceId: String, title: String, href: String)
 
-object TabId{
+object FeedIds{
   val Reddit = "Reddit"
   val RedditTop = "RedditTop"
   val RedditTil = "RedditTil"
@@ -57,7 +57,7 @@ object TabId{
 }
 
 
-object TabFeedSources {
+object FeedUrls {
   val Reddit = "https://reddit.com/.rss"
   val RedditTop = "https://reddit.com/top/.rss"
   val RedditTil = "https://www.reddit.com/r/todayilearned/.rss"

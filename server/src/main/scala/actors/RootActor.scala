@@ -5,7 +5,7 @@ import akka.remote.ContainerFormats.ActorRef
 import akka.actor._
 import models.{NewsLinkModel, NewsLinkStore}
 import services.WebServiceParser
-import spa.shared.TabId
+import spa.shared.FeedIds
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration._

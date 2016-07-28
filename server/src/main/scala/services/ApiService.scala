@@ -71,53 +71,53 @@ class ApiService @Inject() (implicit val config: Configuration,
 @Singleton
 class WebServiceParser @Inject()(wsClient: WSClient) {
   val siteMapping = Map(
-    TabId.Reddit -> TabFeedSources.Reddit,
-    TabId.RedditTop -> TabFeedSources.RedditTop,
-    TabId.RedditTil -> TabFeedSources.RedditTil,
-    TabId.AskReddit -> TabFeedSources.AskReddit,
-    TabId.RedditVideos -> TabFeedSources.RedditVideos,
+    FeedIds.Reddit -> FeedUrls.Reddit,
+    FeedIds.RedditTop -> FeedUrls.RedditTop,
+    FeedIds.RedditTil -> FeedUrls.RedditTil,
+    FeedIds.AskReddit -> FeedUrls.AskReddit,
+    FeedIds.RedditVideos -> FeedUrls.RedditVideos,
 
-    TabId.RedditTechnology -> TabFeedSources.RedditTechnology,
-    TabId.LifeHacker -> TabFeedSources.LifeHacker,
-    TabId.Slashdot -> TabFeedSources.Slashdot,
-    TabId.Techdirt -> TabFeedSources.Techdirt,
+    FeedIds.RedditTechnology -> FeedUrls.RedditTechnology,
+    FeedIds.LifeHacker -> FeedUrls.LifeHacker,
+    FeedIds.Slashdot -> FeedUrls.Slashdot,
+    FeedIds.Techdirt -> FeedUrls.Techdirt,
 
-    TabId.RedditProgramming -> TabFeedSources.RedditProgramming,
-    TabId.HackerNews -> TabFeedSources.HackerNews,
-    TabId.RedditProgrammingTop -> TabFeedSources.RedditProgrammingTop,
-    TabId.RedditCoding -> TabFeedSources.RedditCoding,
-    TabId.RedditProgrammingHumor -> TabFeedSources.RedditProgrammingHumor,
+    FeedIds.RedditProgramming -> FeedUrls.RedditProgramming,
+    FeedIds.HackerNews -> FeedUrls.HackerNews,
+    FeedIds.RedditProgrammingTop -> FeedUrls.RedditProgrammingTop,
+    FeedIds.RedditCoding -> FeedUrls.RedditCoding,
+    FeedIds.RedditProgrammingHumor -> FeedUrls.RedditProgrammingHumor,
 
-    TabId.RedditPics -> TabFeedSources.RedditPics,
-    TabId.RedditComics -> TabFeedSources.RedditComics,
+    FeedIds.RedditPics -> FeedUrls.RedditPics,
+    FeedIds.RedditComics -> FeedUrls.RedditComics,
 
-    TabId.NoAgenda -> TabFeedSources.NoAgenda,
-    TabId.HardcoreHistory -> TabFeedSources.HardcoreHistory,
-    TabId.SecurityNow -> TabFeedSources.SecurityNow,
-    TabId.CommonSense -> TabFeedSources.CommonSense
+    FeedIds.NoAgenda -> FeedUrls.NoAgenda,
+    FeedIds.HardcoreHistory -> FeedUrls.HardcoreHistory,
+    FeedIds.SecurityNow -> FeedUrls.SecurityNow,
+    FeedIds.CommonSense -> FeedUrls.CommonSense
 
 
   )
 
   def refreshFeed(sourceId: String): Future[Seq[TitleLink]] = {
-    if (sourceId.contains(TabId.Reddit)){
+    if (sourceId.contains(FeedIds.Reddit)){
       parseRedditFeed(sourceId)
     }
     else {
       sourceId match {
-        case TabId.LifeHacker => //println("Parsing lifehacker")
+        case FeedIds.LifeHacker => //println("Parsing lifehacker")
           parseRssV2(sourceId)
-        case TabId.Slashdot => parseSlashdotFeed(sourceId)
-        case TabId.Techdirt => parseRssV2(sourceId)
+        case FeedIds.Slashdot => parseSlashdotFeed(sourceId)
+        case FeedIds.Techdirt => parseRssV2(sourceId)
 
-        case TabId.Xkcd => parseRssV2(sourceId)
+        case FeedIds.Xkcd => parseRssV2(sourceId)
 
-        case TabId.HackerNews => parseRssV2(sourceId)
+        case FeedIds.HackerNews => parseRssV2(sourceId)
 
-        case TabId.NoAgenda => parseRssV2(sourceId)
-        case TabId.HardcoreHistory => parseRssV2(sourceId)
-        case TabId.SecurityNow => parseRssV2(sourceId)
-        case TabId.CommonSense => parseRssV2(sourceId)
+        case FeedIds.NoAgenda => parseRssV2(sourceId)
+        case FeedIds.HardcoreHistory => parseRssV2(sourceId)
+        case FeedIds.SecurityNow => parseRssV2(sourceId)
+        case FeedIds.CommonSense => parseRssV2(sourceId)
         case _ => println(s"Uh oh! from: $sourceId")
           Future(Seq.empty)
       }

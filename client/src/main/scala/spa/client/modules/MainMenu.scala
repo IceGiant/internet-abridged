@@ -9,7 +9,7 @@ import spa.client.components.Bootstrap.CommonStyle
 import spa.client.components.Icon._
 import spa.client.components._
 import spa.client.services._
-import spa.shared.TabId._
+import spa.shared.FeedIds._
 
 import scalacss.ScalaCssReact._
 

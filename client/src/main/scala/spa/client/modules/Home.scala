@@ -16,8 +16,8 @@ import spa.client.modules
 import spa.client.modules.HomeInits.TabState
 import spa.client.components.Icon._
 import spa.client.services.{NewsCircuit, _}
-import spa.shared.TabId._
-import spa.shared.{TabId, LinkObject, TabFeedSources}
+import spa.shared.FeedIds._
+import spa.shared.{FeedIds, LinkObject, FeedUrls}
 
 import scalacss.ScalaCssReact._
 
