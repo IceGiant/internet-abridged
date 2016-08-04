@@ -11,7 +11,7 @@ import spa.shared.FeedIds._
 object HomeInits {
   val reddit = "reddit"
   val tech = "tech"
-  val images = "images"
+  val comics = "comics"
   val programming = "programming"
   val podcasts = "podcasts"
 
@@ -38,7 +38,7 @@ object HomeInits {
   var cachedTabStates = Seq(
     TabState(reddit, FeedIds.Reddit),
     TabState(tech, FeedIds.RedditTechnology),
-    TabState(images, FeedIds.RedditPics),
+    TabState(comics, FeedIds.RedditComics),
     TabState(programming, FeedIds.RedditProgramming),
     TabState(podcasts, FeedIds.NoAgenda)
   )
@@ -56,6 +56,13 @@ object HomeInits {
       TabContainer.ImageProps("src", RedditTop, icon = Icon.reddit, imgText = "Top"),
       RedditTop,
       onSelectedUrl = FeedUrls.RedditTop
+    )
+
+    val redditPics = TabContainer.Props(
+      TabContainer.AnchorProps(),
+      TabContainer.ImageProps("src", RedditPics, icon = Icon.reddit, imgText = "Pics"),
+      RedditPics,
+      onSelectedUrl = FeedUrls.RedditPics
     )
 
     val redditTil = TabContainer.Props(
@@ -83,6 +90,7 @@ object HomeInits {
       redditFrontpage,
       redditTop,
       redditTil,
+      redditPics,
       askReddit,
       redditVideos
     )
@@ -118,13 +126,19 @@ object HomeInits {
       onSelectedUrl = FeedUrls.Techdirt
     )
 
-    val ars =
+    val ars =TabContainer.Props(
+      TabContainer.AnchorProps(),
+      TabContainer.ImageProps("src", ArsTechnica, imgText = "Ars"),
+      ArsTechnica,
+      onSelectedUrl = FeedUrls.ArsTechnica
+    )
 
     List(
       redditTechnology,
       lifeHacker,
       slashdot,
-      techdirt
+      techdirt,
+      ars
     )
   }
 
@@ -173,13 +187,8 @@ object HomeInits {
     )
   }
 
-  def generateImages = {
-    val redditPics = TabContainer.Props(
-      TabContainer.AnchorProps(),
-      TabContainer.ImageProps("src", RedditPics, icon = Icon.reddit, imgText = "Pics"),
-      RedditPics,
-      onSelectedUrl = FeedUrls.RedditPics
-    )
+  def generateComics = {
+
 
     val redditComics = TabContainer.Props(
       TabContainer.AnchorProps(),
@@ -188,9 +197,50 @@ object HomeInits {
       onSelectedUrl = FeedUrls.RedditComics
     )
 
+    val xkcd = TabContainer.Props(
+      TabContainer.AnchorProps(),
+      TabContainer.ImageProps("src", Xkcd, imgText = "xkcd"),
+      Xkcd,
+      onSelectedUrl = FeedUrls.Xkcd
+    )
+
+    val dilbert = TabContainer.Props(
+      TabContainer.AnchorProps(),
+      TabContainer.ImageProps("src", Dilbert, imgText = "Dilbert"),
+      Dilbert,
+      onSelectedUrl = FeedUrls.Dilbert
+    )
+
+    val cyanideHappiness = TabContainer.Props(
+      TabContainer.AnchorProps(),
+      TabContainer.ImageProps("src", CyanideHappiness, imgText = "C&H"),
+      CyanideHappiness,
+      onSelectedUrl = FeedUrls.CyanideHappiness
+    )
+
+    val girlGenius = TabContainer.Props(
+      TabContainer.AnchorProps(),
+      TabContainer.ImageProps("src", GirlGenius, imgText = "Girl Genius"),
+      GirlGenius,
+      onSelectedUrl = FeedUrls.GirlGenius
+    )
+
+    val lookingForGroup = TabContainer.Props(
+      TabContainer.AnchorProps(),
+      TabContainer.ImageProps("src", LookingForGroup, imgText = "LFG"),
+      LookingForGroup,
+      onSelectedUrl = FeedUrls.LookingForGroup
+    )
+
+
+
     List(
-      redditPics,
-      redditComics
+      redditComics,
+      dilbert,
+      xkcd,
+      cyanideHappiness,
+      girlGenius,
+      lookingForGroup
     )
   }
 

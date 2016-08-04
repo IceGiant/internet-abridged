@@ -74,6 +74,7 @@ class WebServiceParser @Inject()(wsClient: WSClient) {
     FeedIds.Reddit -> FeedUrls.Reddit,
     FeedIds.RedditTop -> FeedUrls.RedditTop,
     FeedIds.RedditTil -> FeedUrls.RedditTil,
+    FeedIds.RedditPics -> FeedUrls.RedditPics,
     FeedIds.AskReddit -> FeedUrls.AskReddit,
     FeedIds.RedditVideos -> FeedUrls.RedditVideos,
 
@@ -81,6 +82,7 @@ class WebServiceParser @Inject()(wsClient: WSClient) {
     FeedIds.LifeHacker -> FeedUrls.LifeHacker,
     FeedIds.Slashdot -> FeedUrls.Slashdot,
     FeedIds.Techdirt -> FeedUrls.Techdirt,
+    FeedIds.ArsTechnica -> FeedUrls.ArsTechnica,
 
     FeedIds.RedditProgramming -> FeedUrls.RedditProgramming,
     FeedIds.HackerNews -> FeedUrls.HackerNews,
@@ -88,8 +90,13 @@ class WebServiceParser @Inject()(wsClient: WSClient) {
     FeedIds.RedditCoding -> FeedUrls.RedditCoding,
     FeedIds.RedditProgrammingHumor -> FeedUrls.RedditProgrammingHumor,
 
-    FeedIds.RedditPics -> FeedUrls.RedditPics,
     FeedIds.RedditComics -> FeedUrls.RedditComics,
+    FeedIds.Xkcd -> FeedUrls.Xkcd,
+    FeedIds.Dilbert -> FeedUrls.Dilbert,
+    FeedIds.CyanideHappiness -> FeedUrls.CyanideHappiness,
+    FeedIds.GirlGenius -> FeedUrls.GirlGenius,
+    FeedIds.LookingForGroup -> FeedUrls.LookingForGroup,
+
 
     FeedIds.NoAgenda -> FeedUrls.NoAgenda,
     FeedIds.HardcoreHistory -> FeedUrls.HardcoreHistory,
@@ -109,8 +116,13 @@ class WebServiceParser @Inject()(wsClient: WSClient) {
           parseRssV2(sourceId)
         case FeedIds.Slashdot => parseSlashdotFeed(sourceId)
         case FeedIds.Techdirt => parseRssV2(sourceId)
+        case FeedIds.ArsTechnica => parseRssV2(sourceId)
 
         case FeedIds.Xkcd => parseRssV2(sourceId)
+        case FeedIds.Dilbert => parseFeedburnerXml(sourceId)
+        case FeedIds.CyanideHappiness => parseRssV2(sourceId)
+        case FeedIds.GirlGenius => parseRssV2(sourceId)
+        case FeedIds.LookingForGroup => parseFeedburnerXml(sourceId)
 
         case FeedIds.HackerNews => parseRssV2(sourceId)
 
@@ -146,6 +158,19 @@ class WebServiceParser @Inject()(wsClient: WSClient) {
           val title = entry \\ "title"
           val href = entry \\ "link"
           TitleLink(title.text, href.text)
+        }
+      entries
+    })
+  }
+
+  def parseFeedburnerXml(sourceId: String): Future[Seq[TitleLink]] = {
+    val url = siteMapping(sourceId)
+    wsClient.url(url).get().map( futResponse => {
+      val entries = for (entry <- futResponse.xml \\ "feed" \\ "entry")
+        yield {
+          val title = entry \\ "title"
+          val link = entry \\ "link" \ "@href"
+          TitleLink(title.text, link.text)
         }
       entries
     })

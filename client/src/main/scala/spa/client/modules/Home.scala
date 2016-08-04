@@ -82,11 +82,11 @@ object SectionsByTopic{
   val techTabs = HomeInits.generateTech
   val techCircuit = new LinksCircuit
 
+  val comicTabs = HomeInits.generateComics
+  val ComicCircuit = new LinksCircuit
+
   val programmingTabs = HomeInits.generateProgramming
   val ProgrammingCircuit = new LinksCircuit
-
-  val imageTabs = HomeInits.generateImages
-  val ImageCircuit = new LinksCircuit
 
   val podcastTabs = HomeInits.generatePodcasts
   val podcastCircuit = new LinksCircuit
@@ -98,7 +98,7 @@ object SectionsByTopic{
       val redditWrapper = redditCircuit.connect(_.links)
       val techWrapper = techCircuit.connect(_.links)
       val programmingWrapper = ProgrammingCircuit.connect(_.links)
-      val imageWrapper = ImageCircuit.connect(_.links)
+      val comicWrapper = ComicCircuit.connect(_.links)
       val podcastWrapper = podcastCircuit.connect(_.links)
 
       <.div(^.paddingTop:="10px")(
@@ -108,8 +108,8 @@ object SectionsByTopic{
         techWrapper(p =>
           TabbedLinkContainer(TabbedLinkContainer.Props(p, HomeInits.tech, "Tech", techTabs, searchFilter = search))
         ),
-        imageWrapper(p =>
-          TabbedLinkContainer(TabbedLinkContainer.Props(p, HomeInits.images, "Images", imageTabs, searchFilter = search)))
+        comicWrapper(p =>
+          TabbedLinkContainer(TabbedLinkContainer.Props(p, HomeInits.comics, "Comics", comicTabs, searchFilter = search)))
         ,
         programmingWrapper(p =>
           TabbedLinkContainer(TabbedLinkContainer.Props(p, HomeInits.programming, "Programming", programmingTabs, searchFilter = search))

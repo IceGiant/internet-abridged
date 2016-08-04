@@ -23,6 +23,7 @@ object FeedIds{
   val Reddit = "Reddit"
   val RedditTop = "RedditTop"
   val RedditTil = "RedditTil"
+  val RedditPics = "RedditPics"
   val AskReddit = "AskReddit"
   val RedditVideos = "RedditVideos"
 
@@ -38,10 +39,13 @@ object FeedIds{
   val RedditCoding = "RedditCoding"
   val RedditProgrammingHumor = "RedditProgrammingHumor"
 
-  val RedditPics = "RedditPics"
+
   val RedditComics = "RedditComics"
   val Xkcd = "Xkcd"
   val Dilbert = "Dilbert"
+  val CyanideHappiness = "CyanideHappiness"
+  val GirlGenius = "GirlGenius"
+  val LookingForGroup = "LookingForGroup"
 
   val NoAgenda = "NoAgenda"
   val HardcoreHistory = "HardcoreHistory"
@@ -61,9 +65,9 @@ object FeedUrls {
   val Reddit = "https://reddit.com/.rss"
   val RedditTop = "https://reddit.com/top/.rss"
   val RedditTil = "https://www.reddit.com/r/todayilearned/.rss"
+  val RedditPics = "https://www.reddit.com/r/pics/.rss"
   val AskReddit = "https://www.reddit.com/r/AskReddit/.rss"
   val RedditVideos = "https://www.reddit.com/r/videos/.rss"
-
 
   val RedditTechnology = "https://www.reddit.com/r/technology/.rss"
   val LifeHacker = "http://lifehacker.com/rss"
@@ -77,10 +81,12 @@ object FeedUrls {
   val RedditCoding = "https://www.reddit.com/r/coding/.rss"
   val RedditProgrammingHumor = "https://www.reddit.com/r/ProgrammerHumor/.rss"
 
-  val RedditPics = "https://www.reddit.com/r/pics/.rss"
   val RedditComics = "https://www.reddit.com/r/comics/.rss"
   val Xkcd = "https://www.xkcd.com/rss.xml"
   val Dilbert = "http://dilbert.com/feed"
+  val CyanideHappiness = "http://explosm.net/rss.php"
+  val GirlGenius = "http://www.girlgeniusonline.com/ggmain.rss"
+  val LookingForGroup = "https://feeds.feedburner.com/LookingForGroup"
 
   val NoAgenda = "http://feed.nashownotes.com/rss.xml"
   val HardcoreHistory = "https://feeds.feedburner.com/dancarlin/history?format=xml"
