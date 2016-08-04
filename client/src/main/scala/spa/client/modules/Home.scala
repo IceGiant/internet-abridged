@@ -131,7 +131,7 @@ object TabbedLinkContainer{
 
   @inline private def bss = GlobalStyles.bootstrapStyles
   case class Props(proxy: ModelProxy[Pot[Links]], id: String, sectionName: String,
-                   tabs: List[ContainerTab.Props], startLinksHidden: Boolean = true, searchFilter: String = "")
+                   tabs: List[TabContainer.Props], startLinksHidden: Boolean = true, searchFilter: String = "")
   case class StateProps(tabId: String, linksHidden: Boolean = false)
 
   class Backend($: BackendScope[Props, StateProps]) {
@@ -210,7 +210,7 @@ object TabbedLinkContainer{
               <.span(^.id := s"${p.id}-items", ^.className := "collapse navbar-collapse", ^.borderRadius:="0px !important")(
                 <.ul(^.className := "nav navbar-nav", ^.borderRadius:="0px !important")(
                   for (props <- p.tabs) yield {
-                    ContainerTab(ContainerTab.Props(props.anchor, props.img, props.tabId, props.style, props.onSelectedUrl, selectTab, props.tabId == s.tabId))
+                    TabContainer(TabContainer.Props(props.anchor, props.img, props.tabId, props.style, props.onSelectedUrl, selectTab, props.tabId == s.tabId))
                   }
                 )
               )
@@ -259,7 +259,7 @@ object TabbedLinkContainer{
 /**
   * Individual "tab" on one of the link container navs
   */
-object ContainerTab {
+object TabContainer {
   case class AnchorProps(id: String = "", href: String = "JavaScript:void()", rel: String = "nofollow")
   case class ImageProps(src: String, alt: String, border: String = "0px", icon: ReactNode = <.span(), imgText: String = "")
 
