@@ -19,46 +19,48 @@ object TodoPriority {
 
 case class LinkObject(id: Option[Long], sourceId: String, title: String, href: String)
 
+case class SourceInfo(url: String, text: String)
+
 object Feeds {
-  val redditMap = Map(
-    FeedIds.Reddit -> FeedUrls.Reddit,
-    FeedIds.RedditTop -> FeedUrls.RedditTop,
-    FeedIds.RedditTil -> FeedUrls.RedditTil,
-    FeedIds.RedditPics -> FeedUrls.RedditPics,
-    FeedIds.AskReddit -> FeedUrls.AskReddit,
-    FeedIds.RedditVideos -> FeedUrls.RedditVideos
+  val redditMap = List(
+    List(FeedIds.Reddit, FeedUrls.Reddit, "Frontpage"),
+    List(FeedIds.RedditTop, FeedUrls.RedditTop, "Top"),
+    List(FeedIds.RedditTil, FeedUrls.RedditTil, "Pics"),
+    List(FeedIds.RedditPics, FeedUrls.RedditPics, "TIL"),
+    List(FeedIds.AskReddit, FeedUrls.AskReddit, "Ask"),
+    List(FeedIds.RedditVideos, FeedUrls.RedditVideos, "Videos")
   )
 
-  val techMap = Map(
-    FeedIds.RedditTechnology -> FeedUrls.RedditTechnology,
-    FeedIds.LifeHacker -> FeedUrls.LifeHacker,
-    FeedIds.Slashdot -> FeedUrls.Slashdot,
-    FeedIds.Techdirt -> FeedUrls.Techdirt,
-    FeedIds.ArsTechnica -> FeedUrls.ArsTechnica
+  val techMap = List(
+    List(FeedIds.RedditTechnology, FeedUrls.RedditTechnology, "Technology"),
+    List(FeedIds.LifeHacker, FeedUrls.LifeHacker, FeedIds.LifeHacker),
+    List(FeedIds.Slashdot, FeedUrls.Slashdot, "/."),
+    List(FeedIds.Techdirt, FeedUrls.Techdirt, "Techdirt"),
+    List(FeedIds.ArsTechnica, FeedUrls.ArsTechnica, "Ars")
   )
 
-  val programmingMap = Map(
-    FeedIds.RedditProgramming -> FeedUrls.RedditProgramming,
-    FeedIds.HackerNews -> FeedUrls.HackerNews,
-    FeedIds.RedditProgrammingTop -> FeedUrls.RedditProgrammingTop,
-    FeedIds.RedditCoding -> FeedUrls.RedditCoding,
-    FeedIds.RedditProgrammingHumor -> FeedUrls.RedditProgrammingHumor
+  val programmingMap = List(
+    List(FeedIds.RedditProgramming, FeedUrls.RedditProgramming, "Programming"),
+    List(FeedIds.HackerNews, FeedUrls.HackerNews, "Hacker News"),
+    List(FeedIds.RedditProgrammingTop, FeedUrls.RedditProgrammingTop, "Top"),
+    List(FeedIds.RedditCoding, FeedUrls.RedditCoding, "Coding"),
+    List(FeedIds.RedditProgrammingHumor, FeedUrls.RedditProgrammingHumor,  "Humor")
   )
 
-  val comicsMap = Map(
-    FeedIds.RedditComics -> FeedUrls.RedditComics,
-    FeedIds.Xkcd -> FeedUrls.Xkcd,
-    FeedIds.Dilbert -> FeedUrls.Dilbert,
-    FeedIds.CyanideHappiness -> FeedUrls.CyanideHappiness,
-    FeedIds.GirlGenius -> FeedUrls.GirlGenius,
-    FeedIds.LookingForGroup -> FeedUrls.LookingForGroup
+  val comicsMap = List(
+    List(FeedIds.RedditComics, FeedUrls.RedditComics, "Comics"),
+    List(FeedIds.Xkcd, FeedUrls.Xkcd, "xkcd"),
+    List(FeedIds.Dilbert, FeedUrls.Dilbert, "Dilbert"),
+    List(FeedIds.CyanideHappiness, FeedUrls.CyanideHappiness, "C&H"),
+    List(FeedIds.GirlGenius, FeedUrls.GirlGenius, "Girl Genius"),
+    List(FeedIds.LookingForGroup, FeedUrls.LookingForGroup, "LFG")
   )
 
-  val podcastMap = Map(
-    FeedIds.NoAgenda -> FeedUrls.NoAgenda,
-    FeedIds.HardcoreHistory -> FeedUrls.HardcoreHistory,
-    FeedIds.SecurityNow -> FeedUrls.SecurityNow,
-    FeedIds.CommonSense -> FeedUrls.CommonSense
+  val podcastMap = List(
+    List(FeedIds.NoAgenda, FeedUrls.NoAgenda, "No Agenda"),
+    List(FeedIds.HardcoreHistory, FeedUrls.HardcoreHistory, "Hardcore History"),
+    List(FeedIds.SecurityNow, FeedUrls.SecurityNow, "Security Now"),
+    List(FeedIds.CommonSense, FeedUrls.CommonSense, "Common Sense")
   )
 }
 
@@ -82,13 +84,14 @@ object FeedIds{
   val RedditCoding = "RedditCoding"
   val RedditProgrammingHumor = "RedditProgrammingHumor"
 
-
   val RedditComics = "RedditComics"
   val Xkcd = "Xkcd"
   val Dilbert = "Dilbert"
   val CyanideHappiness = "CyanideHappiness"
   val GirlGenius = "GirlGenius"
   val LookingForGroup = "LookingForGroup"
+
+  val ScottAdams = "ScottAdams"
 
   val NoAgenda = "NoAgenda"
   val HardcoreHistory = "HardcoreHistory"
@@ -102,6 +105,8 @@ object FeedIds{
   val GoogleNewsUS = "GoogleNewsUS"
   */
 }
+
+
 
 
 object FeedUrls {
@@ -130,6 +135,8 @@ object FeedUrls {
   val CyanideHappiness = "http://explosm.net/rss.php"
   val GirlGenius = "http://www.girlgeniusonline.com/ggmain.rss"
   val LookingForGroup = "https://feeds.feedburner.com/LookingForGroup"
+
+  val ScottAdams = "http://feed.dilbert.com/dilbert/blog"
 
   val NoAgenda = "http://feed.nashownotes.com/rss.xml"
   val HardcoreHistory = "https://feeds.feedburner.com/dancarlin/history?format=xml"
