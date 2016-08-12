@@ -42,16 +42,27 @@ class ApiService @Inject() (implicit val config: Configuration,
     //Send information off via Play mailer to my email address
     try {
       if (feedbackData.message.trim.length > 0 && feedbackData.subject.trim.length > 0) {
-        val name = if (feedbackData.name.trim.nonEmpty) feedbackData.name else feedbackData.email
+        val name = if (feedbackData.name.trim.nonEmpty) {
+          feedbackData.name
+        } else {
+          feedbackData.email
+        }
+
+        val address = if (EmailValidation.isValid(feedbackData.email)) {
+          s"${name} <${feedbackData.email}>"
+        }
+        else {
+          anonymousSender
+        }
 
         val email = Email(
-          feedbackData.subject, {
-            if (EmailValidation.isValid(feedbackData.email)) s"${name} <${feedbackData.email}>"
-            else anonymousSender
-          },
+          feedbackData.subject,
+          address,
           Seq(recipient),
-          bodyText = Some(feedbackData.message)
+          bodyText = Some(feedbackData.message),
+          replyTo = Some(address)
         )
+        println(email.toString)
         Future(mailer.send(email)).map(_ match {
           case s: String => println(s"Got email sending result: $s")
             true
