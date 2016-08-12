@@ -131,7 +131,7 @@ object TabbedLinkContainer{
 
   @inline private def bss = GlobalStyles.bootstrapStyles
   case class Props(proxy: ModelProxy[Pot[Links]], id: String, sectionName: String,
-                   tabs: List[TabContainer.Props], startLinksHidden: Boolean = true, searchFilter: String = "")
+                   tabs: Iterable[TabContainer.Props], startLinksHidden: Boolean = true, searchFilter: String = "")
   case class StateProps(tabId: String, linksHidden: Boolean = false)
 
   class Backend($: BackendScope[Props, StateProps]) {
