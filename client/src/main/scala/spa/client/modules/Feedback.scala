@@ -95,7 +95,6 @@ object FeedbackForm {
 
     def onSubjectChange(e: ReactEventI) = {
       val text = e.target.value.toString
-      log.debug(text)
       $.modState(s => {
         s.copy(subject = text)
       })
@@ -103,7 +102,6 @@ object FeedbackForm {
 
     def onMessageChange(e: ReactEventI) = {
       val text = e.target.value.toString
-      log.debug(text)
       $.modState(s => {
         s.copy(message = text)
       })
@@ -111,7 +109,6 @@ object FeedbackForm {
 
     def onNameChange(e: ReactEventI) = {
       val text = e.target.value.toString
-      log.debug(text)
       $.modState(s => {
         s.copy(name = text)
       })
@@ -119,7 +116,6 @@ object FeedbackForm {
 
     def onEmailChange(e: ReactEventI) = {
       val text = e.target.value.toString
-      log.debug(text)
       $.modState(s => {
         s.copy(email = text)
       })
