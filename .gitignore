@@ -26,6 +26,7 @@ project/plugins/project/
 *.iml
 out
 *.sc
+.class
 
 # GitBook
 doc/_book
