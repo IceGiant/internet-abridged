@@ -25,8 +25,8 @@ object Feeds {
   val redditMap = List(
     List(FeedIds.Reddit, FeedUrls.Reddit, "Frontpage"),
     List(FeedIds.RedditTop, FeedUrls.RedditTop, "Top"),
-    List(FeedIds.RedditTil, FeedUrls.RedditTil, "Pics"),
-    List(FeedIds.RedditPics, FeedUrls.RedditPics, "TIL"),
+    List(FeedIds.RedditTil, FeedUrls.RedditTil, "TIL"),
+    List(FeedIds.RedditPics, FeedUrls.RedditPics, "Pics"),
     List(FeedIds.AskReddit, FeedUrls.AskReddit, "Ask"),
     List(FeedIds.RedditVideos, FeedUrls.RedditVideos, "Videos")
   )
