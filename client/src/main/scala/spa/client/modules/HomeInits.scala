@@ -1,13 +1,13 @@
 package spa.client.modules
 
+import japgolly.scalajs.react.ReactNode
 import spa.client.components.Icon
 import spa.client.logger._
-import spa.shared.{FeedUrls, FeedIds}
+import spa.shared.{FeedUrls, FeedIds, Feeds}
 import spa.shared.FeedIds._
+import japgolly.scalajs.react.vdom.prefix_<^._
 
-/**
-  * Created by skypage on 6/8/16.
-  */
+
 object HomeInits {
   val reddit = "reddit"
   val tech = "tech"
@@ -44,240 +44,64 @@ object HomeInits {
   )
 
   def generateSubreddits = {
-    val redditFrontpage = TabContainer.Props(
-      TabContainer.AnchorProps(),
-      TabContainer.ImageProps("src", Reddit, icon = Icon.reddit, imgText = "Frontpage"),
-      Reddit,
-      onSelectedUrl = FeedUrls.Reddit
-    )
-
-    val redditTop = TabContainer.Props(
-      TabContainer.AnchorProps(),
-      TabContainer.ImageProps("src", RedditTop, icon = Icon.reddit, imgText = "Top"),
-      RedditTop,
-      onSelectedUrl = FeedUrls.RedditTop
-    )
-
-    val redditPics = TabContainer.Props(
-      TabContainer.AnchorProps(),
-      TabContainer.ImageProps("src", RedditPics, icon = Icon.reddit, imgText = "Pics"),
-      RedditPics,
-      onSelectedUrl = FeedUrls.RedditPics
-    )
-
-    val redditTil = TabContainer.Props(
-      TabContainer.AnchorProps(),
-      TabContainer.ImageProps("src", RedditTil, icon = Icon.reddit, imgText = "TIL"),
-      RedditTil,
-      onSelectedUrl = FeedUrls.RedditTil
-    )
-
-    val askReddit = TabContainer.Props(
-      TabContainer.AnchorProps(),
-      TabContainer.ImageProps("src", AskReddit, icon = Icon.reddit, imgText = "Ask"),
-      AskReddit,
-      onSelectedUrl = FeedUrls.AskReddit
-    )
-
-    val redditVideos = TabContainer.Props(
-      TabContainer.AnchorProps(),
-      TabContainer.ImageProps("src", RedditVideos, icon = Icon.reddit, imgText = "Videos"),
-      RedditVideos,
-      onSelectedUrl = FeedUrls.RedditVideos
-    )
-
-    List(
-      redditFrontpage,
-      redditTop,
-      redditTil,
-      redditPics,
-      askReddit,
-      redditVideos
+    Feeds.redditMap.map(entry =>
+      TabContainer.Props(
+        TabContainer.AnchorProps(),
+        TabContainer.ImageProps("src", entry.head, icon = selectIcon(entry.head), imgText = entry.last),
+        entry.head,
+        onSelectedUrl = entry(1))
     )
   }
 
   def generateTech = {
-
-    val redditTechnology = TabContainer.Props(
-      TabContainer.AnchorProps(),
-      TabContainer.ImageProps("src", RedditTechnology, icon = Icon.reddit, imgText = "Technology"),
-      RedditTechnology,
-      onSelectedUrl = FeedUrls.RedditTechnology
-    )
-
-    val lifeHacker = TabContainer.Props(
-      TabContainer.AnchorProps(),
-      TabContainer.ImageProps("src", LifeHacker, imgText = LifeHacker),
-      LifeHacker,
-      onSelectedUrl = FeedUrls.LifeHacker
-    )
-
-    val slashdot = TabContainer.Props(
-      TabContainer.AnchorProps(),
-      TabContainer.ImageProps("src", Slashdot, imgText = "/."),
-      Slashdot,
-      onSelectedUrl = FeedUrls.Slashdot
-    )
-
-    val techdirt = TabContainer.Props(
-      TabContainer.AnchorProps(),
-      TabContainer.ImageProps("src", Techdirt, imgText = "Techdirt"),
-      Techdirt,
-      onSelectedUrl = FeedUrls.Techdirt
-    )
-
-    val ars =TabContainer.Props(
-      TabContainer.AnchorProps(),
-      TabContainer.ImageProps("src", ArsTechnica, imgText = "Ars"),
-      ArsTechnica,
-      onSelectedUrl = FeedUrls.ArsTechnica
-    )
-
-    List(
-      redditTechnology,
-      lifeHacker,
-      slashdot,
-      techdirt,
-      ars
+    Feeds.techMap.map(entry =>
+      TabContainer.Props(
+        TabContainer.AnchorProps(),
+        TabContainer.ImageProps("src", entry.head, icon = selectIcon(entry.head), imgText = entry.last),
+        entry.head,
+        onSelectedUrl = entry(1))
     )
   }
 
   def generateProgramming = {
-    val redditProgramming = TabContainer.Props(
-      TabContainer.AnchorProps(),
-      TabContainer.ImageProps("src", RedditProgramming, icon = Icon.reddit, imgText = "Programming"),
-      RedditProgramming,
-      onSelectedUrl = FeedUrls.RedditProgramming
-    )
-
-    val hackerNews = TabContainer.Props(
-      TabContainer.AnchorProps(),
-      TabContainer.ImageProps("src", HackerNews, icon = Icon.yCombinator, imgText = "Hacker News"),
-      HackerNews,
-      onSelectedUrl = FeedUrls.HackerNews
-    )
-
-    val redditProgrammingTop = TabContainer.Props(
-      TabContainer.AnchorProps(),
-      TabContainer.ImageProps("src", RedditProgrammingTop, icon = Icon.reddit, imgText = "Top"),
-      RedditProgrammingTop,
-      onSelectedUrl = FeedUrls.RedditProgrammingTop
-    )
-
-    val redditCoding = TabContainer.Props(
-      TabContainer.AnchorProps(),
-      TabContainer.ImageProps("src", RedditCoding, icon = Icon.reddit, imgText = "Coding"),
-      RedditCoding,
-      onSelectedUrl = FeedUrls.RedditCoding
-    )
-
-    val redditProgHumor = TabContainer.Props(
-      TabContainer.AnchorProps(),
-      TabContainer.ImageProps("src", RedditProgrammingHumor, imgText = "Humor"),
-      RedditProgrammingHumor,
-      onSelectedUrl = FeedUrls.RedditProgrammingHumor
-    )
-
-    List(
-      redditProgramming,
-      hackerNews,
-      redditProgrammingTop,
-      redditCoding,
-      redditProgHumor
+    Feeds.programmingMap.map(entry =>
+      TabContainer.Props(
+        TabContainer.AnchorProps(),
+        TabContainer.ImageProps("src", entry.head, icon = selectIcon(entry.head), imgText = entry.last),
+        entry.head,
+        onSelectedUrl = entry(1))
     )
   }
 
   def generateComics = {
-
-
-    val redditComics = TabContainer.Props(
-      TabContainer.AnchorProps(),
-      TabContainer.ImageProps("src", RedditComics, icon = Icon.reddit, imgText = "Comics"),
-      RedditComics,
-      onSelectedUrl = FeedUrls.RedditComics
-    )
-
-    val xkcd = TabContainer.Props(
-      TabContainer.AnchorProps(),
-      TabContainer.ImageProps("src", Xkcd, imgText = "xkcd"),
-      Xkcd,
-      onSelectedUrl = FeedUrls.Xkcd
-    )
-
-    val dilbert = TabContainer.Props(
-      TabContainer.AnchorProps(),
-      TabContainer.ImageProps("src", Dilbert, imgText = "Dilbert"),
-      Dilbert,
-      onSelectedUrl = FeedUrls.Dilbert
-    )
-
-    val cyanideHappiness = TabContainer.Props(
-      TabContainer.AnchorProps(),
-      TabContainer.ImageProps("src", CyanideHappiness, imgText = "C&H"),
-      CyanideHappiness,
-      onSelectedUrl = FeedUrls.CyanideHappiness
-    )
-
-    val girlGenius = TabContainer.Props(
-      TabContainer.AnchorProps(),
-      TabContainer.ImageProps("src", GirlGenius, imgText = "Girl Genius"),
-      GirlGenius,
-      onSelectedUrl = FeedUrls.GirlGenius
-    )
-
-    val lookingForGroup = TabContainer.Props(
-      TabContainer.AnchorProps(),
-      TabContainer.ImageProps("src", LookingForGroup, imgText = "LFG"),
-      LookingForGroup,
-      onSelectedUrl = FeedUrls.LookingForGroup
-    )
-
-
-
-    List(
-      redditComics,
-      dilbert,
-      xkcd,
-      cyanideHappiness,
-      girlGenius,
-      lookingForGroup
+    Feeds.comicsMap.map(entry =>
+      TabContainer.Props(
+        TabContainer.AnchorProps(),
+        TabContainer.ImageProps("src", entry.head, icon = selectIcon(entry.head), imgText = entry.last),
+        entry.head,
+        onSelectedUrl = entry(1))
     )
   }
 
   def generatePodcasts = {
-    val noAgenda = TabContainer.Props(
-      TabContainer.AnchorProps(),
-      TabContainer.ImageProps("src", NoAgenda, imgText = "No Agenda"),
-      NoAgenda,
-      onSelectedUrl = FeedUrls.NoAgenda
-    )
-
-    val hardcoreHistory = TabContainer.Props(
-      TabContainer.AnchorProps(),
-      TabContainer.ImageProps("src", HardcoreHistory, imgText = "Hardcore History"),
-      HardcoreHistory,
-      onSelectedUrl = FeedUrls.HardcoreHistory
-    )
-
-    val securityNow = TabContainer.Props(
-      TabContainer.AnchorProps(),
-      TabContainer.ImageProps("src", SecurityNow, imgText = "Security Now"),
-      SecurityNow,
-      onSelectedUrl = FeedUrls.SecurityNow
-    )
-
-    val commonSense = TabContainer.Props(
-      TabContainer.AnchorProps(),
-      TabContainer.ImageProps("src", CommonSense, imgText = "Common Sense"),
-      CommonSense,
-      onSelectedUrl = FeedUrls.CommonSense
-    )
-
-    List(
-      noAgenda,
-      hardcoreHistory,
-      securityNow,
-      commonSense
+    Feeds.podcastMap.map(entry =>
+      TabContainer.Props(
+        TabContainer.AnchorProps(),
+        TabContainer.ImageProps("src", entry.head, imgText = entry.last),
+        entry.head,
+        onSelectedUrl = entry(1))
     )
   }
+
+  def selectIcon(id: String): ReactNode = {
+    if (id == FeedIds.RedditProgrammingHumor)
+      <.span()
+    else if (id.contains(FeedIds.Reddit))
+      Icon.reddit
+    else if (id == FeedIds.HackerNews)
+      Icon.yCombinator
+    else
+      <.span()
+  }
+
 }
