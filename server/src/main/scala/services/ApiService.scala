@@ -84,11 +84,17 @@ class ApiService @Inject() (implicit val config: Configuration,
 
 @Singleton
 class WebServiceParser @Inject()(wsClient: WSClient) {
-  val siteMapping = Feeds.redditMap |+|
-                    Feeds.techMap |+|
-                    Feeds.comicsMap |+|
-                    Feeds.programmingMap |+|
-                    Feeds.podcastMap
+  val redditMap = (Feeds.redditMap.map(entry => entry.head) zip Feeds.redditMap.map(entry => (entry(1), entry.last))).toMap
+  val techMap = (Feeds.techMap.map(entry => entry.head) zip Feeds.techMap.map(entry => (entry(1), entry.last))).toMap
+  val programmingMap = (Feeds.programmingMap.map(entry => entry.head) zip Feeds.programmingMap.map(entry => (entry(1), entry.last))).toMap
+  val comicsMap = (Feeds.comicsMap.map(entry => entry.head) zip Feeds.comicsMap.map(entry => (entry(1), entry.last))).toMap
+  val podcastMap = (Feeds.podcastMap.map(entry => entry.head) zip Feeds.podcastMap.map(entry => (entry(1), entry.last))).toMap
+
+  val siteMapping = redditMap |+|
+                    techMap |+|
+                    comicsMap |+|
+                    programmingMap |+|
+                    podcastMap
 
   def refreshFeed(sourceId: String): Future[Seq[TitleLink]] = {
     if (sourceId.contains(FeedIds.Reddit)){
@@ -122,7 +128,7 @@ class WebServiceParser @Inject()(wsClient: WSClient) {
   }
 
   def parseSlashdotFeed(sourceId: String): Future[Seq[TitleLink]] = {
-    val url = siteMapping(sourceId)
+    val url = siteMapping(sourceId)._1
     wsClient.url(url).get().map( futResponse => {
       val entries = for (entry <- futResponse.xml \\ "item")
         yield {
@@ -135,7 +141,7 @@ class WebServiceParser @Inject()(wsClient: WSClient) {
   }
 
   def parseRssV2(sourceId: String): Future[Seq[TitleLink]] = {
-    val url = siteMapping(sourceId)
+    val url = siteMapping(sourceId)._1
     wsClient.url(url).get().map( futResponse => {
       val entries = for (entry <- futResponse.xml \\ "channel" \\ "item")
         yield {
@@ -148,7 +154,7 @@ class WebServiceParser @Inject()(wsClient: WSClient) {
   }
 
   def parseFeedburnerXml(sourceId: String): Future[Seq[TitleLink]] = {
-    val url = siteMapping(sourceId)
+    val url = siteMapping(sourceId)._1
     wsClient.url(url).get().map( futResponse => {
       val entries = for (entry <- futResponse.xml \\ "feed" \\ "entry")
         yield {
@@ -161,7 +167,7 @@ class WebServiceParser @Inject()(wsClient: WSClient) {
   }
 
   def parseRedditFeed(sourceId: String): Future[Seq[TitleLink]] = {
-    val url = siteMapping(sourceId)
+    val url = siteMapping(sourceId)._1
     wsClient.url(url).get().map( futResponse => {
       val entries = for (entry <- futResponse.xml \\ "feed" \\ "entry")
         yield {
