@@ -19,6 +19,49 @@ object TodoPriority {
 
 case class LinkObject(id: Option[Long], sourceId: String, title: String, href: String)
 
+object Feeds {
+  val redditMap = Map(
+    FeedIds.Reddit -> FeedUrls.Reddit,
+    FeedIds.RedditTop -> FeedUrls.RedditTop,
+    FeedIds.RedditTil -> FeedUrls.RedditTil,
+    FeedIds.RedditPics -> FeedUrls.RedditPics,
+    FeedIds.AskReddit -> FeedUrls.AskReddit,
+    FeedIds.RedditVideos -> FeedUrls.RedditVideos
+  )
+
+  val techMap = Map(
+    FeedIds.RedditTechnology -> FeedUrls.RedditTechnology,
+    FeedIds.LifeHacker -> FeedUrls.LifeHacker,
+    FeedIds.Slashdot -> FeedUrls.Slashdot,
+    FeedIds.Techdirt -> FeedUrls.Techdirt,
+    FeedIds.ArsTechnica -> FeedUrls.ArsTechnica
+  )
+
+  val programmingMap = Map(
+    FeedIds.RedditProgramming -> FeedUrls.RedditProgramming,
+    FeedIds.HackerNews -> FeedUrls.HackerNews,
+    FeedIds.RedditProgrammingTop -> FeedUrls.RedditProgrammingTop,
+    FeedIds.RedditCoding -> FeedUrls.RedditCoding,
+    FeedIds.RedditProgrammingHumor -> FeedUrls.RedditProgrammingHumor
+  )
+
+  val comicsMap = Map(
+    FeedIds.RedditComics -> FeedUrls.RedditComics,
+    FeedIds.Xkcd -> FeedUrls.Xkcd,
+    FeedIds.Dilbert -> FeedUrls.Dilbert,
+    FeedIds.CyanideHappiness -> FeedUrls.CyanideHappiness,
+    FeedIds.GirlGenius -> FeedUrls.GirlGenius,
+    FeedIds.LookingForGroup -> FeedUrls.LookingForGroup
+  )
+
+  val podcastMap = Map(
+    FeedIds.NoAgenda -> FeedUrls.NoAgenda,
+    FeedIds.HardcoreHistory -> FeedUrls.HardcoreHistory,
+    FeedIds.SecurityNow -> FeedUrls.SecurityNow,
+    FeedIds.CommonSense -> FeedUrls.CommonSense
+  )
+}
+
 object FeedIds{
   val Reddit = "Reddit"
   val RedditTop = "RedditTop"

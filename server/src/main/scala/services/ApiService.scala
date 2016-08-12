@@ -20,6 +20,9 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.xml.NodeSeq
 import play.api.libs.ws.{WS, WSClient}
 
+import scalaz._
+import Scalaz._
+
 class ApiService @Inject() (implicit val config: Configuration,
                             mailer: MailerClient, newsStore: NewsLinkModel) extends Api {
 
@@ -81,41 +84,11 @@ class ApiService @Inject() (implicit val config: Configuration,
 
 @Singleton
 class WebServiceParser @Inject()(wsClient: WSClient) {
-  val siteMapping = Map(
-    FeedIds.Reddit -> FeedUrls.Reddit,
-    FeedIds.RedditTop -> FeedUrls.RedditTop,
-    FeedIds.RedditTil -> FeedUrls.RedditTil,
-    FeedIds.RedditPics -> FeedUrls.RedditPics,
-    FeedIds.AskReddit -> FeedUrls.AskReddit,
-    FeedIds.RedditVideos -> FeedUrls.RedditVideos,
-
-    FeedIds.RedditTechnology -> FeedUrls.RedditTechnology,
-    FeedIds.LifeHacker -> FeedUrls.LifeHacker,
-    FeedIds.Slashdot -> FeedUrls.Slashdot,
-    FeedIds.Techdirt -> FeedUrls.Techdirt,
-    FeedIds.ArsTechnica -> FeedUrls.ArsTechnica,
-
-    FeedIds.RedditProgramming -> FeedUrls.RedditProgramming,
-    FeedIds.HackerNews -> FeedUrls.HackerNews,
-    FeedIds.RedditProgrammingTop -> FeedUrls.RedditProgrammingTop,
-    FeedIds.RedditCoding -> FeedUrls.RedditCoding,
-    FeedIds.RedditProgrammingHumor -> FeedUrls.RedditProgrammingHumor,
-
-    FeedIds.RedditComics -> FeedUrls.RedditComics,
-    FeedIds.Xkcd -> FeedUrls.Xkcd,
-    FeedIds.Dilbert -> FeedUrls.Dilbert,
-    FeedIds.CyanideHappiness -> FeedUrls.CyanideHappiness,
-    FeedIds.GirlGenius -> FeedUrls.GirlGenius,
-    FeedIds.LookingForGroup -> FeedUrls.LookingForGroup,
-
-
-    FeedIds.NoAgenda -> FeedUrls.NoAgenda,
-    FeedIds.HardcoreHistory -> FeedUrls.HardcoreHistory,
-    FeedIds.SecurityNow -> FeedUrls.SecurityNow,
-    FeedIds.CommonSense -> FeedUrls.CommonSense
-
-
-  )
+  val siteMapping = Feeds.redditMap |+|
+                    Feeds.techMap |+|
+                    Feeds.comicsMap |+|
+                    Feeds.programmingMap |+|
+                    Feeds.podcastMap
 
   def refreshFeed(sourceId: String): Future[Seq[TitleLink]] = {
     if (sourceId.contains(FeedIds.Reddit)){
