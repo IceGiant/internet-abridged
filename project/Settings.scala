@@ -23,6 +23,7 @@ object Settings {
   /** Declare global dependency versions here to avoid mismatches in multi part dependencies */
   object versions {
     val scala = "2.11.8"
+    val scalaz = "7.2.4"
     val scalaDom = "0.9.1"
     val scalajsReact = "0.11.0"
     val scalajsJquery = "0.9.0"
@@ -76,7 +77,9 @@ object Settings {
     "com.typesafe.slick" %% "slick" % versions.slick,
     "com.typesafe.play" %% "play-slick" % versions.playSlick,
     "com.typesafe.play" %% "play-slick-evolutions" % versions.playSlick,
-    "com.h2database" % "h2" % versions.h2db
+    "com.h2database" % "h2" % versions.h2db,
+
+    "org.scalaz" %% "scalaz-core" % versions.scalaz
 
     //,"org.webjars.npm" % "react" % versions.react
   ))
