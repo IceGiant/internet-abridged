@@ -16,6 +16,10 @@ object TodoPriority {
   implicit val todoPriorityPickler: Pickler[TodoPriority] = generatePickler[TodoPriority]
 }
 
+object LinkType extends Enumeration {
+  type LinkType = Value
+  val Podcast, Article = Value
+}
 
 case class LinkObject(id: Option[Long], sourceId: String, title: String, href: String)
 

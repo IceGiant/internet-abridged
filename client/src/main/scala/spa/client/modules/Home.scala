@@ -17,7 +17,9 @@ import spa.client.modules.HomeInits.TabState
 import spa.client.components.Icon._
 import spa.client.services.{NewsCircuit, _}
 import spa.shared.FeedIds._
-import spa.shared.{FeedIds, LinkObject, FeedUrls}
+import spa.shared.LinkType.LinkType
+import spa.shared.LinkType.LinkType
+import spa.shared.{LinkType, FeedIds, LinkObject, FeedUrls}
 
 import scalacss.ScalaCssReact._
 
@@ -107,22 +109,28 @@ object SectionsByTopic{
 
       <.div(^.paddingTop:="10px")(
         redditWrapper(p =>
-          TabbedLinkContainer(TabbedLinkContainer.Props(p, HomeInits.reddit, "Reddit", redditTabs, startLinksHidden = false, searchFilter = search))
+          TabbedLinkContainer(TabbedLinkContainer.Props(p, HomeInits.reddit,
+            "Reddit", redditTabs, startLinksHidden = false, searchFilter = search, linksType = LinkType.Article))
         ),
         techWrapper(p =>
-          TabbedLinkContainer(TabbedLinkContainer.Props(p, HomeInits.tech, "Tech", techTabs, searchFilter = search))
+          TabbedLinkContainer(TabbedLinkContainer.Props(p, HomeInits.tech,
+            "Tech", techTabs, searchFilter = search, linksType = LinkType.Article))
         ),
         comicWrapper(p =>
-          TabbedLinkContainer(TabbedLinkContainer.Props(p, HomeInits.comics, "Comics", comicTabs, searchFilter = search)))
+          TabbedLinkContainer(TabbedLinkContainer.Props(p, HomeInits.comics,
+            "Comics", comicTabs, searchFilter = search, linksType = LinkType.Article)))
         ,
         programmingWrapper(p =>
-          TabbedLinkContainer(TabbedLinkContainer.Props(p, HomeInits.programming, "Programming", programmingTabs, searchFilter = search))
+          TabbedLinkContainer(TabbedLinkContainer.Props(p, HomeInits.programming,
+            "Programming", programmingTabs, searchFilter = search, linksType = LinkType.Article))
         ),
         securityWrapper(p =>
-          TabbedLinkContainer(TabbedLinkContainer.Props(p, HomeInits.security, "Security", securityTabs, searchFilter = search))
+          TabbedLinkContainer(TabbedLinkContainer.Props(p, HomeInits.security,
+            "Security", securityTabs, searchFilter = search, linksType = LinkType.Article))
         ),
         podcastWrapper(p =>
-          TabbedLinkContainer(TabbedLinkContainer.Props(p, HomeInits.podcasts, "Podcasts", podcastTabs, searchFilter = search))
+          TabbedLinkContainer(TabbedLinkContainer.Props(p, HomeInits.podcasts,
+            "Podcasts", podcastTabs, searchFilter = search, linksType = LinkType.Podcast))
         )
       )}
     }.build
@@ -137,8 +145,13 @@ object SectionsByTopic{
 object TabbedLinkContainer{
 
   @inline private def bss = GlobalStyles.bootstrapStyles
-  case class Props(proxy: ModelProxy[Pot[Links]], id: String, sectionName: String,
-                   tabs: Iterable[TabContainer.Props], startLinksHidden: Boolean = true, searchFilter: String = "")
+  case class Props(proxy: ModelProxy[Pot[Links]],
+                   id: String,
+                   sectionName: String,
+                   tabs: Iterable[TabContainer.Props],
+                   startLinksHidden: Boolean = true,
+                   searchFilter: String = "",
+                   linksType: LinkType)
   case class StateProps(tabId: String, linksHidden: Boolean = false)
 
   class Backend($: BackendScope[Props, StateProps]) {
@@ -242,7 +255,7 @@ object TabbedLinkContainer{
           }),
           p.proxy().render(links => {
             //log.debug(s"${p.sectionName} links count: ${links.items.length}")
-            LinkList(links.items, s.linksHidden, p.searchFilter)
+            LinkList(links.items, s.linksHidden, p.searchFilter, p.linksType)
           })
         )
       )
@@ -302,7 +315,8 @@ object LinkList {
   case class Props(
                     items: Seq[LinkObject],
                     hidden: Boolean = false,
-                    titleFilter: String = ""
+                    titleFilter: String = "",
+                    linkType: LinkType
                   )
 
   private val linkList = ReactComponentB[Props]("LinkList")
@@ -332,8 +346,8 @@ object LinkList {
     })
     .build
 
-  def apply(items: Seq[LinkObject], hidden: Boolean, searchFilter: String) =
-    linkList(Props(items, hidden, searchFilter))
+  def apply(items: Seq[LinkObject], hidden: Boolean, searchFilter: String, linkType: LinkType) =
+    linkList(Props(items, hidden, searchFilter, linkType))
 }
 
 object UniqueTarget {
