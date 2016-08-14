@@ -39,14 +39,6 @@ object Feeds {
     List(FeedIds.ArsTechnica, FeedUrls.ArsTechnica, "Ars")
   )
 
-  val programmingMap = List(
-    List(FeedIds.RedditProgramming, FeedUrls.RedditProgramming, "Programming"),
-    List(FeedIds.HackerNews, FeedUrls.HackerNews, "Hacker News"),
-    List(FeedIds.RedditProgrammingTop, FeedUrls.RedditProgrammingTop, "Top"),
-    List(FeedIds.RedditCoding, FeedUrls.RedditCoding, "Coding"),
-    List(FeedIds.RedditProgrammingHumor, FeedUrls.RedditProgrammingHumor,  "Humor")
-  )
-
   val comicsMap = List(
     List(FeedIds.RedditComics, FeedUrls.RedditComics, "Comics"),
     List(FeedIds.Xkcd, FeedUrls.Xkcd, "xkcd"),
@@ -54,6 +46,14 @@ object Feeds {
     List(FeedIds.CyanideHappiness, FeedUrls.CyanideHappiness, "C&H"),
     List(FeedIds.GirlGenius, FeedUrls.GirlGenius, "Girl Genius"),
     List(FeedIds.LookingForGroup, FeedUrls.LookingForGroup, "LFG")
+  )
+
+  val programmingMap = List(
+    List(FeedIds.RedditProgramming, FeedUrls.RedditProgramming, "Programming"),
+    List(FeedIds.HackerNews, FeedUrls.HackerNews, "Hacker News"),
+    List(FeedIds.RedditProgrammingTop, FeedUrls.RedditProgrammingTop, "Top"),
+    List(FeedIds.RedditCoding, FeedUrls.RedditCoding, "Coding"),
+    List(FeedIds.RedditProgrammingHumor, FeedUrls.RedditProgrammingHumor,  "Humor")
   )
 
   val podcastMap = List(
