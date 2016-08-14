@@ -13,6 +13,7 @@ object HomeInits {
   val tech = "tech"
   val comics = "comics"
   val programming = "programming"
+  val security = "security"
   val podcasts = "podcasts"
 
   case class TabState(id: String, selectedTab: String)
@@ -40,6 +41,7 @@ object HomeInits {
     TabState(tech, FeedIds.RedditTechnology),
     TabState(comics, FeedIds.RedditComics),
     TabState(programming, FeedIds.RedditProgramming),
+    TabState(security, FeedIds.DarkReading),
     TabState(podcasts, FeedIds.NoAgenda)
   )
 
@@ -75,6 +77,16 @@ object HomeInits {
 
   def generateComics = {
     Feeds.comicsMap.map(entry =>
+      TabContainer.Props(
+        TabContainer.AnchorProps(),
+        TabContainer.ImageProps("src", entry.head, icon = selectIcon(entry.head), imgText = entry.last),
+        entry.head,
+        onSelectedUrl = entry(1))
+    )
+  }
+
+  def generateSecurity = {
+    Feeds.securityMap.map(entry =>
       TabContainer.Props(
         TabContainer.AnchorProps(),
         TabContainer.ImageProps("src", entry.head, icon = selectIcon(entry.head), imgText = entry.last),

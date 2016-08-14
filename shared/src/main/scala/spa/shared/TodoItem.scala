@@ -56,6 +56,12 @@ object Feeds {
     List(FeedIds.RedditProgrammingHumor, FeedUrls.RedditProgrammingHumor,  "Humor")
   )
 
+  val securityMap = List(
+    List(FeedIds.DarkReading, FeedUrls.DarkReading, "Dark Reading"),
+    List(FeedIds.Schneier, FeedUrls.Schneier, FeedIds.Schneier),
+    List(FeedIds.Krebs, FeedUrls.Krebs, FeedIds.Krebs)
+  )
+
   val podcastMap = List(
     List(FeedIds.NoAgenda, FeedUrls.NoAgenda, "No Agenda"),
     List(FeedIds.HardcoreHistory, FeedUrls.HardcoreHistory, "Hardcore History"),
@@ -92,6 +98,11 @@ object FeedIds{
   val LookingForGroup = "LookingForGroup"
 
   val ScottAdams = "ScottAdams"
+
+  val DarkReading = "DarkReading"
+  val Schneier = "Schneier"
+  val Krebs = "Krebs"
+
 
   val NoAgenda = "NoAgenda"
   val HardcoreHistory = "HardcoreHistory"
@@ -137,6 +148,10 @@ object FeedUrls {
   val LookingForGroup = "https://feeds.feedburner.com/LookingForGroup"
 
   val ScottAdams = "http://feed.dilbert.com/dilbert/blog"
+
+  val DarkReading = "http://www.darkreading.com/rss_simple.asp"
+  val Schneier = "https://www.reddit.com/r/SchneierOnSecurity/new/.rss"
+  val Krebs = "http://krebsonsecurity.com/feed/"
 
   val NoAgenda = "http://feed.nashownotes.com/rss.xml"
   val HardcoreHistory = "https://feeds.feedburner.com/dancarlin/history?format=xml"

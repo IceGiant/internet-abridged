@@ -83,10 +83,13 @@ object SectionsByTopic{
   val techCircuit = new LinksCircuit
 
   val comicTabs = HomeInits.generateComics
-  val ComicCircuit = new LinksCircuit
+  val comicCircuit = new LinksCircuit
 
   val programmingTabs = HomeInits.generateProgramming
-  val ProgrammingCircuit = new LinksCircuit
+  val programmingCircuit = new LinksCircuit
+
+  val securityTabs = HomeInits.generateSecurity
+  val securityCircuit = new LinksCircuit
 
   val podcastTabs = HomeInits.generatePodcasts
   val podcastCircuit = new LinksCircuit
@@ -97,8 +100,9 @@ object SectionsByTopic{
       //Connect sections up to their circuits so calls to the server or searches reflect to this part of the UI
       val redditWrapper = redditCircuit.connect(_.links)
       val techWrapper = techCircuit.connect(_.links)
-      val programmingWrapper = ProgrammingCircuit.connect(_.links)
-      val comicWrapper = ComicCircuit.connect(_.links)
+      val programmingWrapper = programmingCircuit.connect(_.links)
+      val comicWrapper = comicCircuit.connect(_.links)
+      val securityWrapper = securityCircuit.connect(_.links)
       val podcastWrapper = podcastCircuit.connect(_.links)
 
       <.div(^.paddingTop:="10px")(
@@ -113,6 +117,9 @@ object SectionsByTopic{
         ,
         programmingWrapper(p =>
           TabbedLinkContainer(TabbedLinkContainer.Props(p, HomeInits.programming, "Programming", programmingTabs, searchFilter = search))
+        ),
+        securityWrapper(p =>
+          TabbedLinkContainer(TabbedLinkContainer.Props(p, HomeInits.security, "Security", securityTabs, searchFilter = search))
         ),
         podcastWrapper(p =>
           TabbedLinkContainer(TabbedLinkContainer.Props(p, HomeInits.podcasts, "Podcasts", podcastTabs, searchFilter = search))

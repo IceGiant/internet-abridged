@@ -88,12 +88,14 @@ class WebServiceParser @Inject()(wsClient: WSClient) {
   val techMap = (Feeds.techMap.map(entry => entry.head) zip Feeds.techMap.map(entry => (entry(1), entry.last))).toMap
   val programmingMap = (Feeds.programmingMap.map(entry => entry.head) zip Feeds.programmingMap.map(entry => (entry(1), entry.last))).toMap
   val comicsMap = (Feeds.comicsMap.map(entry => entry.head) zip Feeds.comicsMap.map(entry => (entry(1), entry.last))).toMap
+  val securityMap = (Feeds.securityMap.map(entry => entry.head) zip Feeds.securityMap.map(entry => (entry(1), entry.last))).toMap
   val podcastMap = (Feeds.podcastMap.map(entry => entry.head) zip Feeds.podcastMap.map(entry => (entry(1), entry.last))).toMap
 
   val siteMapping = redditMap |+|
                     techMap |+|
                     comicsMap |+|
                     programmingMap |+|
+                    securityMap |+|
                     podcastMap
 
   def refreshFeed(sourceId: String): Future[Seq[TitleLink]] = {
@@ -115,6 +117,10 @@ class WebServiceParser @Inject()(wsClient: WSClient) {
         case FeedIds.LookingForGroup => parseFeedburnerXml(sourceId)
 
         case FeedIds.HackerNews => parseRssV2(sourceId)
+
+        case FeedIds.DarkReading => parseRssV2(sourceId)
+        case FeedIds.Schneier => parseRedditFeed(sourceId)
+        case FeedIds.Krebs => parseRssV2(sourceId)
 
         case FeedIds.NoAgenda => parseRssV2(sourceId)
         case FeedIds.HardcoreHistory => parseRssV2(sourceId)
