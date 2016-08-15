@@ -39,6 +39,10 @@ object Home {
       cb >> $.modState(s => s.copy(search = text))
     }
 
+    def startPlaying(podcastLink: String) = {
+      Callback.log("test")
+    }
+
     val searchField = <.input.text(GlobalStyles.bootstrapStyles.formControl,
       ^.id := "search", ^.placeholder := "Search...", ^.onChange ==> onTextChange)
 
@@ -47,7 +51,7 @@ object Home {
         <.meta(^.name := "description",
           ^.contentAttr := "The Net is vast and infinite, but some of the best parts are aggregated here."),
         //searchField,
-        SectionsByTopic(s.search)
+        SectionsByTopic(s.search, startPlaying)
       )
     }
   }
@@ -65,7 +69,7 @@ object Home {
   * for a particular topic
   */
 object SectionsByTopic{
-  case class Props(search: String)
+  case class Props(search: String, podcastFn: (String) => Callback)
 
   case class LinksModel(links: Pot[Links])
 
@@ -98,7 +102,7 @@ object SectionsByTopic{
 
 
   private val component = ReactComponentB[Props]("SearchableComponent")
-    .render_P { case Props(search) => {
+    .render_P { case Props(search, podcastFn) => {
       //Connect sections up to their circuits so calls to the server or searches reflect to this part of the UI
       val redditWrapper = redditCircuit.connect(_.links)
       val techWrapper = techCircuit.connect(_.links)
@@ -130,12 +134,13 @@ object SectionsByTopic{
         ),
         podcastWrapper(p =>
           TabbedLinkContainer(TabbedLinkContainer.Props(p, HomeInits.podcasts,
-            "Podcasts", podcastTabs, searchFilter = search, linksType = LinkType.Podcast))
+            "Podcasts", podcastTabs, searchFilter = search, linksType = LinkType.Podcast,
+            podcastHandler = podcastFn))
         )
       )}
     }.build
 
-  def apply(search: String) = component(Props(search))
+  def apply(search: String, podcastFn: (String) => Callback) = component(Props(search, podcastFn))
 }
 
 /**
@@ -151,7 +156,8 @@ object TabbedLinkContainer{
                    tabs: Iterable[TabContainer.Props],
                    startLinksHidden: Boolean = true,
                    searchFilter: String = "",
-                   linksType: LinkType)
+                   linksType: LinkType,
+                   podcastHandler: (String) => Callback = null)
   case class StateProps(tabId: String, linksHidden: Boolean = false)
 
   class Backend($: BackendScope[Props, StateProps]) {
@@ -255,7 +261,7 @@ object TabbedLinkContainer{
           }),
           p.proxy().render(links => {
             //log.debug(s"${p.sectionName} links count: ${links.items.length}")
-            LinkList(links.items, s.linksHidden, p.searchFilter, p.linksType)
+            LinkList(links.items, s.linksHidden, p.searchFilter, p.linksType, p.podcastHandler)
           })
         )
       )
@@ -316,15 +322,23 @@ object LinkList {
                     items: Seq[LinkObject],
                     hidden: Boolean = false,
                     titleFilter: String = "",
-                    linkType: LinkType
+                    linkType: LinkType,
+                    podcastFn: (String) => Callback
                   )
 
   private val linkList = ReactComponentB[Props]("LinkList")
     .render_P(p => {
       val style = bss.listGroup
       def renderItem(item: LinkObject) = {
+        val podcastGlyph = if (p.linkType == LinkType.Podcast) {
+          //log.debug(item.podcastFile.get)
+          <.span(<.a(^.href := "JavaScript:void()", ^.onClick --> p.podcastFn(item.podcastFile.get))(Icon.play), "  ")
+        }
+        else <.span()
+
         if (item.title.toLowerCase.contains(p.titleFilter.toLowerCase)) {
           <.li(bss.listGroup.item, ^.borderRadius := "0px")(
+            podcastGlyph,
             <.a(^.href := item.href,
               ^.rel := "nofollow",
               ^.target := s"external-${UniqueTarget()}"
@@ -346,8 +360,8 @@ object LinkList {
     })
     .build
 
-  def apply(items: Seq[LinkObject], hidden: Boolean, searchFilter: String, linkType: LinkType) =
-    linkList(Props(items, hidden, searchFilter, linkType))
+  def apply(items: Seq[LinkObject], hidden: Boolean, searchFilter: String, linkType: LinkType, podcastFn: (String) => Callback) =
+    linkList(Props(items, hidden, searchFilter, linkType, podcastFn))
 }
 
 object UniqueTarget {

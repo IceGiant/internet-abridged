@@ -21,7 +21,7 @@ object LinkType extends Enumeration {
   val Podcast, Article = Value
 }
 
-case class LinkObject(id: Option[Long], sourceId: String, title: String, href: String)
+case class LinkObject(id: Option[Long], sourceId: String, title: String, href: String, podcastFile: Option[String] = None)
 
 case class SourceInfo(url: String, text: String)
 

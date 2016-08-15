@@ -6,7 +6,8 @@ CREATE TABLE LINKSTABLE (
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
     sourceId VARCHAR(255),
     title VARCHAR(2000),
-    href VARCHAR(2000)
+    href VARCHAR(2000),
+    podcastFile VARCHAR(2000)
 );
 
 # --- !Downs

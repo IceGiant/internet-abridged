@@ -51,7 +51,8 @@ class NewsLinkSlickStore @Inject() (dbConfigProvider: DatabaseConfigProvider) ex
     def sourceId = column[String]("SOURCEID")
     def title = column[String]("TITLE")
     def href = column[String]("HREF")
-    def * = (id, sourceId, title, href) <> (LinkRow.tupled, LinkRow.unapply)
+    def podcastFile = column[Option[String]]("PODCASTFILE")
+    def * = (id, sourceId, title, href, podcastFile) <> (LinkRow.tupled, LinkRow.unapply)
   }
 
   val dbConfig = dbConfigProvider.get[JdbcProfile]
@@ -73,13 +74,9 @@ class NewsLinkSlickStore @Inject() (dbConfigProvider: DatabaseConfigProvider) ex
   override def create(sourceId: String, tlinks: Seq[TitleLink]): Future[Seq[LinkObject]] = {
     db.run{
         links returning links.map(_.id) into ((link, id) => link.copy(id = id)) ++=
-          tlinks.map( item => LinkRow(None, sourceId.toString, item.title, item.href))
+          tlinks.map( item => LinkRow(None, sourceId.toString, item.title, item.href, item.podcastFile))
     }.map(_.map(_.toObj))
   }
-
-  //override def createFromLinkRow(row: LinkRow): Future[LinkObject] =
-  //  create(row.sourceId, row.title, row.href)
-
 
   def update(file: LinkObject): Future[Boolean]= {
     //TODO: implement update logic
@@ -91,7 +88,7 @@ class NewsLinkSlickStore @Inject() (dbConfigProvider: DatabaseConfigProvider) ex
   }
 }
 
-case class LinkRow(id: Option[Long], sourceId: String, title: String, href: String) {
+case class LinkRow(id: Option[Long], sourceId: String, title: String, href: String, podcastFile: Option[String]) {
   def toObj =
-    LinkObject(this.id, this.sourceId, this.title, this.href)
+    LinkObject(this.id, this.sourceId, this.title, this.href, this.podcastFile)
 }

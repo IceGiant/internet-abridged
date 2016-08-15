@@ -11,6 +11,7 @@ import play.api.Play.current
 import play.api.libs.mailer.{Email, MailerClient}
 import play.libs.F.Promise
 import play.api.data.validation
+import spa.shared.LinkType.LinkType
 import spa.shared._
 
 import scala.concurrent.{Await, Future}
@@ -122,10 +123,10 @@ class WebServiceParser @Inject()(wsClient: WSClient) {
         case FeedIds.Schneier => parseRedditFeed(sourceId)
         case FeedIds.Krebs => parseRssV2(sourceId)
 
-        case FeedIds.NoAgenda => parseRssV2(sourceId)
-        case FeedIds.HardcoreHistory => parseRssV2(sourceId)
-        case FeedIds.SecurityNow => parseRssV2(sourceId)
-        case FeedIds.CommonSense => parseRssV2(sourceId)
+        case FeedIds.NoAgenda => parseRssV2(sourceId, LinkType.Podcast)
+        case FeedIds.HardcoreHistory => parseRssV2(sourceId, LinkType.Podcast)
+        case FeedIds.SecurityNow => parseRssV2(sourceId, LinkType.Podcast)
+        case FeedIds.CommonSense => parseRssV2(sourceId, LinkType.Podcast)
         case _ => println(s"Uh oh! from: $sourceId")
           Future(Seq.empty)
       }
@@ -146,14 +147,18 @@ class WebServiceParser @Inject()(wsClient: WSClient) {
     })
   }
 
-  def parseRssV2(sourceId: String): Future[Seq[TitleLink]] = {
+  def parseRssV2(sourceId: String, linkType: LinkType = LinkType.Article): Future[Seq[TitleLink]] = {
     val url = siteMapping(sourceId)._1
     wsClient.url(url).get().map( futResponse => {
       val entries = for (entry <- futResponse.xml \\ "channel" \\ "item")
         yield {
           val title = entry \\ "title"
           val href = entry \\ "link"
-          TitleLink(title.text, href.text)
+          if (linkType == LinkType.Podcast) {
+            val mp3Link = entry \\ "enclosure" \ "@url"
+            TitleLink(title.text, href.text, Some(mp3Link.text))
+          }
+          else TitleLink(title.text, href.text)
         }
       entries
     })
@@ -190,4 +195,4 @@ class WebServiceParser @Inject()(wsClient: WSClient) {
   }
 }
 
-case class TitleLink(title: String, href: String)
+case class TitleLink(title: String, href: String, podcastFile: Option[String] = None)
