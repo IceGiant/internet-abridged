@@ -10,10 +10,6 @@ import boopickle.Default._
 
 import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
 
-// Actions
-/*case class UpdateMotd(potResult: Pot[String] = Empty) extends PotAction[String, UpdateMotd] {
-  override def next(value: Pot[String]) = UpdateMotd(value)
-}*/
 
 case class RefreshLinks(tabId: String, contentType: String = "article") extends Action
 case class UpdateListOfLinks(links: Seq[LinkObject]) extends Action
