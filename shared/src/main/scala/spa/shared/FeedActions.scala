@@ -1,16 +1,65 @@
 package spa.shared
 
-import boopickle.Default._
+/**
+  * Created by skypage on 8/17/16.
+  */
 
+case class LinkObject(id: Option[Long], sourceId: String, title: String, href: String, podcastFile: Option[String] = None)
 
 object LinkType extends Enumeration {
   type LinkType = Value
   val Podcast, Article = Value
 }
 
-case class LinkObject(id: Option[Long], sourceId: String, title: String, href: String, podcastFile: Option[String] = None)
-
 case class SourceInfo(url: String, text: String)
+
+
+object FeedIds{
+  val Reddit = "Reddit"
+  val RedditTop = "RedditTop"
+  val RedditTil = "RedditTil"
+  val RedditPics = "RedditPics"
+  val AskReddit = "AskReddit"
+  val RedditVideos = "RedditVideos"
+
+  val RedditTechnology = "RedditTechnology"
+  val LifeHacker = "LifeHacker"
+  val Slashdot = "Slashdot"
+  val Techdirt = "Techdirt"
+  val ArsTechnica = "ArsTechnica"
+
+  val RedditProgramming = "RedditProgramming"
+  val HackerNews = "HackerNews"
+  val RedditProgrammingTop = "RedditProgrammingTop"
+  val RedditCoding = "RedditCoding"
+  val RedditProgrammingHumor = "RedditProgrammingHumor"
+
+  val RedditComics = "RedditComics"
+  val Xkcd = "Xkcd"
+  val Dilbert = "Dilbert"
+  val CyanideHappiness = "CyanideHappiness"
+  val GirlGenius = "GirlGenius"
+  val LookingForGroup = "LookingForGroup"
+
+  val ScottAdams = "ScottAdams"
+
+  val DarkReading = "DarkReading"
+  val Schneier = "Schneier"
+  val Krebs = "Krebs"
+
+
+  val NoAgenda = "NoAgenda"
+  val HardcoreHistory = "HardcoreHistory"
+  val SecurityNow = "SecurityNow"
+  val CommonSense = "CommonSense"
+
+
+  /*Maybe
+  val Digg = "Digg"
+  val GoogleNews = "GoogleNews"
+  val GoogleNewsUS = "GoogleNewsUS"
+  */
+}
 
 object Feeds {
   val redditMap = List(
@@ -61,56 +110,6 @@ object Feeds {
   )
 }
 
-object FeedIds{
-  val Reddit = "Reddit"
-  val RedditTop = "RedditTop"
-  val RedditTil = "RedditTil"
-  val RedditPics = "RedditPics"
-  val AskReddit = "AskReddit"
-  val RedditVideos = "RedditVideos"
-
-  val RedditTechnology = "RedditTechnology"
-  val LifeHacker = "LifeHacker"
-  val Slashdot = "Slashdot"
-  val Techdirt = "Techdirt"
-  val ArsTechnica = "ArsTechnica"
-
-  val RedditProgramming = "RedditProgramming"
-  val HackerNews = "HackerNews"
-  val RedditProgrammingTop = "RedditProgrammingTop"
-  val RedditCoding = "RedditCoding"
-  val RedditProgrammingHumor = "RedditProgrammingHumor"
-
-  val RedditComics = "RedditComics"
-  val Xkcd = "Xkcd"
-  val Dilbert = "Dilbert"
-  val CyanideHappiness = "CyanideHappiness"
-  val GirlGenius = "GirlGenius"
-  val LookingForGroup = "LookingForGroup"
-
-  val ScottAdams = "ScottAdams"
-
-  val DarkReading = "DarkReading"
-  val Schneier = "Schneier"
-  val Krebs = "Krebs"
-
-
-  val NoAgenda = "NoAgenda"
-  val HardcoreHistory = "HardcoreHistory"
-  val SecurityNow = "SecurityNow"
-  val CommonSense = "CommonSense"
-
-
-  /*Maybe
-  val Digg = "Digg"
-  val GoogleNews = "GoogleNews"
-  val GoogleNewsUS = "GoogleNewsUS"
-  */
-}
-
-
-
-
 object FeedUrls {
   val Reddit = "https://reddit.com/.rss"
   val RedditTop = "https://reddit.com/top/.rss"
@@ -157,19 +156,3 @@ object FeedUrls {
   val GoogleNewsUS = "https://news.google.com/news/section?pz=1&cf=all&topic=n&ict=ln"
   */
 }
-
-object EmailValidation {
-  //Below regex based on W3C recommendation here: https://www.w3.org/TR/html5/forms.html#valid-e-mail-address
-  private val emailRegex = """^[a-zA-Z0-9\.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$""".r
-
-  def isValid(e: String): Boolean = e match{
-    case null                                           => false
-    case e if e.trim.isEmpty                            => false
-    case e if emailRegex.findFirstMatchIn(e).isDefined  => true
-    case _                                              => false
-  }
-}
-
-case class EmailFormData(name: String = "Anonymous",
-                         email: String = "anonymous@internet-abridged.com",
-                         subject: String, message: String)
