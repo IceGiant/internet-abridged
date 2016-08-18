@@ -5,7 +5,7 @@ import diode._
 import diode.data._
 import diode.util._
 import diode.react.ReactConnector
-import spa.shared.{Api, EmailFormData, LinkObject, TodoItem}
+import spa.shared.{Api, EmailFormData, LinkObject}
 import boopickle.Default._
 
 import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
@@ -43,19 +43,7 @@ case class FeedbackResponse(sent: Boolean) {
 case class RootModel(motd: Pot[String], links: Pot[Links])
 case class RootNewsModel(newsLinks: Pot[Links], testLinks: Pot[Links])
 
-case class Todos(items: Seq[TodoItem]) {
-  def updated(newItem: TodoItem) = {
-    items.indexWhere(_.id == newItem.id) match {
-      case -1 =>
-        // add new
-        Todos(items :+ newItem)
-      case idx =>
-        // replace old
-        Todos(items.updated(idx, newItem))
-    }
-  }
-  def remove(item: TodoItem) = Todos(items.filterNot(_ == item))
-}
+
 
 /**
   * Handles actions related to scraped lists of links

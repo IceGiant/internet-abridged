@@ -4,7 +4,6 @@ import diode.data.Pot
 import diode.react.ModelProxy
 import japgolly.scalajs.react.extra.router.RouterCtl
 import spa.client.SPAMain.{FeedbackLoc, Loc}
-import spa.client.services.Todos
 import diode.react.ReactPot._
 import diode.react._
 import diode.data.Pot
