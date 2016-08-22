@@ -111,8 +111,8 @@ object Feeds {
 }
 
 object FeedUrls {
-  val Reddit = "https://reddit.com/.rss"
-  val RedditTop = "https://reddit.com/top/.rss"
+  val Reddit = "https://www.reddit.com/.rss"
+  val RedditTop = "https://www.reddit.com/top/.rss"
   val RedditTil = "https://www.reddit.com/r/todayilearned/.rss"
   val RedditPics = "https://www.reddit.com/r/pics/.rss"
   val AskReddit = "https://www.reddit.com/r/AskReddit/.rss"
