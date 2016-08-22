@@ -83,14 +83,22 @@ class ApiService @Inject() (implicit val config: Configuration,
   }
 }
 
+case class FeedDetails(url: String, uiString: String, linkType: LinkType)
+
 @Singleton
 class WebServiceParser @Inject()(wsClient: WSClient) {
-  val redditMap = (Feeds.redditMap.map(entry => entry.head) zip Feeds.redditMap.map(entry => (entry(1), entry.last))).toMap
-  val techMap = (Feeds.techMap.map(entry => entry.head) zip Feeds.techMap.map(entry => (entry(1), entry.last))).toMap
-  val programmingMap = (Feeds.programmingMap.map(entry => entry.head) zip Feeds.programmingMap.map(entry => (entry(1), entry.last))).toMap
-  val comicsMap = (Feeds.comicsMap.map(entry => entry.head) zip Feeds.comicsMap.map(entry => (entry(1), entry.last))).toMap
-  val securityMap = (Feeds.securityMap.map(entry => entry.head) zip Feeds.securityMap.map(entry => (entry(1), entry.last))).toMap
-  val podcastMap = (Feeds.podcastMap.map(entry => entry.head) zip Feeds.podcastMap.map(entry => (entry(1), entry.last))).toMap
+  val redditMap = (Feeds.redditMap.map(entry => entry.head) zip
+    Feeds.redditMap.map(entry => (entry(1), entry.last, LinkType.Article.toString))).toMap
+  val techMap = (Feeds.techMap.map(entry => entry.head) zip
+    Feeds.techMap.map(entry => (entry(1), entry.last, LinkType.Article.toString))).toMap
+  val programmingMap = (Feeds.programmingMap.map(entry => entry.head) zip
+    Feeds.programmingMap.map(entry => (entry(1), entry.last, LinkType.Article.toString))).toMap
+  val comicsMap = (Feeds.comicsMap.map(entry => entry.head) zip
+    Feeds.comicsMap.map(entry => (entry(1), entry.last, LinkType.Article.toString))).toMap
+  val securityMap = (Feeds.securityMap.map(entry => entry.head) zip
+    Feeds.securityMap.map(entry => (entry(1), entry.last, LinkType.Article.toString))).toMap
+  val podcastMap = (Feeds.podcastMap.map(entry => entry.head) zip
+    Feeds.podcastMap.map(entry => (entry(1), entry.last, LinkType.Podcast.toString))).toMap
 
   val siteMapping = redditMap |+|
                     techMap |+|
