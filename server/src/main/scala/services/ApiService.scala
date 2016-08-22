@@ -108,95 +108,48 @@ class WebServiceParser @Inject()(wsClient: WSClient) {
                     podcastMap
 
   def refreshFeed(sourceId: String): Future[Seq[TitleLink]] = {
-    if (sourceId.contains(FeedIds.Reddit)){
-      parseRedditFeed(sourceId)
+    try {
+      parseFeed(sourceId)
+    } catch {
+      case e: Exception => println(s"Something went wrong with $sourceId")
+        Future(Seq.empty)
     }
-    else {
-      sourceId match {
-        case FeedIds.LifeHacker => //println("Parsing lifehacker")
-          parseRssV2(sourceId)
-        case FeedIds.Slashdot => parseSlashdotFeed(sourceId)
-        case FeedIds.Techdirt => parseRssV2(sourceId)
-        case FeedIds.ArsTechnica => parseRssV2(sourceId)
-
-        case FeedIds.Xkcd => parseRssV2(sourceId)
-        case FeedIds.Dilbert => parseFeedburnerXml(sourceId)
-        case FeedIds.CyanideHappiness => parseRssV2(sourceId)
-        case FeedIds.GirlGenius => parseRssV2(sourceId)
-        case FeedIds.LookingForGroup => parseFeedburnerXml(sourceId)
-
-        case FeedIds.HackerNews => parseRssV2(sourceId)
-
-        case FeedIds.DarkReading => parseRssV2(sourceId)
-        case FeedIds.Schneier => parseRedditFeed(sourceId)
-        case FeedIds.Krebs => parseRssV2(sourceId)
-
-        case FeedIds.NoAgenda => parseRssV2(sourceId, LinkType.Podcast)
-        case FeedIds.HardcoreHistory => parseRssV2(sourceId, LinkType.Podcast)
-        case FeedIds.SecurityNow => parseRssV2(sourceId, LinkType.Podcast)
-        case FeedIds.CommonSense => parseRssV2(sourceId, LinkType.Podcast)
-        case _ => println(s"Uh oh! from: $sourceId")
-          Future(Seq.empty)
-      }
-    }
-
   }
 
-  def parseSlashdotFeed(sourceId: String): Future[Seq[TitleLink]] = {
+  def parseFeed(sourceId: String, linkType: LinkType = LinkType.Article): Future[Seq[TitleLink]] = {
     val url = siteMapping(sourceId)._1
-    wsClient.url(url).get().map( futResponse => {
-      val entries = for (entry <- futResponse.xml \\ "item")
-        yield {
-          val title = entry \\ "title"
-          val href = entry \\ "link"
-          TitleLink(title.text, href.text)
-        }
-      entries
-    })
-  }
+    val isReddit = if(url.startsWith("https://www.reddit.com")) true else false
 
-  def parseRssV2(sourceId: String, linkType: LinkType = LinkType.Article): Future[Seq[TitleLink]] = {
-    val url = siteMapping(sourceId)._1
     wsClient.url(url).get().map( futResponse => {
-      val entries = for (entry <- futResponse.xml \\ "channel" \\ "item")
+      val delimiter = if ((futResponse.xml \\ "item").length > 0) "item" else "entry"
+
+      val entries = for (entry <- futResponse.xml \\ delimiter)
         yield {
-          val title = entry \\ "title"
-          val href = entry \\ "link"
-          if (linkType == LinkType.Podcast) {
-            val mp3Link = entry \\ "enclosure" \ "@url"
-            TitleLink(title.text, href.text, Some(mp3Link.text))
+          if (delimiter == "item"){
+            val title = entry \\ "title"
+            val href = entry \\ "link"
+            if (siteMapping(sourceId)._3 == LinkType.Podcast.toString) {
+              val mp3Link = entry \\ "enclosure" \ "@url"
+              TitleLink(title.text, href.text, Some(mp3Link.text))
+            }
+            else TitleLink(title.text, href.text)
           }
-          else TitleLink(title.text, href.text)
-        }
-      entries
-    })
-  }
-
-  def parseFeedburnerXml(sourceId: String): Future[Seq[TitleLink]] = {
-    val url = siteMapping(sourceId)._1
-    wsClient.url(url).get().map( futResponse => {
-      val entries = for (entry <- futResponse.xml \\ "feed" \\ "entry")
-        yield {
-          val title = entry \\ "title"
-          val link = entry \\ "link" \ "@href"
-          TitleLink(title.text, link.text)
-        }
-      entries
-    })
-  }
-
-  def parseRedditFeed(sourceId: String): Future[Seq[TitleLink]] = {
-    val url = siteMapping(sourceId)._1
-    wsClient.url(url).get().map( futResponse => {
-      val entries = for (entry <- futResponse.xml \\ "feed" \\ "entry")
-        yield {
-          val title = entry \\ "title"
-          val redditLink = entry \\ "link"
-          val source = entry \\ "content"
-          val html = source.text
-          val end = html.split("""<span><a href="""")
-          val href = end(1).replace("&amp;", "&").split("\">")
-          TitleLink(title.text, href.head)
+          else {
+            if (isReddit) {
+              val title = entry \\ "title"
+              val redditLink = entry \\ "link"
+              val source = entry \\ "content"
+              val html = source.text
+              val end = html.split("""<span><a href="""")
+              val href = end(1).replace("&amp;", "&").split("\">")
+              TitleLink(title.text, href.head)
+            }
+            else {
+              val title = entry \\ "title"
+              val link = entry \\ "link" \ "@href"
+              TitleLink(title.text, link.text)
+            }
+          }
         }
       entries
     })
