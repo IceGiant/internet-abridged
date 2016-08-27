@@ -27,6 +27,7 @@ object FeedIds{
   val Slashdot = "Slashdot"
   val Techdirt = "Techdirt"
   val ArsTechnica = "ArsTechnica"
+  val WiredTech = "WiredTech"
 
   val RedditProgramming = "RedditProgramming"
   val HackerNews = "HackerNews"
@@ -46,6 +47,8 @@ object FeedIds{
   val DarkReading = "DarkReading"
   val Schneier = "Schneier"
   val Krebs = "Krebs"
+  val TheHackerNews = "TheHackerNews"
+  val WiredSecurity = "WiredSecurity"
 
 
   val NoAgenda = "NoAgenda"
@@ -76,7 +79,8 @@ object Feeds {
     List(FeedIds.LifeHacker, FeedUrls.LifeHacker, FeedIds.LifeHacker),
     List(FeedIds.Slashdot, FeedUrls.Slashdot, "/."),
     List(FeedIds.Techdirt, FeedUrls.Techdirt, "Techdirt"),
-    List(FeedIds.ArsTechnica, FeedUrls.ArsTechnica, "Ars")
+    List(FeedIds.ArsTechnica, FeedUrls.ArsTechnica, "Ars"),
+    List(FeedIds.WiredTech, FeedUrls.WiredTech, "Wired")
   )
 
   val comicsMap = List(
@@ -97,9 +101,11 @@ object Feeds {
   )
 
   val securityMap = List(
-    List(FeedIds.DarkReading, FeedUrls.DarkReading, "Dark Reading"),
     List(FeedIds.Schneier, FeedUrls.Schneier, FeedIds.Schneier),
-    List(FeedIds.Krebs, FeedUrls.Krebs, FeedIds.Krebs)
+    List(FeedIds.DarkReading, FeedUrls.DarkReading, "Dark Reading"),
+    List(FeedIds.Krebs, FeedUrls.Krebs, FeedIds.Krebs),
+    List(FeedIds.TheHackerNews, FeedUrls.TheHackerNews, "The Hacker News"),
+    List(FeedIds.WiredSecurity, FeedUrls.WiredSecurity, "Wired")
   )
 
   val podcastMap = List(
@@ -123,6 +129,7 @@ object FeedUrls {
   val Slashdot = "http://rss.slashdot.org/Slashdot/slashdot"
   val Techdirt = "https://feeds.feedburner.com/techdirt/feed"
   val ArsTechnica = "http://feeds.arstechnica.com/arstechnica/index"
+  val WiredTech = "http://www.wired.com/category/gear/feed/"
 
   val RedditProgramming = "https://www.reddit.com/r/programming/.rss"
   val HackerNews = "https://news.ycombinator.com/rss"
@@ -142,6 +149,8 @@ object FeedUrls {
   val DarkReading = "http://www.darkreading.com/rss_simple.asp"
   val Schneier = "https://www.reddit.com/r/SchneierOnSecurity/new/.rss"
   val Krebs = "http://krebsonsecurity.com/feed/"
+  val TheHackerNews = "https://feeds.feedburner.com/TheHackersNews"
+  val WiredSecurity = "https://www.wired.com/category/security/feed/"
 
   val NoAgenda = "http://feed.nashownotes.com/rss.xml"
   val HardcoreHistory = "https://feeds.feedburner.com/dancarlin/history?format=xml"
