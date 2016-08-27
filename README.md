@@ -1,9 +1,11 @@
-# [The Internet (Abridged): A Side Project](http://internet-abridged.com/)
+# [The Internet (Abridged): A Simple, Reactive News Aggregator](http://internet-abridged.com/)
 
 ## Purpose
 
-This project is an in-progress news aggregator that I'm building as my own landing page for entertainment and keeping up on
-programming and tech news.  You can see my running site [here](http://internet-abridged.com/) or click the link in the title.
+This project is a news aggregator loosely targeted towards programming and tech news, with entertainment-related 
+subjects mixed in for levity, as nothing but raw news tends to get depressing after a while.
+
+
 
 [You can read the excellent gitbook and get a copy of the source I used as a seed here.](https://gitter.im/ochrons/scalajs-spa-tutorial?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
