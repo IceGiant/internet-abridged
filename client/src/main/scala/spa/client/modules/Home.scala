@@ -349,7 +349,7 @@ object LinkList {
         else <.span
       }
       if (p.items.nonEmpty) {
-        <.ul(^.marginBottom := "0", bss.listGroup.listGroup, ^.borderRadius := "0px")(
+        <.ul(^.marginBottom := "0px", bss.listGroup.listGroup, ^.borderRadius := "0px")(
           !p.hidden ?= p.items map renderItem
         )
       }
