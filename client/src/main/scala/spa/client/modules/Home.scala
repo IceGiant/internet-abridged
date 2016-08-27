@@ -330,8 +330,8 @@ object LinkList {
     .render_P(p => {
       val style = bss.listGroup
       def renderItem(item: LinkObject) = {
+        //Todo: finish implementing podcast player
         val podcastGlyph = if (p.linkType == LinkType.Podcast) {
-          //log.debug(item.podcastFile.get)
           <.span(<.a(^.href := "JavaScript:void()", ^.onClick --> p.podcastFn(item.podcastFile.get))(Icon.play), "  ")
         }
         else <.span()

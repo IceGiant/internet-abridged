@@ -18,6 +18,7 @@ object HomeInits {
 
   case class TabState(id: String, selectedTab: String)
 
+  //Todo: actually choose whether to implement in-page filtering, and finish or remove accordingly
   def updateCache(item: TabState): Unit = {
     if(cachedTabStates.exists(_.id == item.id)) {
       cachedTabStates = cachedTabStates.collect {
