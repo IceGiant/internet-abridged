@@ -186,7 +186,7 @@ object TabbedLinkContainer{
         if (isCollapsed) ^.color:="#9d9d9d"
         else ^.color:="#ffffff",
         ^.borderRadius := "0px",
-        ^.padding := "4px",
+        ^.padding := "0px",
         ^.paddingBottom := "0px",
         ^.height := "50px",
         ^.width := "50px",
@@ -218,12 +218,12 @@ object TabbedLinkContainer{
     }
 
     def render(p: Props, s: StateProps) = {
-      <.div(^.borderRadius:="0px !important", ^.marginBottom := "20px")(
+      <.div(^.borderRadius:="0px", ^.marginBottom := "20px")(
         ^.id := p.id,
-        <.nav(^.id := "tn", ^.className := "navbar navbar-inverse", ^.marginBottom:="0px", ^.borderRadius:="0px")(
+        <.nav(^.id := "tn", ^.className := "navbar navbar-default", ^.marginBottom:="0px", ^.borderRadius:="0px")(
           <.div(^.className := "row")(
             <.div(^.className := "col-sm-11")(
-              <.span(^.className := "navbar-header", ^.borderRadius:="0px !important",
+              <.span(^.className := "navbar-header", ^.borderRadius:="0px",
                 <.span(^.className := "navbar-brand", p.sectionName))
               (
                 settingsButton(p.id),
@@ -233,8 +233,8 @@ object TabbedLinkContainer{
                 }
                 else <.span
               ),
-              <.span(^.id := s"${p.id}-items", ^.className := "collapse navbar-collapse", ^.borderRadius:="0px !important")(
-                <.ul(^.className := "nav navbar-nav", ^.borderRadius:="0px !important")(
+              <.span(^.id := s"${p.id}-items", ^.className := "collapse navbar-collapse", ^.borderRadius:="0px")(
+                <.ul(^.className := "nav navbar-nav", ^.borderRadius:="0px")(
                   for (props <- p.tabs) yield {
                     TabContainer(TabContainer.Props(props.anchor, props.img, props.tabId, props.style, props.onSelectedUrl, selectTab, props.tabId == s.tabId))
                   }
@@ -250,7 +250,7 @@ object TabbedLinkContainer{
           )
         ),
 
-        <.div(^.borderRadius := "0px !important")(
+        <.div(^.borderRadius := "0px")(
           p.proxy().renderFailed(ex => {
             log.debug(s"${p.sectionName} error")
             <.p("Error loading")

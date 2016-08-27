@@ -37,6 +37,7 @@ object Settings {
     val react = "15.0.1"
     val jQuery = "1.12.4"
     val bootstrap = "3.3.6"
+    val bootswatch = "3.3.5+4"
     val fontAwesome = "4.6.3"
     val chartjs = "1.0.1"
 
@@ -66,7 +67,9 @@ object Settings {
   val jvmDependencies = Def.setting(Seq(
     "com.vmunier" %% "play-scalajs-scripts" % versions.playScripts,
     "org.webjars" % "font-awesome" % versions.fontAwesome % Provided,
-    "org.webjars" % "bootstrap" % versions.bootstrap % Provided,
+    "org.webjars" % "bootswatch-cyborg" % versions.bootswatch % Provided,
+    //"org.webjars" % "bootswatch-darkly" % versions.bootswatch % Provided,
+    //"org.webjars" % "bootstrap" % versions.bootstrap % Provided,
     "net.databinder.dispatch" %% "dispatch-core" % versions.dispatch,
     "com.typesafe.akka" %% "akka-cluster" % versions.akka,
     "com.typesafe.akka" %% "akka-cluster-tools" % versions.akka,
@@ -100,7 +103,9 @@ object Settings {
     "org.webjars.bower" % "react" % versions.react / "react-with-addons.js" minified "react-with-addons.min.js" commonJSName "React",
     "org.webjars.bower" % "react" % versions.react / "react-dom.js" minified "react-dom.min.js" dependsOn "react-with-addons.js" commonJSName "ReactDOM",
     "org.webjars" % "jquery" % versions.jQuery / "jquery.js" minified "jquery.min.js",
-    "org.webjars" % "bootstrap" % versions.bootstrap / "bootstrap.js" minified "bootstrap.min.js" dependsOn "jquery.js",
+    "org.webjars" % "bootswatch-cyborg" % versions.bootswatch / "bootstrap.js" minified "bootstrap.min.js" dependsOn "jquery.js",
+    //"org.webjars" % "bootswatch-darkly" % versions.bootswatch / "bootstrap.js" minified "bootstrap.min.js" dependsOn "jquery.js",
+    //"org.webjars" % "bootstrap" % versions.bootstrap / "bootstrap.js" minified "bootstrap.min.js" dependsOn "jquery.js",
     "org.webjars" % "chartjs" % versions.chartjs / "Chart.js" minified "Chart.min.js",
     "org.webjars" % "log4javascript" % versions.log4js / "js/log4javascript_uncompressed.js" minified "js/log4javascript.js"
   ))
