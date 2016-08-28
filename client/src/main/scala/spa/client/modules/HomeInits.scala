@@ -42,7 +42,7 @@ object HomeInits {
     TabState(tech, FeedIds.RedditTechnology),
     TabState(comics, FeedIds.RedditComics),
     TabState(programming, FeedIds.RedditProgramming),
-    TabState(security, FeedIds.DarkReading),
+    TabState(security, FeedIds.Schneier),
     TabState(podcasts, FeedIds.NoAgenda)
   )
 
