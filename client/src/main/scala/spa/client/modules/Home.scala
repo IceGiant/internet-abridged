@@ -330,10 +330,10 @@ object LinkList {
       val style = bss.listGroup
       def renderItem(item: LinkObject) = {
         //Todo: finish implementing podcast player
-        val podcastGlyph = if (p.linkType == LinkType.Podcast) {
+        val podcastGlyph = /*if (p.linkType == LinkType.Podcast) {
           <.span(<.a(^.href := "JavaScript:void()", ^.onClick --> p.podcastFn(item.podcastFile.get))(Icon.play), "  ")
         }
-        else <.span()
+        else */<.span()
 
         if (item.title.toLowerCase.contains(p.titleFilter.toLowerCase)) {
           <.li(bss.listGroup.item, ^.borderRadius := "0px")(
