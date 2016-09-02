@@ -1,13 +1,13 @@
 # [The Internet (Abridged): A Simple, Reactive News Aggregator](http://internet-abridged.com/)
 
-## Purpose
+### Purpose
 
 This project is a news aggregator loosely targeted towards programming and tech news, with entertainment-related 
 subjects mixed in for levity, as nothing but raw news tends to get depressing after a while.
 
 
 
-[You can read the excellent gitbook and get a copy of the source I used as a seed here.](https://gitter.im/ochrons/scalajs-spa-tutorial?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+[You can read the excellent gitbook and get a copy of the source I used as a seed here.](https://github.com/ochrons/scalajs-spa-tutorial)
 
 Built using [Scala.js](http://www.scala-js.org/) and [Play](https://www.playframework.com/).
 
