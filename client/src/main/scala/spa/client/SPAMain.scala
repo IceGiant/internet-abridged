@@ -46,8 +46,8 @@ object SPAMain extends js.JSApp {
       ^.marginBottom := "0px",
       ^.marginRight := "0px",
       ^.marginLeft := "5px",
-      ^.background := "#000000",
-      ^.color := "#9d9d9d",
+      //^.background := "#000000",
+      //^.color := "#9d9d9d",
       ^.height := "50px",
       ^.width := "50px",
       "data-toggle".reactAttr := "collapse",
@@ -56,9 +56,11 @@ object SPAMain extends js.JSApp {
     )
   }
 
+
   // base layout for all pages
   def layout(c: RouterCtl[Loc], r: Resolution[Loc]) = {
     <.div(
+
       // here we use plain Bootstrap class names as these are specific to the top level layout defined here
       <.nav(^.className := "navbar navbar-default navbar-fixed-top",
         <.div(^.className := "container",
@@ -67,8 +69,7 @@ object SPAMain extends js.JSApp {
             settingsButton("mainNavigation")
           ),
           <.div(^.id := "mainNavigation", ^.className := "collapse navbar-collapse",
-            // connect menu to model, because it needs to update when the number of open todos changes
-            /*SPACircuit.connect(_.todos.map(_.items.count(!_.completed)).toOption)(proxy => */MainMenu(c, r.page)//, proxy))
+            MainMenu(c, r.page)//, proxy))
           )
         )
       ),
