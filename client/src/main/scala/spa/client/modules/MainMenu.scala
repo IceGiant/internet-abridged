@@ -46,7 +46,7 @@ object MainMenu {
 
   if (supportsLocalStorage) {
     val theme = dom.window.localStorage.getItem("theme")
-    if (theme.nonEmpty && theme != null) setTheme(theme)
+    if (theme != null) setTheme(theme)
   } else {
     $("#theme-dropdown").hide()
   }
