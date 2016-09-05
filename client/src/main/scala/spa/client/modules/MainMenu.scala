@@ -10,6 +10,8 @@ import spa.client.components.Icon._
 import spa.client.components._
 import spa.client.services._
 import spa.shared.FeedIds._
+import org.scalajs.jquery.{jQuery => $}
+import org.scalajs.dom
 
 import scalacss.ScalaCssReact._
 
@@ -21,19 +23,39 @@ object MainMenu {
 
   private case class MenuItem(idx: Int, label: (Props) => ReactNode, icon: Icon, location: Loc)
 
-  // build the Todo menu item, showing the number of open todos
-  /*private def buildTodoMenu(props: Props): ReactElement = {
-    val todoCount = props.proxy().getOrElse(0)
-    <.span(
-      <.span("Todo "),
-      todoCount > 0 ?= <.span(bss.labelOpt(CommonStyle.danger), bss.labelAsBadge, todoCount)
-    )
-  }*/
+  def themeClick(name: String) = {
+    val theme = "//netdna.bootstrapcdn.com/bootswatch/3.3.5/" + name + "/bootstrap.min.css"
+    setTheme(theme)
+    Callback.log(s"Theme changed to $name")
+  }
+
+  val supportsLocalStorage = supportHtml5Storage
+
+  def setTheme(theme: String) = {
+    $("""link[title="main"]""").attr("href", theme)
+    if (supportsLocalStorage) dom.window.localStorage.setItem("theme", theme)
+  }
+
+  def supportHtml5Storage = {
+    try {
+      dom.window.localStorage != null
+    } catch {
+      case e: Exception => false
+    }
+  }
+
+  if (supportsLocalStorage) {
+    val theme = dom.window.localStorage.getItem("theme")
+    if (theme.nonEmpty && theme != null) setTheme(theme)
+  } else {
+    $("#theme-dropdown").hide()
+  }
 
   private val menuItems = Seq(
     MenuItem(1, _ => "Home", Icon.home, HomeLoc),
     MenuItem(2, _ => "About", Icon.info, AboutLoc)
   )
+
 
   private val themesDropdown =
     <.li(^.className := "dropdown", ^.id := "theme-dropdown")(
@@ -41,11 +63,11 @@ object MainMenu {
         ^.className := "dropdown-toggle", "data-toggle".reactAttr := "dropdown", ^.role := "button"
       )("Themes", " ", Icon.caretDown),
       <.ul(^.className := "dropdown-menu", ^.role := "menu")(
-        <.li(<.a(^.href := "#", ^.className := "change-style-menu-item", ^.rel := "cyborg")("Cyborg (Default)")),
-        <.li(<.a(^.href := "#", ^.className := "change-style-menu-item", ^.rel := "cerulean")("Cerulean")),
-        <.li(<.a(^.href := "#", ^.className := "change-style-menu-item", ^.rel := "cosmo")("Cosmo")),
-        <.li(<.a(^.href := "#", ^.className := "change-style-menu-item", ^.rel := "slate")("Slate")),
-        <.li(<.a(^.href := "#", ^.className := "change-style-menu-item", ^.rel := "spacelab")("Spacelab"))
+        <.li(<.a(^.href := "#", ^.className := "change-style-menu-item", ^.rel := "cyborg", ^.onClick --> themeClick("cyborg"))("Cyborg (Default)")),
+        <.li(<.a(^.href := "#", ^.className := "change-style-menu-item", ^.rel := "cerulean", ^.onClick --> themeClick("cerulean"))("Cerulean")),
+        <.li(<.a(^.href := "#", ^.className := "change-style-menu-item", ^.rel := "cosmo", ^.onClick --> themeClick("cosmo"))("Cosmo")),
+        <.li(<.a(^.href := "#", ^.className := "change-style-menu-item", ^.rel := "slate", ^.onClick --> themeClick("slate"))("Slate")),
+        <.li(<.a(^.href := "#", ^.className := "change-style-menu-item", ^.rel := "spacelab", ^.onClick --> themeClick("spacelab"))("Spacelab"))
       )
     )
 

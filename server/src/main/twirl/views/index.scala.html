@@ -8,8 +8,8 @@
         <meta charset="UTF-8">
         <title>@title</title>
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
-        <!--<link rel="stylesheet" media="screen" href=@_asset("stylesheets/main.min.css") > -->
-        <link rel="stylesheet" media="screen" title="main" href="//netdna.bootstrapcdn.com/bootswatch/3.0.0/cyborg/bootstrap.min.css" >
+        <link rel="stylesheet" media="screen" href=@_asset("stylesheets/main.min.css") >
+        <link rel="stylesheet" media="screen" title="main" href="//netdna.bootstrapcdn.com/bootswatch/3.3.5/cyborg/bootstrap.min.css" >
         <script src="https://use.fontawesome.com/474b979a4c.js"></script>
         <link rel="shortcut icon" type="image/png" href=@_asset("images/favicon.png") >
     </head>
@@ -17,49 +17,5 @@
         <div id="root">
         </div>
         @playscalajs.html.scripts(projectName = "client", fileName => _asset(fileName).toString)
-
-        <script>
-            /* When a theme-change item is selected, update theme */
-            jQuery(function($) {
-                $('body').on('click', '.change-style-menu-item', function() {
-                    var theme_name = $(this).attr('rel');
-                    var theme = "//netdna.bootstrapcdn.com/bootswatch/3.0.0/" + theme_name + "/bootstrap.min.css";
-                    set_theme(theme);
-                });
-            });
-
-            function set_theme(theme) {
-                $('link[title="main"]').attr('href', theme);
-            }
-
-            function supports_html5_storage() {
-                try {
-                    return 'localStorage' in window && window['localStorage'] !== null;
-                } catch (e) {
-                    return false;
-                }
-            }
-
-            var supports_storage = supports_html5_storage();
-
-            function set_theme(theme) {
-                $('link[title="main"]').attr('href', theme);
-                if (supports_storage) {
-                    localStorage.theme = theme;
-                }
-            }
-
-            /* On load, set theme from local storage */
-            if (supports_storage) {
-                var theme = localStorage.theme;
-                if (theme) {
-                    set_theme(theme);
-                }
-            } else {
-                /* Don't annoy user with options that don't persist */
-                $('#theme-dropdown').hide();
-            }
-
-        </script>
     </body>
 </html>
