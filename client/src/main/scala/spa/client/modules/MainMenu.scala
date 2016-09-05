@@ -63,11 +63,11 @@ object MainMenu {
         ^.className := "dropdown-toggle", "data-toggle".reactAttr := "dropdown", ^.role := "button"
       )("Themes", " ", Icon.caretDown),
       <.ul(^.className := "dropdown-menu", ^.role := "menu")(
-        <.li(<.a(^.href := "#", ^.className := "change-style-menu-item", ^.rel := "cyborg", ^.onClick --> themeClick("cyborg"))("Cyborg (Default)")),
-        <.li(<.a(^.href := "#", ^.className := "change-style-menu-item", ^.rel := "cerulean", ^.onClick --> themeClick("cerulean"))("Cerulean")),
-        <.li(<.a(^.href := "#", ^.className := "change-style-menu-item", ^.rel := "cosmo", ^.onClick --> themeClick("cosmo"))("Cosmo")),
-        <.li(<.a(^.href := "#", ^.className := "change-style-menu-item", ^.rel := "slate", ^.onClick --> themeClick("slate"))("Slate")),
-        <.li(<.a(^.href := "#", ^.className := "change-style-menu-item", ^.rel := "spacelab", ^.onClick --> themeClick("spacelab"))("Spacelab"))
+        <.li(<.a(^.href := "#", ^.onClick --> themeClick("cyborg"))("Cyborg (Default)")),
+        <.li(<.a(^.href := "#", ^.onClick --> themeClick("cerulean"))("Cerulean")),
+        <.li(<.a(^.href := "#", ^.onClick --> themeClick("cosmo"))("Cosmo")),
+        <.li(<.a(^.href := "#", ^.onClick --> themeClick("slate"))("Slate")),
+        <.li(<.a(^.href := "#", ^.onClick --> themeClick("spacelab"))("Spacelab"))
       )
     )
 
