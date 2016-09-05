@@ -35,7 +35,7 @@ object Settings {
     val uTest = "0.4.3"
 
     val react = "15.0.1"
-    val jQuery = "1.12.4"
+    val jQuery = "2.1.3"
     val bootstrap = "3.3.6"
     val bootswatch = "3.3.5+4"
     val fontAwesome = "4.6.3"
