@@ -31,11 +31,23 @@ object MainMenu {
   }*/
 
   private val menuItems = Seq(
-    MenuItem(1, _ => "Home", Icon.home, HomeLoc),//rss? code fork?
+    MenuItem(1, _ => "Home", Icon.home, HomeLoc),
     MenuItem(2, _ => "About", Icon.info, AboutLoc)
-    //MenuItem(3, _ => "Todos", Icon.check, TodoLoc),//link for external page?
-
   )
+
+  private val themesDropdown =
+    <.li(^.className := "dropdown", ^.id := "theme-dropdown")(
+      <.a(
+        ^.className := "dropdown-toggle", "data-toggle".reactAttr := "dropdown", ^.role := "button"
+      )("Themes", " ", Icon.caretDown),
+      <.ul(^.className := "dropdown-menu", ^.role := "menu")(
+        <.li(<.a(^.href := "#", ^.className := "change-style-menu-item", ^.rel := "cyborg")("Cyborg (Default)")),
+        <.li(<.a(^.href := "#", ^.className := "change-style-menu-item", ^.rel := "cerulean")("Cerulean")),
+        <.li(<.a(^.href := "#", ^.className := "change-style-menu-item", ^.rel := "cosmo")("Cosmo")),
+        <.li(<.a(^.href := "#", ^.className := "change-style-menu-item", ^.rel := "slate")("Slate")),
+        <.li(<.a(^.href := "#", ^.className := "change-style-menu-item", ^.rel := "spacelab")("Spacelab"))
+      )
+    )
 
   private class Backend($: BackendScope[Props, Unit]) {
     /*def mounted(props: Props) =
@@ -51,7 +63,7 @@ object MainMenu {
             else ^.className := "nav-item",
             props.router.link(item.location)(item.icon, " ", item.label(props))
           )
-        }
+        }, themesDropdown
       )
     }
   }

@@ -181,16 +181,16 @@ object TabbedLinkContainer{
 
     def coloredCollapseButton(isCollapsed: Boolean) = {
       <.button(bss.pullRight, bss.button, ^.borderRadius:="0px",
-        ^.background := "#000000",
-        if (isCollapsed) ^.color:="#9d9d9d"
-        else ^.color:="#ffffff",
+        //^.background := "#000000",
+        //if (isCollapsed) ^.color:="#9d9d9d"
+        //else ^.color:="#ffffff",
         ^.borderRadius := "0px",
         ^.padding := "0px",
         ^.paddingBottom := "0px",
         ^.height := "50px",
         ^.width := "50px",
         ^.onClick --> collapseExpand)(
-        <.h3(^.marginTop := "3px", ^.marginBottom := "9px", ^.marginTop := "3px")(
+        <.h3(^.marginTop := "3px", ^.marginBottom := "3px")(
           if (isCollapsed) Icon.caretDown
           else Icon.caretUp
         )
