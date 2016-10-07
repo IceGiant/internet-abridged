@@ -216,8 +216,16 @@ object TabbedLinkContainer{
       )
     }
 
+    def panelBottomCollapse = {
+      <.a(bss.button, ^.className := "col-xs-12", ^.borderRadius := "0px", ^.marginBottom := "0px", ^.height := "50px", ^.style := "width: 100%", ^.onClick --> collapseExpand)(
+        <.h4(^.marginTop := "3px", ^.marginBottom := "3px", ^.textAlign := "center")(
+          <.span(^.className := "pull-left")(Icon.caretUp), " Collapse ", <.span(bss.pullRight)(Icon.caretUp)
+        )
+      )
+    }
+
     def render(p: Props, s: StateProps) = {
-      <.div(^.borderRadius:="0px", ^.marginBottom := "20px")(
+      <.div(^.borderRadius:="0px", if (!s.linksHidden && dom.window.innerWidth < 768) ^.marginBottom := "70px" else ^.marginBottom := "20px")(
         ^.id := p.id,
         <.nav(^.id := "tn", ^.className := "navbar navbar-default", ^.marginBottom:="0px", ^.borderRadius:="0px")(
           <.div(^.className := "row")(
@@ -240,7 +248,7 @@ object TabbedLinkContainer{
                 )
               )
             ),
-            if (dom.window.innerWidth > 768) { //Only show collapse button here on desktops
+            if (dom.window.innerWidth >= 768) { //Only show collapse button here on desktops
               <.div(^.className := "col-sm-1")(
                 coloredCollapseButton(s.linksHidden)
               )
@@ -262,7 +270,7 @@ object TabbedLinkContainer{
             //log.debug(s"${p.sectionName} links count: ${links.items.length}")
             LinkList(links.items, s.linksHidden, p.searchFilter, p.linksType, p.podcastHandler)
           })
-        )
+        ), if (!s.linksHidden &&dom.window.innerWidth < 768) panelBottomCollapse else <.span
       )
     }
   }
