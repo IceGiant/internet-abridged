@@ -1,4 +1,4 @@
-## [The Internet (Abridged): A Simple, Reactive News Aggregator](http://internet-abridged.com/)
+## The Internet (Abridged): A Simple, Reactive News Aggregator
 
 
 
