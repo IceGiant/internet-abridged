@@ -144,7 +144,7 @@ object SectionsByTopic{
 }
 
 /**
-  * Container of selectable tabs in a nav which update the links below the nav to reflect the selection
+  * Container of selectable tabs in a nav which update the links below the nav to reflect the selected tab
   */
 
 object TabbedLinkContainer{
@@ -290,7 +290,7 @@ object TabbedLinkContainer{
 
 
 /**
-  * Individual "tab" on one of the link container navs
+  * Individual "tab" on one of the link container panels
   */
 object TabContainer {
   case class AnchorProps(id: String = "", href: String = "JavaScript:void()", rel: String = "nofollow")
