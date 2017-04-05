@@ -1,4 +1,6 @@
-## [The Internet (Abridged): A Simple, Reactive News Aggregator](http://internet-abridged.com/)
+## [The Internet (Abridged)](http://internet-abridged.com/): A Simple, Reactive News Aggregator
+
+
 
 ### Purpose
 

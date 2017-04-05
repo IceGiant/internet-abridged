@@ -219,7 +219,7 @@ object TabbedLinkContainer{
     def panelBottomCollapse = {
       <.a(bss.button, ^.className := "col-xs-12", ^.borderRadius := "0px", ^.marginBottom := "0px", ^.height := "50px", ^.style := "width: 100%", ^.onClick --> collapseExpand)(
         <.h4(^.marginTop := "3px", ^.marginBottom := "3px", ^.textAlign := "center")(
-          <.span(^.className := "pull-left")(Icon.caretUp), " Collapse ", <.span(bss.pullRight)(Icon.caretUp)
+          Icon.caretUp, "   Collapse   ", Icon.caretUp
         )
       )
     }
