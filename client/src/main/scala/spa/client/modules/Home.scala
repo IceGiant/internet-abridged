@@ -293,7 +293,7 @@ object TabbedLinkContainer{
   * Individual "tab" on one of the link container panels
   */
 object TabContainer {
-  case class AnchorProps(id: String = "", href: String = "JavaScript:void()", rel: String = "nofollow")
+  case class AnchorProps(id: String = "", href: String = "", rel: String = "nofollow")
   case class ImageProps(src: String, alt: String, border: String = "0px", icon: ReactNode = <.span(), imgText: String = "")
 
   case class Props(anchor: AnchorProps,
@@ -308,7 +308,7 @@ object TabContainer {
     .render_P(p =>{
         <.li(^.id:=p.tabId, if (p.selected) ^.className:="nav-item active" else ^.className:="nav-item")(
           <.a(^.id:=p.anchor.id,
-            ^.href:=p.anchor.href,
+            //^.href:=p.anchor.href,
             ^.rel:=p.anchor.rel) (
             p.img.icon, " ", p.img.imgText
           ), ^.onClick --> p.changeState(p.tabId)
@@ -338,10 +338,10 @@ object LinkList {
       val style = bss.listGroup
       def renderItem(item: LinkObject) = {
         //Todo: finish implementing podcast player
-        val podcastGlyph = /*if (p.linkType == LinkType.Podcast) {
-          <.span(<.a(^.href := "JavaScript:void()", ^.onClick --> p.podcastFn(item.podcastFile.get))(Icon.play), "  ")
+        val podcastGlyph = if (p.linkType == LinkType.Podcast) {
+          <.span(<.a(^.onClick --> p.podcastFn(item.podcastFile.get))(Icon.play), "  ")
         }
-        else */<.span()
+        else <.span()
 
         if (item.title.toLowerCase.contains(p.titleFilter.toLowerCase)) {
           <.li(bss.listGroup.item, ^.borderRadius := "0px")(
