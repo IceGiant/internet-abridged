@@ -60,6 +60,18 @@ class BootstrapStyles(implicit r: mutable.Register) extends StyleSheet.Inline()(
   val buttonXS = styleWrap("btn-xs")
   val close = styleWrap("close")
 
+  val visibleXl = styleWrap("visible-xl")
+  val visibleLg = styleWrap("visible-lg")
+  val visibleMd = styleWrap("visible-md")
+  val visibleSm = styleWrap("visible-sm")
+  val visibleXs = styleWrap("visible-xs")
+
+  val hiddenXl = styleWrap("hidden-xl")
+  val hiddenLg = styleWrap("hidden-lg")
+  val hiddenMd = styleWrap("hidden-md")
+  val hiddenSm = styleWrap("hidden-sm")
+  val hiddenXs = styleWrap("hidden-xs")
+
   val labelAsBadge = style(addClassName("label-as-badge"), borderRadius(1.em))
 
   val navbar = styleWrap("nav", "navbar-nav")

@@ -234,11 +234,10 @@ object TabbedLinkContainer{
                 <.span(^.className := "navbar-brand", p.sectionName))
               (
                 settingsButton(p.id),
-                if (dom.window.innerWidth < 768) { //Only show collapse button here on mobile browsers
-                  <.span("data-toggle".reactAttr := "collapse")(
+                //Only show collapse button here on mobile browsers
+                  <.span(bss.visibleXs, "data-toggle".reactAttr := "collapse")(
                     coloredCollapseButton(s.linksHidden))
-                }
-                else <.span
+
               ),
               <.span(^.id := s"${p.id}-items", ^.className := "collapse navbar-collapse", ^.borderRadius:="0px")(
                 <.ul(^.className := "nav navbar-nav", ^.borderRadius:="0px")(
@@ -247,13 +246,10 @@ object TabbedLinkContainer{
                   }
                 )
               )
-            ),
-            if (dom.window.innerWidth >= 768) { //Only show collapse button here on desktops
-              <.div(^.className := "col-sm-1")(
+            ), //Only show collapse button here on desktops
+              <.div(^.className := "col-sm-1",bss.hiddenXs)(
                 coloredCollapseButton(s.linksHidden)
               )
-            }
-            else <.span
           )
         ),
 
