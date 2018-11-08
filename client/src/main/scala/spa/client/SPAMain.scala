@@ -4,17 +4,17 @@ import japgolly.scalajs.react.{Callback, ReactDOM}
 import japgolly.scalajs.react.extra.router._
 import japgolly.scalajs.react.vdom.prefix_<^._
 import org.scalajs.dom
-import spa.client.components.{Icon, GlobalStyles}
+import spa.client.components.{GlobalStyles, Icon}
 import spa.client.logger._
 import spa.client.modules._
 import spa.client.services._
 
 import scala.scalajs.js
-import scala.scalajs.js.annotation.JSExport
+import scala.scalajs.js.annotation.{JSExport, JSExportTopLevel}
 import scalacss.Defaults._
 import scalacss.ScalaCssReact._
 
-@JSExport("SPAMain")
+@JSExportTopLevel("SPAMain")
 object SPAMain extends js.JSApp {
 
   // Define the locations (pages) used in this application
@@ -78,7 +78,7 @@ object SPAMain extends js.JSApp {
     )
   }
 
-  @JSExport
+  @JSExportTopLevel("main")
   def main(): Unit = {
     log.warn("Application starting")
     // send log messages also to the server

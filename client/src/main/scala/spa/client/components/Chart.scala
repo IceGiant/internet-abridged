@@ -6,7 +6,7 @@ import org.scalajs.dom.raw.HTMLCanvasElement
 
 import scala.scalajs.js
 import scala.scalajs.js.JSConverters._
-import scala.scalajs.js.annotation.JSName
+import scala.scalajs.js.annotation.{JSGlobal, JSName}
 
 @js.native
 trait ChartDataset extends js.Object {
@@ -44,7 +44,7 @@ object ChartData {
 
 // define a class to access the Chart.js component
 @js.native
-@JSName("Chart")
+@JSGlobal("Chart")
 class JSChart(ctx: js.Dynamic) extends js.Object {
   // create different kinds of charts
   def Line(data: ChartData): js.Dynamic = js.native
